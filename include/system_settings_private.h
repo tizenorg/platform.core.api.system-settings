@@ -75,6 +75,7 @@ int system_setting_vconf_set_changed_cb(const char *vconf_key, system_settings_k
 int system_setting_vconf_unset_changed_cb(const char *vconf_key, int slot);
 
 int system_setting_get_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void** value);
+int system_setting_get_email_alert_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void** value);
 int system_setting_get_wallpaper_home_screen(system_settings_key_e key, system_setting_data_type_e data_type, void** value);
 int system_setting_get_wallpaper_lock_screen(system_settings_key_e key, system_setting_data_type_e data_type, void** value);
 int system_setting_get_font_size(system_settings_key_e key, system_setting_data_type_e data_type, void** value);
@@ -82,6 +83,7 @@ int system_setting_get_font_type(system_settings_key_e key, system_setting_data_
 int system_setting_get_motion_activation(system_settings_key_e key, system_setting_data_type_e data_type, void** value);
 
 int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void* value);
+int system_setting_set_email_alert_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void* value);
 int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_setting_data_type_e data_type, void* value);
 int system_setting_set_wallpaper_lock_screen(system_settings_key_e key, system_setting_data_type_e data_type, void* value);
 int system_setting_set_font_size(system_settings_key_e key, system_setting_data_type_e data_type, void* value);
@@ -90,6 +92,9 @@ int system_setting_set_motion_activation(system_settings_key_e key, system_setti
 
 int system_setting_set_changed_callback_incoming_call_ringtone(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 int system_setting_unset_changed_callback_incoming_call_ringtone(system_settings_key_e key);
+
+int system_setting_set_changed_callback_email_alert_ringtone(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
+int system_setting_unset_changed_callback_email_alert_ringtone(system_settings_key_e key);
 
 int system_setting_set_changed_callback_wallpaper_home_screen(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 int system_setting_unset_changed_callback_wallpaper_home_screen(system_settings_key_e key);

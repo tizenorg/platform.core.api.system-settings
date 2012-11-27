@@ -53,6 +53,7 @@ typedef enum
 	SYSTEM_SETTINGS_KEY_FONT_SIZE, /**< The current system font size */
 	SYSTEM_SETTINGS_KEY_FONT_TYPE, /**< The current system font type */
 	SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, /**< Indicates whether the motion service is activated */
+	SYSTEM_SETTINGS_KEY_EMAIL_ALERT_RINGTONE,  /**< The file path of the current email alert ringtone */
 } system_settings_key_e;
 
 

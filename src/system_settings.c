@@ -98,6 +98,16 @@ system_setting_s system_setting_table[] = {
 		system_setting_unset_changed_callback_motion_activation,
 		NULL
 	},
+
+	{
+		SYSTEM_SETTINGS_KEY_EMAIL_ALERT_RINGTONE,
+		SYSTEM_SETTING_DATA_TYPE_STRING,
+		system_setting_get_email_alert_ringtone,
+		system_setting_set_email_alert_ringtone,
+		system_setting_set_changed_callback_email_alert_ringtone,
+		system_setting_unset_changed_callback_email_alert_ringtone,
+		NULL
+	},
 	{
 		SYSTEM_SETTINGS_MAX, -1, NULL, NULL, NULL, NULL, NULL
 	}

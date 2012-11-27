@@ -67,6 +67,17 @@ int system_setting_get_incoming_call_ringtone(system_settings_key_e key, system_
 }
 
 
+int system_setting_get_email_alert_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void** value)
+{
+	char* vconf_value;
+	if (system_setting_vconf_get_value_string(VCONFKEY_SETAPPL_NOTI_EMAIL_RINGTONE_PATH_STR, &vconf_value)) {
+		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+	}
+	*value = vconf_value;
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+
 int system_setting_get_wallpaper_home_screen(system_settings_key_e key, system_setting_data_type_e data_type, void** value)
 {
 	char* vconf_value;
@@ -150,6 +161,20 @@ int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+
+
+int system_setting_set_email_alert_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
+{
+	printf(" mock --> real system_setting_set_email_alert_ringtone \n");
+	char* vconf_value;
+	vconf_value = (char*)value;
+	if (system_setting_vconf_set_value_string(VCONFKEY_SETAPPL_NOTI_EMAIL_RINGTONE_PATH_STR, vconf_value)) {
+		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+	}
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
 
 int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
 {
@@ -238,6 +263,16 @@ int system_setting_set_changed_callback_incoming_call_ringtone(system_settings_k
 int system_setting_unset_changed_callback_incoming_call_ringtone(system_settings_key_e key)
 {
 	return system_setting_vconf_unset_changed_cb(VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR, 0);
+}
+
+int system_setting_set_changed_callback_email_alert_ringtone(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
+{
+	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_NOTI_EMAIL_RINGTONE_PATH_STR, SYSTEM_SETTINGS_KEY_EMAIL_ALERT_RINGTONE, 0);
+}
+
+int system_setting_unset_changed_callback_email_alert_ringtone(system_settings_key_e key)
+{
+	return system_setting_vconf_unset_changed_cb(VCONFKEY_SETAPPL_NOTI_EMAIL_RINGTONE_PATH_STR, 0);
 }
 
 int system_setting_set_changed_callback_wallpaper_home_screen(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
