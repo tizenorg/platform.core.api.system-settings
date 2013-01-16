@@ -1,8 +1,8 @@
 capi-system-system-settings (0.0.1-7) unstable; urgency=low
 
-  * tizen build
+  * release
 
- -- Heeyoung Shin <shy81.shin@samsung.com>  Tue, 27 Nov 2012 16:29:46 +0900
+ -- MyoungJune Park <mj2004.park@samsung.com>  Tue, 04 Sep 2012 10:34:54 +0900
 
 capi-system-system-settings (0.0.1-6) unstable; urgency=low
 

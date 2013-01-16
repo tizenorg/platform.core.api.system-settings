@@ -1,7 +1,7 @@
 Name:       capi-system-system-settings
 Summary:    A System Settings library in Tizen Native API
-Version:    0.0.1
-Release:    1
+Version:    0.0.2
+Release:    3
 Group:      TO_BE/FILLED_IN
 License:    TO BE FILLED IN
 Source0:    %{name}-%{version}.tar.gz

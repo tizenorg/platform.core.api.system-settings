@@ -124,6 +124,7 @@ int system_setting_get_font_type(system_settings_key_e key, system_setting_data_
 	//int vconf_value;
 
 	char* font_name = _get_cur_font();
+
 	#if 0
 	if (system_setting_vconf_get_value_int(VCONFKEY_SETAPPL_FONT_TYPE_INT, &vconf_value)) {
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
@@ -221,6 +222,125 @@ int system_setting_set_font_size(system_settings_key_e key, system_setting_data_
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/**
+ * [internal API]
+ */
+void *font_conf_doc_parse(char *doc_name, char *font_name)
+{
+    //setting_retvm_if(doc_name == NULL, NULL, "Param data is NULL");
+    //setting_retvm_if(font_name == NULL, NULL, "Param data is NULL");
+    xmlDocPtr doc = NULL;
+    xmlNodePtr cur = NULL;
+    xmlNodePtr cur2 = NULL;
+    xmlNodePtr cur3 = NULL;
+    xmlChar *key = NULL;
+
+    doc = xmlParseFile(doc_name);
+    //setting_retvm_if(doc == NULL, NULL, "Document not parsed successfully.");
+
+    cur = xmlDocGetRootElement(doc);
+
+    if (cur == NULL) {
+        //SETTING_TRACE_DEBUG("empty document");
+        xmlFreeDoc(doc);
+        doc = NULL;
+        return NULL;
+    }
+
+    if(xmlStrcmp(cur->name, (const xmlChar *)"fontconfig")) {
+        //SETTING_TRACE_DEBUG("document of the wrong type, root node != fontconfig");
+        xmlFreeDoc(doc);
+        doc = NULL;
+        return NULL;
+    }
+
+    cur = cur->xmlChildrenNode;
+
+    Eina_Bool is_changed = EINA_FALSE;
+    while(cur != NULL)
+    {
+        if((!xmlStrcmp(cur->name, (const xmlChar *)"match")))
+        {
+            cur2 = cur->xmlChildrenNode;
+            while(cur2 != NULL)
+            {
+                if((!xmlStrcmp(cur2->name, (const xmlChar *)"edit")))
+                {
+                    xmlChar *name = xmlGetProp(cur2, (const xmlChar *)"name");
+                    //SETTING_TRACE_DEBUG("name is: %s", name);
+                    /* if name is not 'family', break */
+                    if (xmlStrcmp(name, (const xmlChar *)"family"))
+                    {
+                        xmlFree(name);
+                        name = NULL;
+                        break;
+                    }
+                    xmlFree(name);
+                    name = NULL;
+
+                    cur3 = cur2->xmlChildrenNode;
+                   while(cur3 != NULL)
+                    {
+                        if((!xmlStrcmp(cur3->name, (const xmlChar *)"string")))
+                        {
+                            xmlNodeSetContent(cur3->xmlChildrenNode, (const xmlChar *)font_name);
+                            key = xmlNodeListGetString(doc, cur3->xmlChildrenNode, 1);
+                            //SETTING_TRACE_DEBUG("after changed, string is: %s", key);
+                            xmlFree(key);
+                            key = NULL;
+                            is_changed = EINA_TRUE;
+                        }
+                        cur3 = cur3->next;
+                    }
+                }
+                cur2 = cur2->next;
+            }
+        } else if ((!xmlStrcmp(cur->name, (const xmlChar *)"alias")))
+        {
+            cur2 = cur->xmlChildrenNode;
+            while (cur2 != NULL)
+            {
+                if ((!xmlStrcmp(cur2->name, (const xmlChar *)"family")))
+                {
+                    xmlNodeSetContent(cur2->xmlChildrenNode, (const xmlChar *)font_name);
+                    key = xmlNodeListGetString(doc, cur2->xmlChildrenNode, 1);
+                    //SETTING_TRACE_DEBUG("after changed, string is: %s", key);
+                    xmlFree(key);
+                    key = NULL;
+                    is_changed = EINA_TRUE;
+                } else if ((!xmlStrcmp(cur2->name, (const xmlChar *)"prefer")))
+                {
+                    cur3 = cur2->xmlChildrenNode;
+                    while (cur3 != NULL)
+                    {
+                        if((!xmlStrcmp(cur3->name, (const xmlChar *)"family")))
+                        {
+                            xmlNodeSetContent(cur3->xmlChildrenNode, (const xmlChar *)font_name);
+                            key = xmlNodeListGetString(doc, cur3->xmlChildrenNode, 1);
+                            //SETTING_TRACE_DEBUG("after changed, string is: %s", key);
+                            xmlFree(key);
+                            key = NULL;
+                            is_changed = EINA_TRUE;
+                            cur3 = cur3->next;
+                            break; /* just set first element, so break */
+                        }
+                        cur3 = cur3->next;
+                    }
+                }
+                cur2 = cur2->next;
+            }
+        }
+        cur = cur->next;
+    }
+
+    if (is_changed) {
+        return doc;
+    } else {
+        xmlFreeDoc(doc);
+        doc = NULL;
+        return NULL;
+    }
+}
 
 int system_setting_set_font_type(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
 {
@@ -229,6 +349,7 @@ int system_setting_set_font_type(system_settings_key_e key, system_setting_data_
 	font_name = (char*)value;
 
 	printf(">>>>>>>>>>>>> font name = %s \n", font_name);
+
 	font_config_set(font_name);
 	font_config_set_notification();
 
@@ -237,6 +358,17 @@ int system_setting_set_font_type(system_settings_key_e key, system_setting_data_
 	if (system_setting_vconf_set_value_string(VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_NAME, vconf_value)) {
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
+
+    xmlDocPtr doc = (xmlDocPtr)font_conf_doc_parse(SETTING_FONT_CONF_FILE, font_name);
+    if(doc != NULL) {
+        xmlSaveFormatFile(SETTING_FONT_CONF_FILE, doc, 0);
+        xmlFreeDoc(doc);
+        doc = NULL;
+		printf(">>>>>>>>>>>>> SUCCESSED : saving font  name = %s \n", font_name);
+    } else {
+		printf(">>>>>>>>>>>>> FAILED : saving font  name = %s \n", font_name);
+	}
+
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
@@ -407,7 +539,7 @@ static void font_config_set_notification()
 	Ecore_X_Window ecore_win = ecore_x_window_root_first_get();
 	printf("FONT CHANGE NOTIFICATION >>>>>>>>>> : %d  \n", (unsigned int)ecore_win);
 	Ecore_X_Atom atom = ecore_x_atom_get("FONT_TYPE_change");
-	ecore_x_window_prop_string_set(ecore_win, atom, "slp");
+	ecore_x_window_prop_string_set(ecore_win, atom, "tizen");
 }
 
 static void font_config_set(char *font_name)
@@ -422,7 +554,7 @@ static void font_config_set(char *font_name)
 
     text_classes = elm_config_text_classes_list_get();
 
-    fo_list = elm_config_font_overlay_list_get();
+    fo_list = (Eina_List *)elm_config_font_overlay_list_get();
 
     Eina_List *ll = NULL;
     Eina_List *l_next = NULL;
@@ -432,36 +564,56 @@ static void font_config_set(char *font_name)
     Eina_Bool slp_bold_exist = EINA_FALSE;
     Eina_Bool slp_regular_exist = EINA_FALSE;
 
+    // Tizen
+    Eina_Bool tizen_exist = EINA_FALSE;
+
     EINA_LIST_FOREACH_SAFE(fo_list, ll, l_next, efo)
     {
-        if (!strcmp(efo->text_class, "slp_medium")) {
+        if (!strcmp(efo->text_class, "tizen_medium")) {
             elm_config_font_overlay_set(efo->text_class, (const char*)font_name, efo->size);
             slp_medium_exist = EINA_TRUE;
-        } else if (!strcmp(efo->text_class, "slp_roman")) {
+        } else if (!strcmp(efo->text_class, "tizen_roman")) {
             elm_config_font_overlay_set(efo->text_class, (const char*)font_name, efo->size);
             slp_roman_exist = EINA_TRUE;
-        } else if (!strcmp(efo->text_class, "slp_bold")) {
+        } else if (!strcmp(efo->text_class, "tizen_bold")) {
             elm_config_font_overlay_set(efo->text_class, (const char*)font_name, efo->size);
             slp_bold_exist = EINA_TRUE;
-        } else if (!strcmp(efo->text_class, "slp_regular")) {
+        } else if (!strcmp(efo->text_class, "tizen_regular")) {
             elm_config_font_overlay_set(efo->text_class, (const char*)font_name, efo->size);
             slp_regular_exist = EINA_TRUE;
         }
+
+        // Tizen
+        if (!strcmp(efo->text_class, "tizen")) {
+            elm_config_font_overlay_set(efo->text_class, (const char*)font_name, efo->size);
+            tizen_exist = EINA_TRUE;
+        }
+
     }
 
     /* if slp_XX do not exist, need to set them, font size is -100(100%) */
     if (slp_medium_exist == EINA_FALSE) {
-        elm_config_font_overlay_set("slp_medium", (const char*)font_name,  MIDDLE_FONT_DPI);
+        elm_config_font_overlay_set("tizen_medium", (const char*)font_name,  MIDDLE_FONT_DPI);
     }
     if (slp_roman_exist == EINA_FALSE) {
-        elm_config_font_overlay_set("slp_roman", (const char*)font_name,  MIDDLE_FONT_DPI);
+        elm_config_font_overlay_set("tizen_roman", (const char*)font_name,  MIDDLE_FONT_DPI);
     }
     if (slp_bold_exist == EINA_FALSE) {
-        elm_config_font_overlay_set("slp_bold", (const char*)font_name,  MIDDLE_FONT_DPI);
+        elm_config_font_overlay_set("tizen_bold", (const char*)font_name,  MIDDLE_FONT_DPI);
     }
     if (slp_regular_exist == EINA_FALSE) {
-        elm_config_font_overlay_set("slp_regular", (const char*)font_name,  MIDDLE_FONT_DPI);
+        elm_config_font_overlay_set("tizen_regular", (const char*)font_name,  MIDDLE_FONT_DPI);
     }
+
+    // Tizen
+    if (tizen_exist == EINA_FALSE) {
+        elm_config_font_overlay_set("tizen", (const char*)font_name,  MIDDLE_FONT_DPI);
+    }
+
+    elm_config_font_overlay_set("tizen", (const char*)font_name,  MIDDLE_FONT_DPI);
+
+    // Tizen
+    elm_config_font_overlay_set("tizen", (const char*)font_name,  MIDDLE_FONT_DPI);
 
     EINA_LIST_FOREACH(text_classes, l, etc)
     {
@@ -479,9 +631,13 @@ static void font_config_set(char *font_name)
 
     elm_config_font_overlay_apply();
     elm_config_all_flush();
+//    elm_config_engine_set("software_x11");
     elm_config_save();
     elm_config_text_classes_list_free(text_classes);
     text_classes = NULL;
+
+    // vconf update
+    vconf_set_str(VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_NAME, font_name);
 }
 
 static void font_size_set()
