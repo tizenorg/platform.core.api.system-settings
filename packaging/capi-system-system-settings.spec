@@ -49,6 +49,10 @@ make %{?jobs:-j%jobs}
 
 %install
 rm -rf %{buildroot}
+
+mkdir -p %{buildroot}/usr/share/license
+cp -f LICENSE.APLv2 %{buildroot}/usr/share/license/%{name}
+
 %make_install
 
 %post -p /sbin/ldconfig
@@ -58,6 +62,7 @@ rm -rf %{buildroot}
 
 %files
 %{_libdir}/lib*.so.*
+/usr/share/license/%{name}
 # /usr/local/bin/test_system_settings
 /usr/local/bin/test_system_settings_gui
 
