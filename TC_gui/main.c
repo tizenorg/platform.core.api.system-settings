@@ -159,6 +159,26 @@ void system_settings_changed_motion_activation(system_settings_key_e key, void *
 	printf(">>>>>>>> system_settings_changed_motion_activation key = %d \n", key);
 	printf("---------------------------------CALLED BY USER APPLICATION-MOTION ACTIVIATION \n");
 }
+void list_item_touch_handler7(void* data, Evas_Object* obj, void* event_info)
+{
+	char* path = "/opt/usr/media/Images/image16.jpg";
+	int ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_WALLPAPER_HOME_SCREEN, "/aaa.png");
+	printf(">>>>>>>> home screen - error case :: %d \n", ret);
+
+	ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_WALLPAPER_HOME_SCREEN, path);
+	printf(">>>>>>>> home screen - error case :: %d \n", ret);
+
+}
+
+void list_item_touch_handler8(void* data, Evas_Object* obj, void* event_info)
+{
+	char* path = "/opt/usr/media/Images/image16.jpg";
+	int ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_WALLPAPER_LOCK_SCREEN, "aaa.png");
+	printf(">>>>>>>> lock screen - error case  : %d \n", ret);
+
+	ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_WALLPAPER_LOCK_SCREEN, path);
+	printf(">>>>>>>> lock screen - error case  : %d \n", ret);
+}
 
 static Evas_Object* _create_list_winset(Evas_Object* parent, struct appdata* ad)
 {
@@ -193,6 +213,8 @@ static Evas_Object* _create_list_winset(Evas_Object* parent, struct appdata* ad)
 	elm_list_item_append( li, "font type - choose Helvetica 2 ", NULL, NULL, list_item_touch_handler4, ad);
 	elm_list_item_append( li, "motion activation ON ", NULL, NULL, list_item_touch_handler5, ad);
 	elm_list_item_append( li, "motion activation OFF ", NULL, NULL, list_item_touch_handler6, ad);
+	elm_list_item_append( li, "homescreen - set ", NULL, NULL, list_item_touch_handler7, ad);
+	elm_list_item_append( li, "lockscreen - set ", NULL, NULL, list_item_touch_handler8, ad);
 
 	elm_list_go(li);
 	return li;

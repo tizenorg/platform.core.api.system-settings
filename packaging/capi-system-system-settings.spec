@@ -20,6 +20,9 @@ BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(libxml-2.0)
 
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
+
 %description
 
 
@@ -31,11 +34,14 @@ Requires:  pkgconfig(capi-base-common)
 
 %description devel
 
+
+
 %prep
 %setup -q
 
+
 %build
-MAJORVER=`echo %{version} | awk 'BEGIN {FS="."}{print $1}'`  
+MAJORVER=`echo %{version} | awk 'BEGIN {FS="."}{print $1}'`
 %cmake . -DFULLVER=%{version} -DMAJORVER=${MAJORVER}
 
 make %{?jobs:-j%jobs}
