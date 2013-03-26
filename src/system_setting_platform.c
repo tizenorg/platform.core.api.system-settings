@@ -17,10 +17,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <errno.h>
+
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
 
 #include <dlog.h>
 #include <vconf.h>
@@ -177,12 +180,26 @@ int system_setting_set_email_alert_ringtone(system_settings_key_e key, system_se
 }
 
 
+static int _is_file_accessible(const char * path)
+{
+    int ret = access(path ,R_OK);
+    if (ret == 0)
+        return 0;
+    else
+        return errno;
+}
+
 int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
 {
 	printf(" mock --> real system_setting_set_wallpaper_home_screen \n");
 
 	char* vconf_value;
 	vconf_value = (char*)value;
+
+	// error handling here
+	if (_is_file_accessible(vconf_value) != 0)
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+
 	if (system_setting_vconf_set_value_string(VCONFKEY_BGSET, vconf_value)) {
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
@@ -196,6 +213,11 @@ int system_setting_set_wallpaper_lock_screen(system_settings_key_e key, system_s
 
 	char* vconf_value;
 	vconf_value = (char*)value;
+
+	// error handling here
+	if (_is_file_accessible(vconf_value) != 0)
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+
 	if (system_setting_vconf_set_value_string(VCONFKEY_IDLE_LOCK_BGSET, vconf_value)) {
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}

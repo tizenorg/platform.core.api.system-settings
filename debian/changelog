@@ -1,3 +1,10 @@
+capi-system-system-settings (0.0.1-8) precise; urgency=low
+
+  * release
+  * font-type API refinement
+
+ -- mjpark <mj2004.park@samsung.com>  Wed, 23 Jan 2013 15:25:21 +0900
+
 capi-system-system-settings (0.0.1-7) unstable; urgency=low
 
   * release
