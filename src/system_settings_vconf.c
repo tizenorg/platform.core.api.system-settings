@@ -91,7 +91,6 @@ typedef void (*system_setting_vconf_event_cb)(keynode_t *node, void *event_data)
 static void system_setting_vconf_event_cb0(keynode_t *node, void *event_data)
 {       
 	system_settings_key_e pkey = (system_settings_key_e)event_data;
-	printf("*** system_setting_vconf_event_cb0  : %d \n",pkey );
 
     if (node != NULL)
     {
@@ -108,7 +107,7 @@ static void system_setting_vconf_event_cb0(keynode_t *node, void *event_data)
 static void system_setting_vconf_event_cb1(keynode_t *node, void *event_data)
 {       
 	system_settings_key_e pkey = (system_settings_key_e)event_data;
-	printf("*** system_setting_vconf_event_cb1  : %d \n",pkey );
+	//printf("*** system_setting_vconf_event_cb1  : %d \n",pkey );
 
     if (node != NULL)
     {
@@ -125,7 +124,7 @@ static void system_setting_vconf_event_cb1(keynode_t *node, void *event_data)
 static void system_setting_vconf_event_cb2(keynode_t *node, void *event_data)
 {       
 	system_settings_key_e pkey = (system_settings_key_e)event_data;
-	printf("*** system_setting_vconf_event_cb2  : %d \n",pkey );
+	//printf("*** system_setting_vconf_event_cb2  : %d \n",pkey );
 
     if (node != NULL)
     {
@@ -142,7 +141,7 @@ static void system_setting_vconf_event_cb2(keynode_t *node, void *event_data)
 static void system_setting_vconf_event_cb3(keynode_t *node, void *event_data)
 {
 	system_settings_key_e pkey = (system_settings_key_e)event_data;
-	printf("*** system_setting_vconf_event_cb3  : %d \n",pkey );
+	//printf("*** system_setting_vconf_event_cb3  : %d \n",pkey );
 
     if (node != NULL)
     {
@@ -159,7 +158,7 @@ static void system_setting_vconf_event_cb3(keynode_t *node, void *event_data)
 static void system_setting_vconf_event_cb4(keynode_t *node, void *event_data)
 {
 	system_settings_key_e pkey = (system_settings_key_e)event_data;
-	printf("*** system_setting_vconf_event_cb4  : %d \n",pkey );
+	//printf("*** system_setting_vconf_event_cb4  : %d \n",pkey );
 
     if (node != NULL)
     {

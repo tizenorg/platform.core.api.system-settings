@@ -108,7 +108,6 @@ int system_setting_get_wallpaper_lock_screen(system_settings_key_e key, system_s
 // [int] vconf GET
 int system_setting_get_font_size(system_settings_key_e key, system_setting_data_type_e data_type, void** value)
 {
-	printf("system_setting_get_font_size \n");
 	int vconf_value;
 
 	if (system_setting_vconf_get_value_int(VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_SIZE, &vconf_value)) {
@@ -123,17 +122,7 @@ int system_setting_get_font_size(system_settings_key_e key, system_setting_data_
 // [int] vconf GET
 int system_setting_get_font_type(system_settings_key_e key, system_setting_data_type_e data_type, void** value)
 {
-	printf("system_setting_get_font_type\n");
-	//int vconf_value;
-
 	char* font_name = _get_cur_font();
-
-	#if 0
-	if (system_setting_vconf_get_value_int(VCONFKEY_SETAPPL_FONT_TYPE_INT, &vconf_value)) {
-		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
-	}
-	//*value = (void*)vconf_value;
-	#endif
 	*value = (void*)font_name;
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
@@ -156,7 +145,6 @@ int system_setting_get_motion_activation(system_settings_key_e key, system_setti
 
 int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
 {
-	printf(" mock --> real system_setting_set_incoming_call_ringtone \n");
 	char* vconf_value;
 	vconf_value = (char*)value;
 	if (system_setting_vconf_set_value_string(VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR, vconf_value)) {
@@ -169,7 +157,6 @@ int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_
 
 int system_setting_set_email_alert_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
 {
-	printf(" mock --> real system_setting_set_email_alert_ringtone \n");
 	char* vconf_value;
 	vconf_value = (char*)value;
 	if (system_setting_vconf_set_value_string(VCONFKEY_SETAPPL_NOTI_EMAIL_RINGTONE_PATH_STR, vconf_value)) {
@@ -191,8 +178,6 @@ static int _is_file_accessible(const char * path)
 
 int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
 {
-	printf(" mock --> real system_setting_set_wallpaper_home_screen \n");
-
 	char* vconf_value;
 	vconf_value = (char*)value;
 
@@ -209,8 +194,6 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 
 int system_setting_set_wallpaper_lock_screen(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
 {
-	printf(" mock --> real system_setting_set_wallpaper_lock_screen \n");
-
 	char* vconf_value;
 	vconf_value = (char*)value;
 
@@ -227,7 +210,6 @@ int system_setting_set_wallpaper_lock_screen(system_settings_key_e key, system_s
 
 int system_setting_set_font_size(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
 {
-	printf(" real system_setting_set_font_size \n");
 	int* vconf_value;
 	vconf_value = (int*)value;
 
@@ -239,9 +221,6 @@ int system_setting_set_font_size(system_settings_key_e key, system_setting_data_
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
 	font_size_set();
-
-	printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>. system_setting_set_font_size called \n");
-
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 /**
@@ -249,8 +228,6 @@ int system_setting_set_font_size(system_settings_key_e key, system_setting_data_
  */
 void *font_conf_doc_parse(char *doc_name, char *font_name)
 {
-    //setting_retvm_if(doc_name == NULL, NULL, "Param data is NULL");
-    //setting_retvm_if(font_name == NULL, NULL, "Param data is NULL");
     xmlDocPtr doc = NULL;
     xmlNodePtr cur = NULL;
     xmlNodePtr cur2 = NULL;
@@ -258,19 +235,16 @@ void *font_conf_doc_parse(char *doc_name, char *font_name)
     xmlChar *key = NULL;
 
     doc = xmlParseFile(doc_name);
-    //setting_retvm_if(doc == NULL, NULL, "Document not parsed successfully.");
 
     cur = xmlDocGetRootElement(doc);
 
     if (cur == NULL) {
-        //SETTING_TRACE_DEBUG("empty document");
         xmlFreeDoc(doc);
         doc = NULL;
         return NULL;
     }
 
     if(xmlStrcmp(cur->name, (const xmlChar *)"fontconfig")) {
-        //SETTING_TRACE_DEBUG("document of the wrong type, root node != fontconfig");
         xmlFreeDoc(doc);
         doc = NULL;
         return NULL;
@@ -289,7 +263,6 @@ void *font_conf_doc_parse(char *doc_name, char *font_name)
                 if((!xmlStrcmp(cur2->name, (const xmlChar *)"edit")))
                 {
                     xmlChar *name = xmlGetProp(cur2, (const xmlChar *)"name");
-                    //SETTING_TRACE_DEBUG("name is: %s", name);
                     /* if name is not 'family', break */
                     if (xmlStrcmp(name, (const xmlChar *)"family"))
                     {
@@ -307,7 +280,7 @@ void *font_conf_doc_parse(char *doc_name, char *font_name)
                         {
                             xmlNodeSetContent(cur3->xmlChildrenNode, (const xmlChar *)font_name);
                             key = xmlNodeListGetString(doc, cur3->xmlChildrenNode, 1);
-                            //SETTING_TRACE_DEBUG("after changed, string is: %s", key);
+                            //printf("after changed, string is: %s \n", key);
                             xmlFree(key);
                             key = NULL;
                             is_changed = EINA_TRUE;
@@ -326,7 +299,7 @@ void *font_conf_doc_parse(char *doc_name, char *font_name)
                 {
                     xmlNodeSetContent(cur2->xmlChildrenNode, (const xmlChar *)font_name);
                     key = xmlNodeListGetString(doc, cur2->xmlChildrenNode, 1);
-                    //SETTING_TRACE_DEBUG("after changed, string is: %s", key);
+                    //printf("after changed, string is: %s\n", key);
                     xmlFree(key);
                     key = NULL;
                     is_changed = EINA_TRUE;
@@ -339,7 +312,6 @@ void *font_conf_doc_parse(char *doc_name, char *font_name)
                         {
                             xmlNodeSetContent(cur3->xmlChildrenNode, (const xmlChar *)font_name);
                             key = xmlNodeListGetString(doc, cur3->xmlChildrenNode, 1);
-                            //SETTING_TRACE_DEBUG("after changed, string is: %s", key);
                             xmlFree(key);
                             key = NULL;
                             is_changed = EINA_TRUE;
@@ -366,11 +338,8 @@ void *font_conf_doc_parse(char *doc_name, char *font_name)
 
 int system_setting_set_font_type(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
 {
-	printf(" real system_setting_set_font_type \n");
 	char* font_name = NULL;
 	font_name = (char*)value;
-
-	printf(">>>>>>>>>>>>> font name = %s \n", font_name);
 
 	font_config_set(font_name);
 	font_config_set_notification();
@@ -386,18 +355,13 @@ int system_setting_set_font_type(system_settings_key_e key, system_setting_data_
         xmlSaveFormatFile(SETTING_FONT_CONF_FILE, doc, 0);
         xmlFreeDoc(doc);
         doc = NULL;
-		printf(">>>>>>>>>>>>> SUCCESSED : saving font  name = %s \n", font_name);
-    } else {
-		printf(">>>>>>>>>>>>> FAILED : saving font  name = %s \n", font_name);
-	}
+    }
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
 int system_setting_set_motion_activation(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
 {
-	printf(" mock --> real system_setting_set_motion_activation \n");
-
 	bool* vconf_value;
 	vconf_value = (bool*)value;
 	if (system_setting_vconf_set_value_bool(VCONFKEY_SETAPPL_MOTION_ACTIVATION, *vconf_value)) {
@@ -475,20 +439,16 @@ int system_setting_unset_changed_callback_font_type(system_settings_key_e key)
 // TODO : 2th argument, callback, is not in use.
 int system_setting_set_changed_callback_motion_activation(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
-	printf("system_setting_set_changed_callback_motion_activation \n");
 	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_MOTION_ACTIVATION, SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, 3);
 }
 
 int system_setting_unset_changed_callback_motion_activation(system_settings_key_e key)
 {
-	printf("system_setting_unset_changed_callback_motion_activation \n");
 	return system_setting_vconf_unset_changed_cb(VCONFKEY_SETAPPL_MOTION_ACTIVATION, 3);
 }
 
 static char* _get_cur_font()
 {
-    printf("get current font \n");
-
     xmlDocPtr doc = NULL;
     xmlNodePtr cur = NULL;
     xmlNodePtr cur2 = NULL;
@@ -502,14 +462,12 @@ static char* _get_cur_font()
     cur = xmlDocGetRootElement(doc);
 
     if(cur == NULL) {
-        printf("empty document");
         xmlFreeDoc(doc);
         doc = NULL;
         return NULL;
     }
 
     if(xmlStrcmp(cur->name, (const xmlChar *)"fontconfig")) {
-        printf("document of the wrong type, root node != fontconfig");
         xmlFreeDoc(doc);
         doc = NULL;
         return NULL;
@@ -532,7 +490,7 @@ static char* _get_cur_font()
                         if((!xmlStrcmp(cur3->name, (const xmlChar *)"string")))
                         {
                             key = xmlNodeListGetString(doc, cur3->xmlChildrenNode, 1);
-                            //printf("string is: %s", key);
+                            //printf("string is: %s\n", key);
 
                             font_name = g_strdup((char *)key);
                             xmlFree(key);
@@ -559,7 +517,6 @@ static void font_config_set_notification()
 {
     /* notification */
 	Ecore_X_Window ecore_win = ecore_x_window_root_first_get();
-	printf("FONT CHANGE NOTIFICATION >>>>>>>>>> : %d  \n", (unsigned int)ecore_win);
 	Ecore_X_Atom atom = ecore_x_atom_get("FONT_TYPE_change");
 	ecore_x_window_prop_string_set(ecore_win, atom, "tizen");
 }
@@ -671,11 +628,8 @@ static void font_size_set()
     char *font_name = _get_cur_font();
 
     if (font_size == -1) {
-        //SETTING_TRACE_DEBUG("failed to call font_size_get");
         return;
-    } else {
-		printf(">> font name = %s, font size = %d \n", font_name, font_size);
-	}
+    }
 
     text_classes = elm_config_text_classes_list_get();
 
@@ -689,9 +643,7 @@ static void font_size_set()
     elm_config_save();
     elm_config_text_classes_list_free(text_classes);
     text_classes = NULL;
-    //G_FREE(font_name);
     g_free(font_name);
-	printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>. font_size_set called \n");
 }
 
 static int __font_size_get()
