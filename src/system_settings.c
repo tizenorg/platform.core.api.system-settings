@@ -148,7 +148,6 @@ int system_settings_get_value(system_settings_key_e key, system_setting_data_typ
         return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
     }
 
-	printf("assigned getter \n");
     system_setting_getter = system_setting_item->get_value_cb;
 
     if (system_setting_getter == NULL)
@@ -171,7 +170,6 @@ int system_settings_set_value(system_settings_key_e key, system_setting_data_typ
         return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
     }
 
-	printf("assigned setter \n");
     system_setting_setter = system_setting_item->set_value_cb;
 
     if (system_setting_setter == NULL)
@@ -186,8 +184,6 @@ int system_settings_set_value(system_settings_key_e key, system_setting_data_typ
 // typedef int (*system_setting_set_value_cb) (system_settings_key_e key, system_setting_data_type_e data_type, void* value);
 int system_settings_set_value_int(system_settings_key_e key, int value)
 {
-	printf("[MOCK] system_settings_set_value_int - value = %d \n", value);
-
 	// TODO: make sure the value is inside of enum.
 	int* ptr = &value;
 	return system_settings_set_value(key, SYSTEM_SETTING_DATA_TYPE_INT,(void*)ptr);
@@ -200,7 +196,6 @@ int system_settings_get_value_int(system_settings_key_e key, int *value)
 
 int system_settings_set_value_bool(system_settings_key_e key, bool value)
 {
-	printf("[MOCK] system_settings_set_value_bool - value = %d \n", value);
 	bool* ptr = &value;
 	return system_settings_set_value(key, SYSTEM_SETTING_DATA_TYPE_BOOL,(void*)ptr);
 }
@@ -212,7 +207,6 @@ int system_settings_get_value_bool(system_settings_key_e key, bool *value)
 
 int system_settings_set_value_double(system_settings_key_e key, double value)
 {
-	printf("[MOCK] system_settings_set_value_double - value = %f \n", value);
 	double* ptr = &value;
 	return system_settings_set_value(key, SYSTEM_SETTING_DATA_TYPE_DOUBLE,(void*)ptr);
 }
@@ -224,7 +218,6 @@ int system_settings_get_value_double(system_settings_key_e key, double *value)
 
 int system_settings_set_value_string(system_settings_key_e key, const char *value)
 {
-	printf("[MOCK] system_settings_set_value_string - input string : %s \n", value);
 	return system_settings_set_value(key, SYSTEM_SETTING_DATA_TYPE_STRING,(void*)value);
 }
 
@@ -243,8 +236,6 @@ int system_settings_get_value_string(system_settings_key_e key, char **value)
 /*PUBLIC*/
 int system_settings_set_changed_cb(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
-	printf("system_settings_set_changed_cb \n");
-
     system_setting_h system_setting_item;
 	system_setting_set_changed_callback_cb system_setting_set_changed_cb;
 
@@ -272,8 +263,6 @@ int system_settings_set_changed_cb(system_settings_key_e key, system_settings_ch
 
 int system_settings_unset_changed_cb(system_settings_key_e key)
 {
-	printf("system_settings_unset_changed_cb \n");
-
     system_setting_h system_setting_item;
 	system_setting_unset_changed_callback_cb system_setting_unset_changed_cb;
 

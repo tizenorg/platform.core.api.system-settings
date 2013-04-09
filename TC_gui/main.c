@@ -132,20 +132,17 @@ void list_item_touch_handler4(void* data, Evas_Object* obj, void* event_info)
 
 void list_item_touch_handler5(void* data, Evas_Object* obj, void* event_info)
 {
-	bool result;
-	system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, &result);
-	printf(">>>>>>>> motion activation %d \n", result);
+	bool enableMotion = false;;
+	printf(">>>>>>>> motion activation (GET) \n");
+	int errorcode = system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, &enableMotion);
 
-	printf(">>>>>>>> motion activation ON \n");
+
+	printf(">>>>>>>> motion activation ON (SET) \n");
 	system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, 1/*ON*/);
 }
 
 void list_item_touch_handler6(void* data, Evas_Object* obj, void* event_info)
 {
-	bool result;
-	system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, &result);
-	printf(">>>>>>>> motion activation %d \n", result);
-
 	printf(">>>>>>>> motion activation OFF \n");
 	system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, 0/*OFF*/);
 }
