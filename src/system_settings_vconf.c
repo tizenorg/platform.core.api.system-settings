@@ -38,7 +38,17 @@ int system_setting_vconf_get_value_int(const char *vconf_key, int *value)
 
 int system_setting_vconf_get_value_bool(const char *vconf_key, bool *value)
 {
-	return vconf_get_bool(vconf_key, (int*)value);
+	int tempvalue = 0;
+	int ret = vconf_get_bool(vconf_key, &tempvalue);
+
+	if (tempvalue == 1)
+	{
+		*value = true;
+	}
+	else {
+		*value = false;
+	}
+	return ret;
 }
 
 int system_setting_vconf_get_value_double(const char *vconf_key, double *value)
