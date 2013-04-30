@@ -54,6 +54,8 @@ typedef enum
 	SYSTEM_SETTINGS_KEY_FONT_TYPE, /**< The current system font type */
 	SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, /**< Indicates whether the motion service is activated */
 	SYSTEM_SETTINGS_KEY_EMAIL_ALERT_RINGTONE,  /**< The file path of the current email alert ringtone */
+	SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED,  /**< Indicates whether the usb debugging is enabled */
+	SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED,  /**< Indicates whether the 3G data network is enabled */
 } system_settings_key_e;
 
 

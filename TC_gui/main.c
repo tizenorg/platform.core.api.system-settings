@@ -154,18 +154,24 @@ void list_item_touch_handler6(void* data, Evas_Object* obj, void* event_info)
 
 void system_settings_changed_font_size(system_settings_key_e key, void *user_data)
 {
+	struct appdata* ad = (struct appdata*)user_data;
+	printf(" font size -- %s \n", ad->pkgname);
 	printf(">>>>>>>> system_settings_changed_font_size key = %d \n", key);
 	printf("---------------------------------CALLED BY USER APPLICATION -FONT SIZE \n");
 }
 
 void system_settings_changed_font_type(system_settings_key_e key, void *user_data)
 {
+	struct appdata* ad = (struct appdata*)user_data;
+	printf(" font type -- %s \n", ad->pkgname);
 	printf(">>>>>>>> system_settings_changed_font_type key = %d \n", key);
 	printf("---------------------------------CALLED BY USER APPLICATION -FONT TYPE \n");
 }
 
 void system_settings_changed_motion_activation(system_settings_key_e key, void *user_data)
 {
+	struct appdata* ad = (struct appdata*)user_data;
+	printf(" motion type -- %s \n", ad->pkgname);
 	printf(">>>>>>>> system_settings_changed_motion_activation key = %d \n", key);
 	printf("---------------------------------CALLED BY USER APPLICATION-MOTION ACTIVIATION \n");
 }
@@ -190,15 +196,60 @@ void list_item_touch_handler8(void* data, Evas_Object* obj, void* event_info)
 	printf(">>>>>>>> lock screen - error case  : %d \n", ret);
 }
 
+//	SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED,  /**< Indicates whether the usb debugging is enabled */
+// get 3g data network
+void list_item_touch_handler9(void* data, Evas_Object* obj, void* event_info)
+{
+	bool state = false;;
+	int errorcode = system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED, &state);
+	printf(">>>>>>>> 3G data network (GET TEST) -- %d - errorcode : %d \n", state, errorcode);
+}
+
+// set 3g data network to ON
+void list_item_touch_handler10(void* data, Evas_Object* obj, void* event_info)
+{
+	printf(">>>>>>>> set 3G data network to ON \n");
+	system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED, 1/*ON*/);
+}
+
+// set 3g data network to OFF
+void list_item_touch_handler11(void* data, Evas_Object* obj, void* event_info)
+{
+	printf(">>>>>>>> set 3G data network to OFF \n");
+	system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED, 0/*OFF*/);
+}
+
+// get usg debugging
+void list_item_touch_handler12(void* data, Evas_Object* obj, void* event_info)
+{
+	bool state = false;;
+	int errorcode = system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED, &state);
+	printf(">>>>>>>> USB Debugging (GET TEST) -- %d - errorcode : %d \n", state, errorcode);
+}
+
+// set USB debugging to ON
+void list_item_touch_handler13(void* data, Evas_Object* obj, void* event_info)
+{
+	printf(">>>>>>>> set USB debugging to ON \n");
+	system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED, 1/*ON*/);
+}
+
+// set USB debugging to OFF
+void list_item_touch_handler14(void* data, Evas_Object* obj, void* event_info)
+{
+	printf(">>>>>>>> set USB debugging to OFF \n");
+	system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED, 0/*OFF*/);
+}
+
 static Evas_Object* _create_list_winset(Evas_Object* parent, struct appdata* ad)
 {
 	Evas_Object *li;
 	int idx = 0;
 	//struct _menu_item *menu_its;
 	int ret;
-	ret = system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_FONT_SIZE, system_settings_changed_font_size, NULL);
+	ret = system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_FONT_SIZE, system_settings_changed_font_size, ad);
 
-	ret = system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_FONT_TYPE, system_settings_changed_font_type, NULL);
+	ret = system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_FONT_TYPE, system_settings_changed_font_type, ad);
 	if (ret < 0) {
 		printf("SYSTEM_SETTINGS_KEY_FONT_TYPE returns negative values = %d \n", ret);
 	} else {
@@ -206,7 +257,7 @@ static Evas_Object* _create_list_winset(Evas_Object* parent, struct appdata* ad)
 	}
 
 	// callback registration
-	ret = system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, system_settings_changed_motion_activation, NULL);
+	ret = system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, system_settings_changed_motion_activation, ad);
 	if (ret < 0) {
 			printf("SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION returns negative values = %d \n", ret);
 	} else {
@@ -226,6 +277,13 @@ static Evas_Object* _create_list_winset(Evas_Object* parent, struct appdata* ad)
 	elm_list_item_append( li, "homescreen - set ", NULL, NULL, list_item_touch_handler7, ad);
 	elm_list_item_append( li, "lockscreen - set ", NULL, NULL, list_item_touch_handler8, ad);
 
+	elm_list_item_append( li, "3g data network GET ", NULL, NULL, list_item_touch_handler9, ad);
+	elm_list_item_append( li, "3g data network SET - ON ", NULL, NULL, list_item_touch_handler10, ad);
+	elm_list_item_append( li, "3g data network SET - OFF ", NULL, NULL, list_item_touch_handler11, ad);
+
+	elm_list_item_append( li, "usb debugging GET ", NULL, NULL, list_item_touch_handler12, ad);
+	elm_list_item_append( li, "usb debugging SET - ON ", NULL, NULL, list_item_touch_handler13, ad);
+	elm_list_item_append( li, "usb debugging SET - OFF ", NULL, NULL, list_item_touch_handler14, ad);
 	elm_list_go(li);
 	return li;
 }
@@ -359,6 +417,8 @@ int app_reset(bundle* b, void* data)
 int main(int argc, char* argv[])
 {
 	struct appdata ad;
+
+	ad.pkgname = "ARGUMENTATION SUCCESS *********************************";
 
 	struct appcore_ops ops = {
 		.create = app_create,

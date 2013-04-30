@@ -81,7 +81,6 @@ static gboolean callback(gpointer data)
 	/*int ret =*/ system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, 1);
 
 	//printf("return : %d \n", ret);
-	printf("hello \n");
 
 	static int i = 0;
 
@@ -96,8 +95,8 @@ static gboolean callback(gpointer data)
 
 static void utc_system_settings_changed_motion_activation(system_settings_key_e key, void *user_data)
 {
-	printf(">>>>>>>> system_settings_changed_motion_activation key = %d \n", key);
-	printf(">>>>>>>> THIS CALLBACK FUNCTION IS REGISTERED BY APP DEVELOPER \n");
+	//printf(">>>>>>>> system_settings_changed_motion_activation key = %d \n", key);
+	//printf(">>>>>>>> THIS CALLBACK FUNCTION IS REGISTERED BY APP DEVELOPER \n");
 }
 
 static void utc_system_settings_set_string_p(void)

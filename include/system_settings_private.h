@@ -23,6 +23,52 @@ extern "C"
 {
 #endif
 
+#include <dlog.h>
+
+#ifdef LOG_TAG
+#undef LOG_TAG
+#endif
+
+#define LOG_TAG "SYSTEM-SETTINGS"
+
+#define SYSTEM_SETTINGS_ENABLE_TRACE
+
+#ifdef SYSTEM_SETTINGS_ENABLE_TRACE
+
+	#define SETTING_TRACE_DEBUG(fmt, arg...) \
+		do {\
+			LOGD("\n\033[0;32mDEBUG: " fmt "\033[0m\t%s:%d\n", \
+	##arg, (char*)(strrchr(__FILE__, '/')+1), __LINE__);\
+		}while(0);
+
+	#define SETTING_TRACE(fmt, arg...) \
+		do {\
+			LOGI("\n\033[0;36m" fmt "\033[0m\t%s:%d\n", \
+	##arg, (char*)(strrchr(__FILE__, '/')+1), __LINE__);\
+		}while(0);
+
+	#define SETTING_TRACE_BEGIN do {\
+		{\
+			printf("\n[SETTING]\033[0;35mENTER FUNCTION: %s. \033[0m\t%s:%d\n", \
+					__FUNCTION__, (char*)(strrchr(__FILE__, '/')+1), __LINE__);\
+		}\
+	}while(0);
+
+	#define SETTING_TRACE_END  do {\
+		{\
+			printf("\n[SETTING]\033[0;35mEXIT FUNCTION: %s. \033[0m\t%s:%d\n", \
+					__FUNCTION__, (char*)(strrchr(__FILE__, '/')+1), __LINE__);\
+		}\
+	}while(0);
+
+#else
+	#define SETTING_TRACE_DEBUG(fmt, arg...)
+	#define SETTING_TRACE(fmt, arg...)
+    #define SETTING_TRACE_BEGIN
+    #define SETTING_TRACE_END
+#endif
+
+
 #define VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_NAME  "db/setting/accessibility/font_name"
 
 typedef enum {
@@ -50,6 +96,8 @@ typedef struct {
 	system_setting_unset_changed_callback_cb unset_changed_cb ;
 
 	system_settings_changed_cb changed_cb;							/* registered by user application */
+	void* user_data;												/* user_data */
+
 } system_setting_s;
 
 typedef system_setting_s* system_setting_h;
@@ -71,7 +119,7 @@ int system_setting_vconf_set_value_double(const char *vconf_key, double value);
 int system_setting_vconf_set_value_string(const char *vconf_key, char *value);
 
 
-int system_setting_vconf_set_changed_cb(const char *vconf_key, system_settings_key_e system_setting_key, int slot);
+int system_setting_vconf_set_changed_cb(const char *vconf_key, system_settings_key_e key, int slot, void* user_data);
 int system_setting_vconf_unset_changed_cb(const char *vconf_key, int slot);
 
 int system_setting_get_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void** value);
@@ -81,6 +129,8 @@ int system_setting_get_wallpaper_lock_screen(system_settings_key_e key, system_s
 int system_setting_get_font_size(system_settings_key_e key, system_setting_data_type_e data_type, void** value);
 int system_setting_get_font_type(system_settings_key_e key, system_setting_data_type_e data_type, void** value);
 int system_setting_get_motion_activation(system_settings_key_e key, system_setting_data_type_e data_type, void** value);
+int system_setting_get_usb_debugging_option(system_settings_key_e key, system_setting_data_type_e data_type, void** value);
+int system_setting_get_3g_data_network(system_settings_key_e key, system_setting_data_type_e data_type, void** value);
 
 int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void* value);
 int system_setting_set_email_alert_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void* value);
@@ -89,6 +139,8 @@ int system_setting_set_wallpaper_lock_screen(system_settings_key_e key, system_s
 int system_setting_set_font_size(system_settings_key_e key, system_setting_data_type_e data_type, void* value);
 int system_setting_set_font_type(system_settings_key_e key, system_setting_data_type_e data_type, void* value);
 int system_setting_set_motion_activation(system_settings_key_e key, system_setting_data_type_e data_type, void* value);
+int system_setting_set_usb_debugging_option(system_settings_key_e key, system_setting_data_type_e data_type, void* value);
+int system_setting_set_3g_data_network(system_settings_key_e key, system_setting_data_type_e data_type, void* value);
 
 int system_setting_set_changed_callback_incoming_call_ringtone(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 int system_setting_unset_changed_callback_incoming_call_ringtone(system_settings_key_e key);
@@ -111,7 +163,11 @@ int system_setting_unset_changed_callback_font_type(system_settings_key_e key);
 int system_setting_set_changed_callback_motion_activation(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 int system_setting_unset_changed_callback_motion_activation(system_settings_key_e key);
 
+int system_setting_set_changed_callback_usb_debugging_option(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
+int system_setting_unset_changed_callback_usb_debugging_option(system_settings_key_e key);
 
+int system_setting_set_changed_callback_3g_data_network(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
+int system_setting_unset_changed_callback_3g_data_network(system_settings_key_e key);
 
 #ifdef __cplusplus
 }

@@ -38,11 +38,6 @@
 #include <system_settings.h>
 #include <system_settings_private.h>
 
-
-#ifdef LOG_TAG
-#undef LOG_TAG
-#endif
-
 #define SMALL_FONT_DPI                      (-80)
 #define MIDDLE_FONT_DPI                     (-100)
 #define LARGE_FONT_DPI                      (-150)
@@ -53,7 +48,7 @@
 #define SETTING_STR_SLP_LEN  256
 
 static char* _get_cur_font();
-static void font_size_set();
+static void __font_size_set();
 static int __font_size_get();
 
 static void font_config_set(char *font_name);
@@ -141,6 +136,29 @@ int system_setting_get_motion_activation(system_settings_key_e key, system_setti
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
+int system_setting_get_usb_debugging_option(system_settings_key_e key, system_setting_data_type_e data_type, void** value)
+{
+	bool vconf_value;
+
+	if (system_setting_vconf_get_value_bool(VCONFKEY_SETAPPL_USB_DEBUG_MODE_BOOL, &vconf_value)) {
+		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+	}
+	*value = (void*)vconf_value;
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+int system_setting_get_3g_data_network(system_settings_key_e key, system_setting_data_type_e data_type, void** value)
+{
+	bool vconf_value;
+
+	if (system_setting_vconf_get_value_bool(VCONFKEY_3G_ENABLE, &vconf_value)) {
+		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+	}
+	*value = (void*)vconf_value;
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
@@ -210,6 +228,7 @@ int system_setting_set_wallpaper_lock_screen(system_settings_key_e key, system_s
 
 int system_setting_set_font_size(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
 {
+	SETTING_TRACE_BEGIN;
 	int* vconf_value;
 	vconf_value = (int*)value;
 
@@ -220,7 +239,8 @@ int system_setting_set_font_size(system_settings_key_e key, system_setting_data_
 	if (system_setting_vconf_set_value_int(VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_SIZE, *vconf_value)) {
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
-	font_size_set();
+	__font_size_set();
+	SETTING_TRACE_END;
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 /**
@@ -370,12 +390,33 @@ int system_setting_set_motion_activation(system_settings_key_e key, system_setti
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
+int system_setting_set_usb_debugging_option(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
+{
+	bool* vconf_value;
+	vconf_value = (bool*)value;
+	if (system_setting_vconf_set_value_bool(VCONFKEY_SETAPPL_USB_DEBUG_MODE_BOOL, *vconf_value)) {
+		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+	}
+	return SYSTEM_SETTINGS_ERROR_NONE;
+
+}
+
+int system_setting_set_3g_data_network(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
+{
+	bool* vconf_value;
+	vconf_value = (bool*)value;
+	if (system_setting_vconf_set_value_bool(VCONFKEY_3G_ENABLE, *vconf_value)) {
+		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+	}
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 //
 
 int system_setting_set_changed_callback_incoming_call_ringtone(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
-	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR, SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, 0);
+	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR, SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, 0, user_data);
 }
 
 int system_setting_unset_changed_callback_incoming_call_ringtone(system_settings_key_e key)
@@ -385,7 +426,7 @@ int system_setting_unset_changed_callback_incoming_call_ringtone(system_settings
 
 int system_setting_set_changed_callback_email_alert_ringtone(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
-	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_NOTI_EMAIL_RINGTONE_PATH_STR, SYSTEM_SETTINGS_KEY_EMAIL_ALERT_RINGTONE, 0);
+	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_NOTI_EMAIL_RINGTONE_PATH_STR, SYSTEM_SETTINGS_KEY_EMAIL_ALERT_RINGTONE, 0, user_data);
 }
 
 int system_setting_unset_changed_callback_email_alert_ringtone(system_settings_key_e key)
@@ -395,7 +436,7 @@ int system_setting_unset_changed_callback_email_alert_ringtone(system_settings_k
 
 int system_setting_set_changed_callback_wallpaper_home_screen(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
-	return system_setting_vconf_set_changed_cb(VCONFKEY_BGSET, SYSTEM_SETTINGS_KEY_WALLPAPER_HOME_SCREEN, 0);
+	return system_setting_vconf_set_changed_cb(VCONFKEY_BGSET, SYSTEM_SETTINGS_KEY_WALLPAPER_HOME_SCREEN, 0, user_data);
 }
 
 int system_setting_unset_changed_callback_wallpaper_home_screen(system_settings_key_e key)
@@ -405,7 +446,7 @@ int system_setting_unset_changed_callback_wallpaper_home_screen(system_settings_
 
 int system_setting_set_changed_callback_wallpaper_lock_screen(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
-	return system_setting_vconf_set_changed_cb(VCONFKEY_IDLE_LOCK_BGSET,SYSTEM_SETTINGS_KEY_WALLPAPER_LOCK_SCREEN, 0);
+	return system_setting_vconf_set_changed_cb(VCONFKEY_IDLE_LOCK_BGSET,SYSTEM_SETTINGS_KEY_WALLPAPER_LOCK_SCREEN, 0, user_data);
 }
 
 int system_setting_unset_changed_callback_wallpaper_lock_screen(system_settings_key_e key)
@@ -415,7 +456,7 @@ int system_setting_unset_changed_callback_wallpaper_lock_screen(system_settings_
 
 int system_setting_set_changed_callback_font_size(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
-	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_SIZE,SYSTEM_SETTINGS_KEY_FONT_SIZE, 1);
+	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_SIZE,SYSTEM_SETTINGS_KEY_FONT_SIZE, 1, user_data);
 }
 
 int system_setting_unset_changed_callback_font_size(system_settings_key_e key)
@@ -423,12 +464,33 @@ int system_setting_unset_changed_callback_font_size(system_settings_key_e key)
 	return system_setting_vconf_unset_changed_cb(VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_SIZE, 1);
 }
 
+int system_setting_set_changed_callback_usb_debugging_option(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
+{
+	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_USB_DEBUG_MODE_BOOL,SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED, 1, user_data);
+}
+
+int system_setting_unset_changed_callback_usb_debugging_option(system_settings_key_e key)
+{
+	return system_setting_vconf_unset_changed_cb(VCONFKEY_SETAPPL_USB_DEBUG_MODE_BOOL, 1);
+}
+
+int system_setting_set_changed_callback_3g_data_network(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
+{
+	return system_setting_vconf_set_changed_cb(VCONFKEY_3G_ENABLE,SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED, 1,user_data);
+}
+
+int system_setting_unset_changed_callback_3g_data_network(system_settings_key_e key)
+{
+	return system_setting_vconf_unset_changed_cb(VCONFKEY_3G_ENABLE, 1);
+}
+
+
 /**
  * @todo need to add custom event notification method
  */
 int system_setting_set_changed_callback_font_type(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
-	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_NAME,SYSTEM_SETTINGS_KEY_FONT_TYPE, 2);
+	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_NAME,SYSTEM_SETTINGS_KEY_FONT_TYPE, 2, user_data);
 }
 
 int system_setting_unset_changed_callback_font_type(system_settings_key_e key)
@@ -439,7 +501,7 @@ int system_setting_unset_changed_callback_font_type(system_settings_key_e key)
 // TODO : 2th argument, callback, is not in use.
 int system_setting_set_changed_callback_motion_activation(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
-	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_MOTION_ACTIVATION, SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, 3);
+	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_MOTION_ACTIVATION, SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, 3, user_data );
 }
 
 int system_setting_unset_changed_callback_motion_activation(system_settings_key_e key)
@@ -619,7 +681,7 @@ static void font_config_set(char *font_name)
     vconf_set_str(VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_NAME, font_name);
 }
 
-static void font_size_set()
+static void __font_size_set()
 {
     Eina_List *text_classes = NULL;
     Elm_Text_Class *etc = NULL;

@@ -61,7 +61,7 @@ int system_setting_vconf_get_value_string(const char *vconf_key, char **value)
     char *str_value = NULL;
 
     str_value = vconf_get_str(vconf_key);
-        
+
     if (str_value != NULL)
     {
         *value = str_value;
@@ -97,55 +97,64 @@ int system_setting_vconf_set_value_string(const char *vconf_key, char *value)
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 typedef void (*system_setting_vconf_event_cb)(keynode_t *node, void *event_data);
-    
+
 static void system_setting_vconf_event_cb0(keynode_t *node, void *event_data)
-{       
+{
 	system_settings_key_e pkey = (system_settings_key_e)event_data;
 
     if (node != NULL)
     {
 		system_setting_h system_setting_item;
-																														  
+
 		if (system_settings_get_item(pkey, &system_setting_item))
 		{
 			LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid key", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
 		}
-		system_setting_item->changed_cb(pkey, NULL);
-    }       
+
+		void* user_data = NULL;
+		user_data = system_setting_item->user_data;
+		system_setting_item->changed_cb(pkey, user_data);
+    }
 }
-    
+
 static void system_setting_vconf_event_cb1(keynode_t *node, void *event_data)
-{       
+{
 	system_settings_key_e pkey = (system_settings_key_e)event_data;
 	//printf("*** system_setting_vconf_event_cb1  : %d \n",pkey );
 
     if (node != NULL)
     {
 		system_setting_h system_setting_item;
-																														  
+
 		if (system_settings_get_item(pkey, &system_setting_item))
 		{
 			LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid key", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
 		}
-		system_setting_item->changed_cb(pkey, NULL);
-    }       
+
+		void* user_data = NULL;
+		user_data = system_setting_item->user_data;
+		system_setting_item->changed_cb(pkey, user_data);
+    }
 }
-    
+
 static void system_setting_vconf_event_cb2(keynode_t *node, void *event_data)
-{       
+{
 	system_settings_key_e pkey = (system_settings_key_e)event_data;
 	//printf("*** system_setting_vconf_event_cb2  : %d \n",pkey );
 
     if (node != NULL)
     {
 		system_setting_h system_setting_item;
-																														  
+
 		if (system_settings_get_item(pkey, &system_setting_item))
 		{
 			LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid key", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
 		}
-		system_setting_item->changed_cb(pkey, NULL);
-    }       
+
+		void* user_data = NULL;
+		user_data = system_setting_item->user_data;
+		system_setting_item->changed_cb(pkey, user_data);
+    }
 }
 
 static void system_setting_vconf_event_cb3(keynode_t *node, void *event_data)
@@ -156,13 +165,16 @@ static void system_setting_vconf_event_cb3(keynode_t *node, void *event_data)
     if (node != NULL)
     {
 		system_setting_h system_setting_item;
-																														  
+
 		if (system_settings_get_item(pkey, &system_setting_item))
 		{
 			LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid key", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
 		}
-		system_setting_item->changed_cb(pkey, NULL);
-    }       
+
+		void* user_data = NULL;
+		user_data = system_setting_item->user_data;
+		system_setting_item->changed_cb(pkey, user_data);
+    }
 }
 
 static void system_setting_vconf_event_cb4(keynode_t *node, void *event_data)
@@ -173,13 +185,16 @@ static void system_setting_vconf_event_cb4(keynode_t *node, void *event_data)
     if (node != NULL)
     {
 		system_setting_h system_setting_item;
-																														  
+
 		if (system_settings_get_item(pkey, &system_setting_item))
 		{
 			LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid key", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
 		}
-		system_setting_item->changed_cb(pkey, NULL);
-    }       
+
+		void* user_data = NULL;
+		user_data = system_setting_item->user_data;
+		system_setting_item->changed_cb(pkey, user_data);
+    }
 }
 
 
@@ -207,7 +222,7 @@ static system_setting_vconf_event_cb system_setting_vconf_get_event_cb_slot(int 
     }
 }
 
-int system_setting_vconf_set_changed_cb(const char *vconf_key, system_settings_key_e key, int slot)
+int system_setting_vconf_set_changed_cb(const char *vconf_key, system_settings_key_e key, int slot, void* user_data)
 {
     system_setting_vconf_event_cb vconf_event_cb;
 
@@ -218,7 +233,11 @@ int system_setting_vconf_set_changed_cb(const char *vconf_key, system_settings_k
         return SYSTEM_SETTINGS_ERROR_IO_ERROR;
     }
 
+#if 1
     if (vconf_notify_key_changed(vconf_key, vconf_event_cb, (void*)key))
+#else
+    if (vconf_notify_key_changed(vconf_key, vconf_event_cb, (void*)user_data))
+#endif
     {
         return SYSTEM_SETTINGS_ERROR_IO_ERROR;
     }

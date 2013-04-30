@@ -46,8 +46,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_incoming_call_ringtone,
 		system_setting_set_changed_callback_incoming_call_ringtone,
 		system_setting_unset_changed_callback_incoming_call_ringtone,
-		NULL
-	}, 
+		NULL,
+		NULL		/* user data */
+	},
 
 	{
 		SYSTEM_SETTINGS_KEY_WALLPAPER_HOME_SCREEN,
@@ -56,7 +57,8 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_wallpaper_home_screen,
 		system_setting_set_changed_callback_wallpaper_home_screen,
 		system_setting_unset_changed_callback_wallpaper_home_screen,
-		NULL
+		NULL,
+		NULL		/* user data */
 	},
 
 	{
@@ -66,7 +68,8 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_wallpaper_lock_screen,
 		system_setting_set_changed_callback_wallpaper_lock_screen,
 		system_setting_unset_changed_callback_wallpaper_lock_screen,
-		NULL
+		NULL,
+		NULL		/* user data */
 	},
 
 	{
@@ -76,7 +79,8 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_font_size,
 		system_setting_set_changed_callback_font_size,
 		system_setting_unset_changed_callback_font_size,
-		NULL
+		NULL,
+		NULL		/* user data */
 	},
 
 	{
@@ -86,7 +90,8 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_font_type,
 		system_setting_set_changed_callback_font_type,
 		system_setting_unset_changed_callback_font_type,
-		NULL
+		NULL,
+		NULL		/* user data */
 	},
 
 	{
@@ -96,7 +101,8 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_motion_activation,
 		system_setting_set_changed_callback_motion_activation,
 		system_setting_unset_changed_callback_motion_activation,
-		NULL
+		NULL,
+		NULL		/* user data */
 	},
 
 	{
@@ -106,10 +112,31 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_email_alert_ringtone,
 		system_setting_set_changed_callback_email_alert_ringtone,
 		system_setting_unset_changed_callback_email_alert_ringtone,
-		NULL
+		NULL,
+		NULL		/* user data */
 	},
 	{
-		SYSTEM_SETTINGS_MAX, -1, NULL, NULL, NULL, NULL, NULL
+		SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED,
+		SYSTEM_SETTING_DATA_TYPE_BOOL,
+		system_setting_get_usb_debugging_option,
+		system_setting_set_usb_debugging_option,
+		system_setting_set_changed_callback_usb_debugging_option,
+		system_setting_unset_changed_callback_usb_debugging_option,
+		NULL,
+		NULL		/* user data */
+	},
+	{
+		SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED,
+		SYSTEM_SETTING_DATA_TYPE_BOOL,
+		system_setting_get_3g_data_network,
+		system_setting_set_3g_data_network,
+		system_setting_set_changed_callback_3g_data_network,
+		system_setting_unset_changed_callback_3g_data_network,
+		NULL,
+		NULL		/* user data */
+	},
+	{
+		SYSTEM_SETTINGS_MAX, -1, NULL, NULL, NULL, NULL, NULL, NULL
 	}
 };
 
@@ -118,17 +145,17 @@ int system_settings_get_item(system_settings_key_e key, system_setting_h *item)
     int index = 0;
 
     while (system_setting_table[index].key != SYSTEM_SETTINGS_MAX)
-    {   
+    {
         if (system_setting_table[index].key == key)
-        {   
+        {
             *item = &system_setting_table[index];
             return 0;
-        }   
+        }
 
         index++;
-    }   
+    }
 
-    return -1; 
+    return -1;
 }
 
 int system_settings_get_value(system_settings_key_e key, system_setting_data_type_e data_type, void** value)
@@ -247,9 +274,13 @@ int system_settings_set_changed_cb(system_settings_key_e key, system_settings_ch
 
 	system_setting_set_changed_cb = system_setting_item->set_changed_cb;
 
+
 	// Store the callback function from application side
 	if (callback)
 		system_setting_item->changed_cb = callback;
+
+	if (user_data)
+		system_setting_item->user_data = user_data;
 
     if (system_setting_set_changed_cb == NULL)
     {
