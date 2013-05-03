@@ -58,6 +58,7 @@ cp -f LICENSE.APLv2 %{buildroot}/usr/share/license/%{name}
 
 
 %files
+%manifest system-settings.manifest
 %{_libdir}/lib*.so.*
 /usr/share/license/%{name}
 # /usr/local/bin/test_system_settings
