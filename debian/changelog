@@ -1,3 +1,9 @@
+capi-system-system-settings (0.0.1-8ubuntu1) precise; urgency=low
+
+  * release 
+
+ -- mjpark <mjpark@localhost>  Thu, 09 May 2013 15:16:34 +0900
+
 capi-system-system-settings (0.0.1-8) precise; urgency=low
 
   * release
