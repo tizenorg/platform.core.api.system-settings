@@ -72,7 +72,9 @@ int system_setting_get_incoming_call_ringtone(system_settings_key_e key, system_
 	if (is_load == 0) {
 		*value = vconf_value;
 	} else { // not zero on errro
-		*value = vconf_get_str(VCONFKEY_SETAPPL_CALL_RINGTONE_DEFAULT_PATH_STR);
+		//*value = vconf_get_str(VCONFKEY_SETAPPL_CALL_RINGTONE_DEFAULT_PATH_STR);
+		//*value = strdup("ERROR");
+		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
 
 	//*value = vconf_value;
