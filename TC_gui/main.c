@@ -15,6 +15,7 @@
  */
 #include "main.h"
 #include <system_settings.h>
+#include <system_settings_private.h>
 
 static void _quit_cb(void *data, Evas_Object* obj, void* event_info)
 {
@@ -132,57 +133,57 @@ void list_item_touch_handler4(void* data, Evas_Object* obj, void* event_info)
 
 void list_item_touch_handler5(void* data, Evas_Object* obj, void* event_info)
 {
-	printf(">>>>>>>> motion activation ON (SET) \n");
+	SETTING_TRACE(">>>>>>>> motion activation ON (SET)");
 	system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, 1/*ON*/);
 
 	bool enableMotion = false;;
 	int errorcode = system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, &enableMotion);
-	printf(">>>>>>>> motion activation (GET TEST  1) -- %d - errorcode : %d \n", enableMotion, errorcode);
+	SETTING_TRACE(">>>>>>>> motion activation (GET TEST  1) -- %d - errorcode : %d", enableMotion, errorcode);
 
-	printf(">>>>>>>> motion activation ON (SET) \n");
+	SETTING_TRACE(">>>>>>>> motion activation ON (SET)");
 	system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, 0/*ON*/);
 
 	errorcode = system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, &enableMotion);
-	printf(">>>>>>>> motion activation (GET TEST  2) -- %d - errorcode : %d \n", enableMotion, errorcode);
+	SETTING_TRACE(">>>>>>>> motion activation (GET TEST  2) -- %d - errorcode : %d ", enableMotion, errorcode);
 }
 
 void list_item_touch_handler6(void* data, Evas_Object* obj, void* event_info)
 {
-	printf(">>>>>>>> motion activation OFF \n");
+	SETTING_TRACE(">>>>>>>> motion activation OFF ");
 	system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, 0/*OFF*/);
 }
 
 void system_settings_changed_font_size(system_settings_key_e key, void *user_data)
 {
 	struct appdata* ad = (struct appdata*)user_data;
-	printf(" font size -- %s \n", ad->pkgname);
-	printf(">>>>>>>> system_settings_changed_font_size key = %d \n", key);
-	printf("---------------------------------CALLED BY USER APPLICATION -FONT SIZE \n");
+	SETTING_TRACE(" font size -- %s ", ad->pkgname);
+	SETTING_TRACE(">>>>>>>> system_settings_changed_font_size key = %d ", key);
+	SETTING_TRACE("---------------------------------CALLED BY USER APPLICATION -FONT SIZE ");
 }
 
 void system_settings_changed_font_type(system_settings_key_e key, void *user_data)
 {
 	struct appdata* ad = (struct appdata*)user_data;
-	printf(" font type -- %s \n", ad->pkgname);
-	printf(">>>>>>>> system_settings_changed_font_type key = %d \n", key);
-	printf("---------------------------------CALLED BY USER APPLICATION -FONT TYPE \n");
+	SETTING_TRACE(" font type -- %s ", ad->pkgname);
+	SETTING_TRACE(">>>>>>>> system_settings_changed_font_type key = %d ", key);
+	SETTING_TRACE("---------------------------------CALLED BY USER APPLICATION -FONT TYPE ");
 }
 
 void system_settings_changed_motion_activation(system_settings_key_e key, void *user_data)
 {
 	struct appdata* ad = (struct appdata*)user_data;
-	printf(" motion type -- %s \n", ad->pkgname);
-	printf(">>>>>>>> system_settings_changed_motion_activation key = %d \n", key);
-	printf("---------------------------------CALLED BY USER APPLICATION-MOTION ACTIVIATION \n");
+	SETTING_TRACE(" motion type -- %s ", ad->pkgname);
+	SETTING_TRACE(">>>>>>>> system_settings_changed_motion_activation key = %d ", key);
+	SETTING_TRACE("---------------------------------CALLED BY USER APPLICATION-MOTION ACTIVIATION ");
 }
 void list_item_touch_handler7(void* data, Evas_Object* obj, void* event_info)
 {
 	char* path = "/opt/usr/media/Images/image16.jpg";
 	int ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_WALLPAPER_HOME_SCREEN, "/aaa.png");
-	printf(">>>>>>>> home screen - error case :: %d \n", ret);
+	SETTING_TRACE(">>>>>>>> home screen - error case :: %d ", ret);
 
 	ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_WALLPAPER_HOME_SCREEN, path);
-	printf(">>>>>>>> home screen - error case :: %d \n", ret);
+	SETTING_TRACE(">>>>>>>> home screen - error case :: %d ", ret);
 
 }
 
@@ -190,10 +191,10 @@ void list_item_touch_handler8(void* data, Evas_Object* obj, void* event_info)
 {
 	char* path = "/opt/usr/media/Images/image16.jpg";
 	int ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_WALLPAPER_LOCK_SCREEN, "aaa.png");
-	printf(">>>>>>>> lock screen - error case  : %d \n", ret);
+	SETTING_TRACE(">>>>>>>> lock screen - error case  : %d ", ret);
 
 	ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_WALLPAPER_LOCK_SCREEN, path);
-	printf(">>>>>>>> lock screen - error case  : %d \n", ret);
+	SETTING_TRACE(">>>>>>>> lock screen - error case  : %d ", ret);
 }
 
 //	SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED,  /**< Indicates whether the usb debugging is enabled */
@@ -202,20 +203,20 @@ void list_item_touch_handler9(void* data, Evas_Object* obj, void* event_info)
 {
 	bool state = false;;
 	int errorcode = system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED, &state);
-	printf(">>>>>>>> 3G data network (GET TEST) -- %d - errorcode : %d \n", state, errorcode);
+	SETTING_TRACE(">>>>>>>> 3G data network (GET TEST) -- %d - errorcode : %d ", state, errorcode);
 }
 
 // set 3g data network to ON
 void list_item_touch_handler10(void* data, Evas_Object* obj, void* event_info)
 {
-	printf(">>>>>>>> set 3G data network to ON \n");
+	SETTING_TRACE(">>>>>>>> set 3G data network to ON ");
 	system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED, 1/*ON*/);
 }
 
 // set 3g data network to OFF
 void list_item_touch_handler11(void* data, Evas_Object* obj, void* event_info)
 {
-	printf(">>>>>>>> set 3G data network to OFF \n");
+	SETTING_TRACE(">>>>>>>> set 3G data network to OFF ");
 	system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED, 0/*OFF*/);
 }
 
@@ -224,21 +225,48 @@ void list_item_touch_handler12(void* data, Evas_Object* obj, void* event_info)
 {
 	bool state = false;;
 	int errorcode = system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED, &state);
-	printf(">>>>>>>> USB Debugging (GET TEST) -- %d - errorcode : %d \n", state, errorcode);
+	SETTING_TRACE(">>>>>>>> USB Debugging (GET TEST) -- %d - errorcode : %d ", state, errorcode);
 }
 
 // set USB debugging to ON
 void list_item_touch_handler13(void* data, Evas_Object* obj, void* event_info)
 {
-	printf(">>>>>>>> set USB debugging to ON \n");
+	SETTING_TRACE(">>>>>>>> set USB debugging to ON ");
 	system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED, 1/*ON*/);
 }
 
 // set USB debugging to OFF
 void list_item_touch_handler14(void* data, Evas_Object* obj, void* event_info)
 {
-	printf(">>>>>>>> set USB debugging to OFF \n");
+	SETTING_TRACE(">>>>>>>> set USB debugging to OFF ");
 	system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED, 0/*OFF*/);
+}
+
+// get ringtone path
+void list_item_touch_handler15(void* data, Evas_Object* obj, void* event_info)
+{
+	SETTING_TRACE(">>>>>>>> get ringtone path ");
+	char *ringtonepath = NULL;
+	int ret = system_settings_get_value_string(SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, &ringtonepath);
+	SETTING_TRACE("current ringtone path : (%s) ", ringtonepath);
+
+}
+
+// get ringtone path - exception case
+void list_item_touch_handler16(void* data, Evas_Object* obj, void* event_info)
+{
+	SETTING_TRACE(">>>>>>>> get ringtone path - exception case ");
+	int ret;
+	char *ringtonepath = NULL;
+	//opt/share/settings/Ringtones/Over the horizon.mp3
+	ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, "/opt/share/settings/Ringtones/Over the horizon.mp3");
+	ret = system_settings_get_value_string(SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, &ringtonepath);
+	SETTING_TRACE(" 1 current ringtone path : (%s) ", ringtonepath);
+	// set the key to the wrong value
+	ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, "aaa.wav");
+
+	ret = system_settings_get_value_string(SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, &ringtonepath);
+	SETTING_TRACE("2 current ringtone path : (%s) ", ringtonepath);
 }
 
 static Evas_Object* _create_list_winset(Evas_Object* parent, struct appdata* ad)
@@ -251,17 +279,17 @@ static Evas_Object* _create_list_winset(Evas_Object* parent, struct appdata* ad)
 
 	ret = system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_FONT_TYPE, system_settings_changed_font_type, ad);
 	if (ret < 0) {
-		printf("SYSTEM_SETTINGS_KEY_FONT_TYPE returns negative values = %d \n", ret);
+		SETTING_TRACE("SYSTEM_SETTINGS_KEY_FONT_TYPE returns negative values = %d ", ret);
 	} else {
-		printf("SYSTEM_SETTINGS_KEY_FONT_TYPE returns positive values = %d, means successful return. \n", ret);
+		SETTING_TRACE("SYSTEM_SETTINGS_KEY_FONT_TYPE returns positive values = %d, means successful return. ", ret);
 	}
 
 	// callback registration
 	ret = system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, system_settings_changed_motion_activation, ad);
 	if (ret < 0) {
-			printf("SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION returns negative values = %d \n", ret);
+			SETTING_TRACE("SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION returns negative values = %d ", ret);
 	} else {
-			printf("SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION returns positive values = %d, means successful return. \n", ret);
+			SETTING_TRACE("SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION returns positive values = %d, means successful return. ", ret);
 	}
 
 	li = elm_list_add(parent);
@@ -284,6 +312,9 @@ static Evas_Object* _create_list_winset(Evas_Object* parent, struct appdata* ad)
 	elm_list_item_append( li, "usb debugging GET ", NULL, NULL, list_item_touch_handler12, ad);
 	elm_list_item_append( li, "usb debugging SET - ON ", NULL, NULL, list_item_touch_handler13, ad);
 	elm_list_item_append( li, "usb debugging SET - OFF ", NULL, NULL, list_item_touch_handler14, ad);
+
+	elm_list_item_append( li, "get call ringtone ", NULL, NULL, list_item_touch_handler15, ad);
+	elm_list_item_append( li, "get call ringtone - exception ", NULL, NULL, list_item_touch_handler16, ad);
 	elm_list_go(li);
 	return li;
 }

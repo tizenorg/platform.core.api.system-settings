@@ -54,13 +54,28 @@ static int __font_size_get();
 static void font_config_set(char *font_name);
 static void font_config_set_notification();
 
+/**
+ * VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR has a path of the ringtone file which user choose
+ * @return the ringtone file path specified by user in normal case
+ *         if it's not accessable, return the default ringtone path
+ */
 int system_setting_get_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void** value)
 {
 	char* vconf_value;
 	if (system_setting_vconf_get_value_string(VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR, &vconf_value)) {
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
-	*value = vconf_value;
+
+	// check to see if it's accessable -> OK
+	// no --> default ringtone path VCONFKEY_SETAPPL_CALL_RINGTONE_DEFAULT_PATH_STR
+	int is_load = _is_file_accessible(vconf_value);
+	if (is_load == 0) {
+		*value = vconf_value;
+	} else { // not zero on errro
+		*value = vconf_get_str(VCONFKEY_SETAPPL_CALL_RINGTONE_DEFAULT_PATH_STR);
+	}
+
+	//*value = vconf_value;
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
@@ -165,7 +180,14 @@ int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_
 {
 	char* vconf_value;
 	vconf_value = (char*)value;
-	if (system_setting_vconf_set_value_string(VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR, vconf_value)) {
+
+	int is_load = _is_file_accessible(vconf_value);
+	if (is_load == 0)
+	{
+		if (system_setting_vconf_set_value_string(VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR, vconf_value)) {
+			return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+		}
+	} else {
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
 
@@ -185,13 +207,18 @@ int system_setting_set_email_alert_ringtone(system_settings_key_e key, system_se
 }
 
 
-static int _is_file_accessible(const char * path)
+int _is_file_accessible(const char * path)
 {
     int ret = access(path ,R_OK);
     if (ret == 0)
+	{
+		SETTING_TRACE("found the file  %s", path); 
         return 0;
+	}
     else
+	{
         return errno;
+	}
 }
 
 int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_setting_data_type_e data_type, void* value)
@@ -300,7 +327,6 @@ void *font_conf_doc_parse(char *doc_name, char *font_name)
                         {
                             xmlNodeSetContent(cur3->xmlChildrenNode, (const xmlChar *)font_name);
                             key = xmlNodeListGetString(doc, cur3->xmlChildrenNode, 1);
-                            //printf("after changed, string is: %s \n", key);
                             xmlFree(key);
                             key = NULL;
                             is_changed = EINA_TRUE;
@@ -319,7 +345,6 @@ void *font_conf_doc_parse(char *doc_name, char *font_name)
                 {
                     xmlNodeSetContent(cur2->xmlChildrenNode, (const xmlChar *)font_name);
                     key = xmlNodeListGetString(doc, cur2->xmlChildrenNode, 1);
-                    //printf("after changed, string is: %s\n", key);
                     xmlFree(key);
                     key = NULL;
                     is_changed = EINA_TRUE;
@@ -552,7 +577,6 @@ static char* _get_cur_font()
                         if((!xmlStrcmp(cur3->name, (const xmlChar *)"string")))
                         {
                             key = xmlNodeListGetString(doc, cur3->xmlChildrenNode, 1);
-                            //printf("string is: %s\n", key);
 
                             font_name = g_strdup((char *)key);
                             xmlFree(key);

@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an AS IS BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 #include <stdio.h>
@@ -120,7 +120,6 @@ static void system_setting_vconf_event_cb0(keynode_t *node, void *event_data)
 static void system_setting_vconf_event_cb1(keynode_t *node, void *event_data)
 {
 	system_settings_key_e pkey = (system_settings_key_e)event_data;
-	//printf("*** system_setting_vconf_event_cb1  : %d \n",pkey );
 
     if (node != NULL)
     {
@@ -140,7 +139,6 @@ static void system_setting_vconf_event_cb1(keynode_t *node, void *event_data)
 static void system_setting_vconf_event_cb2(keynode_t *node, void *event_data)
 {
 	system_settings_key_e pkey = (system_settings_key_e)event_data;
-	//printf("*** system_setting_vconf_event_cb2  : %d \n",pkey );
 
     if (node != NULL)
     {
@@ -160,7 +158,6 @@ static void system_setting_vconf_event_cb2(keynode_t *node, void *event_data)
 static void system_setting_vconf_event_cb3(keynode_t *node, void *event_data)
 {
 	system_settings_key_e pkey = (system_settings_key_e)event_data;
-	//printf("*** system_setting_vconf_event_cb3  : %d \n",pkey );
 
     if (node != NULL)
     {
@@ -180,7 +177,6 @@ static void system_setting_vconf_event_cb3(keynode_t *node, void *event_data)
 static void system_setting_vconf_event_cb4(keynode_t *node, void *event_data)
 {
 	system_settings_key_e pkey = (system_settings_key_e)event_data;
-	//printf("*** system_setting_vconf_event_cb4  : %d \n",pkey );
 
     if (node != NULL)
     {
