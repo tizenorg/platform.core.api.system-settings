@@ -3,8 +3,6 @@
 		<domain name="capi-system-system-settings"/>
 	</define>
 	<assign>
-		<filesystem path="/usr/ug/lib/*" label="_"/>
-		<filesystem path="/usr/ug/res/*" label="_"/>
-		<filesystem path="/usr/ug/bin/*" label="_" exec_label="_"/>
+		<filesystem path="/usr/lib/*" label="_"/>
 	</assign>
 </manifest>
