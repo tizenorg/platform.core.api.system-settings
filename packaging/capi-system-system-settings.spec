@@ -2,8 +2,8 @@ Name:       capi-system-system-settings
 Summary:    A System Settings library in Tizen Native API
 Version:    0.0.2
 Release:    3
-Group:      TO_BE/FILLED_IN
-License:    TO BE FILLED IN
+Group:      System/API
+License:    Apache-2.0
 Source0:    %{name}-%{version}.tar.gz
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(dlog)
@@ -20,19 +20,18 @@ BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(libxml-2.0)
 
-Requires(post): /sbin/ldconfig
-Requires(postun): /sbin/ldconfig
-
 %description
+A System Settings library in Tizen Native API.
 
 
 %package devel
 Summary:  A System Settings library in Tizen Native API (Development)
-Group:    TO_BE/FILLED_IN
+Group:    Development/System
 Requires: %{name} = %{version}-%{release}
 Requires:  pkgconfig(capi-base-common)
 
 %description devel
+%devel_desc
 
 
 
@@ -47,9 +46,6 @@ MAJORVER=`echo %{version} | awk 'BEGIN {FS="."}{print $1}'`
 make %{?jobs:-j%jobs}
 
 %install
-mkdir -p %{buildroot}/usr/share/license
-cp -f LICENSE.APLv2 %{buildroot}/usr/share/license/%{name}
-
 %make_install
 
 %post -p /sbin/ldconfig
@@ -58,11 +54,10 @@ cp -f LICENSE.APLv2 %{buildroot}/usr/share/license/%{name}
 
 
 %files
+%license LICENSE.APLv2
 %manifest system-settings.manifest
 %{_libdir}/lib*.so.*
-/usr/share/license/%{name}
-# /usr/local/bin/test_system_settings
-/usr/local/bin/test_system_settings_gui
+/usr/bin/test_system_settings_gui
 
 %files devel
 %{_includedir}/system/*.h

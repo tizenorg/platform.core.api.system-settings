@@ -64,7 +64,7 @@ ENDFOREACH(flag)
 
 TARGET_LINK_LIBRARIES(test_gui ${fw_name})
 SET_TARGET_PROPERTIES(test_gui PROPERTIES OUTPUT_NAME test_system_settings_gui)
-INSTALL(TARGETS test_gui DESTINATION /usr/local/bin)
+INSTALL(TARGETS test_gui DESTINATION bin)
 #---------------------------------------------------------------------
 
 
