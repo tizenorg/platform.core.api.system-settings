@@ -2,7 +2,4 @@
 	<define>
 		<domain name="capi-system-system-settings"/>
 	</define>
-	<assign>
-		<filesystem path="/usr/lib/*" label="_"/>
-	</assign>
 </manifest>
