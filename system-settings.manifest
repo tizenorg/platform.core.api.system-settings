@@ -1,8 +1,5 @@
 <manifest>
-	<define>
-		<domain name="capi-system-system-settings"/>
-	</define>
-	<assign>
-		<filesystem path="/usr/lib/*" label="_"/>
-	</assign>
+        <request>
+                <domain name="_"/>
+        </request>
 </manifest>
