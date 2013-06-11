@@ -1,0 +1,8 @@
+Change-Id: I61038f50b8eb3b855a6d8b4ab3cc65a0d890ffea
+Code-Review+2: Anas Nashif <anas.nashif@intel.com>
+Verified+1: Xavier Roche <xavier.roche@eurogiciel.fr>
+Submitted-by: Anas Nashif <anas.nashif@intel.com>
+Submitted-at: Tue, 11 Jun 2013 11:18:31 -0700
+Reviewed-on: https://review.tizen.org/gerrit/3829
+Project: platform/core/api/system-settings
+Branch: refs/heads/tizen
