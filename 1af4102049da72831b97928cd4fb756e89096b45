@@ -1,0 +1,8 @@
+Change-Id: I1af4102049da72831b97928cd4fb756e89096b45
+Code-Review+2: Anas Nashif <anas.nashif@intel.com>
+Verified+1: Rusty Lynch <rusty.lynch@intel.com>
+Submitted-by: Anas Nashif <anas.nashif@intel.com>
+Submitted-at: Thu, 13 Jun 2013 08:13:06 -0700
+Reviewed-on: https://review.tizen.org/gerrit/3987
+Project: platform/core/api/system-settings
+Branch: refs/heads/tizen
