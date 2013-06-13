@@ -1,5 +1,5 @@
 <manifest>
-	<define>
-		<domain name="capi-system-system-settings"/>
-	</define>
+	<request>
+		<domain name="_"/>
+	</request>
 </manifest>
