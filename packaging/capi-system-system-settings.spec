@@ -5,6 +5,7 @@ Release:    3
 Group:      System/API
 License:    Apache-2.0
 Source0:    %{name}-%{version}.tar.gz
+Source1001: 	capi-system-system-settings.manifest
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(dlog)
 BuildRequires:  pkgconfig(vconf)
@@ -37,6 +38,7 @@ Requires:  pkgconfig(capi-base-common)
 
 %prep
 %setup -q
+cp %{SOURCE1001} .
 
 
 %build
@@ -54,12 +56,14 @@ make %{?jobs:-j%jobs}
 
 
 %files
+%manifest %{name}.manifest
 %license LICENSE.APLv2
 %manifest system-settings.manifest
 %{_libdir}/lib*.so.*
 /usr/bin/test_system_settings_gui
 
 %files devel
+%manifest %{name}.manifest
 %{_includedir}/system/*.h
 %{_libdir}/pkgconfig/*.pc
 %{_libdir}/lib*.so
