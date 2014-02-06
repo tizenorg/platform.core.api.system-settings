@@ -17,6 +17,9 @@
 #include <system_settings.h>
 #include <system_settings_private.h>
 
+/* For multi-user support */
+#include <tzplatform_config.h>
+
 static void _quit_cb(void *data, Evas_Object* obj, void* event_info)
 {
     Evas_Object *win = (Evas_Object *) data;
@@ -178,7 +181,7 @@ void system_settings_changed_motion_activation(system_settings_key_e key, void *
 }
 void list_item_touch_handler7(void* data, Evas_Object* obj, void* event_info)
 {
-	char* path = "/opt/usr/media/Images/image16.jpg";
+	const char* path = tzplatform_mkpath(TZ_USER_CONTENT, "Images/image16.jpg");
 	int ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_WALLPAPER_HOME_SCREEN, "/aaa.png");
 	SETTING_TRACE(">>>>>>>> home screen - error case :: %d ", ret);
 
@@ -189,7 +192,7 @@ void list_item_touch_handler7(void* data, Evas_Object* obj, void* event_info)
 
 void list_item_touch_handler8(void* data, Evas_Object* obj, void* event_info)
 {
-	char* path = "/opt/usr/media/Images/image16.jpg";
+	const char* path = tzplatform_mkpath(TZ_USER_CONTENT, "Images/image16.jpg");
 	int ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_WALLPAPER_LOCK_SCREEN, "aaa.png");
 	SETTING_TRACE(">>>>>>>> lock screen - error case  : %d ", ret);
 
@@ -258,8 +261,9 @@ void list_item_touch_handler16(void* data, Evas_Object* obj, void* event_info)
 	SETTING_TRACE(">>>>>>>> get ringtone path - exception case ");
 	int ret;
 	char *ringtonepath = NULL;
-	//opt/share/settings/Ringtones/Over the horizon.mp3
-	ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, "/opt/share/settings/Ringtones/Over the horizon.mp3");
+	const char *path_to_mp3 = tzplatform_mkpath(TZ_SYS_SHARE, "settings/Ringtones/Over the horizon.mp3");
+
+	ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, path_to_mp3);
 	ret = system_settings_get_value_string(SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, &ringtonepath);
 	SETTING_TRACE(" 1 current ringtone path : (%s) ", ringtonepath);
 	// set the key to the wrong value
