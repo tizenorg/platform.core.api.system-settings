@@ -35,7 +35,24 @@ static Evas_Object* create_win(const char *name)
     elm_win_borderless_set(eo, EINA_TRUE);
     elm_win_autodel_set(eo, EINA_TRUE);
     evas_object_smart_callback_add(eo, "delete,request", _quit_cb, NULL);
-    ecore_x_window_size_get(ecore_x_window_root_first_get(), &w, &h);
+
+#ifdef USE_X11
+       Ecore_X_Window *xwin;
+       xwin = elm_win_xwindow_get(eo);
+       if (xwin != NULL)
+         ecore_x_window_size_get(ecore_x_window_root_first_get(), &w, &h);
+       else {
+#endif
+#ifdef USE_WAYLAND
+         Ecore_Wl_Window *wlwin;
+         wlwin = elm_win_wl_window_get(eo);
+         if (wlwin != NULL)
+           ecore_wl_screen_size_get(&w, &h);
+#endif
+#ifdef X11
+       }
+#endif
+
     evas_object_resize(eo, w, h);
 
     return eo;
