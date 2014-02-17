@@ -10,7 +10,21 @@ SET(PREFIX ${CMAKE_INSTALL_PREFIX})
 SET(INC_DIR include)
 INCLUDE_DIRECTORIES(${INC_DIR})
 
-SET(requires "elementary ecore ecore-x ecore-file dlog vconf appcore-efl capi-base-common glib-2.0 gobject-2.0 fontconfig libxml-2.0")
+IF(X11_SUPPORT)
+SET(ecore "ecore ecore-x")
+ENDIF(X11_SUPPORT)
+
+IF(WAYLAND_SUPPORT)
+SET(ecore "ecore ecore-wayland")
+ENDIF(WAYLAND_SUPPORT)
+
+SET(requires
+  dlog vconf
+  elementary ${ecore} ecore-file appcore-efl
+  capi-base-common
+  glib-2.0 gobject-2.0 fontconfig libxml-2.0
+)
+
 SET(pc_requires "capi-base-common")
 
 
@@ -57,7 +71,16 @@ SET_TARGET_PROPERTIES(${fw_name}
 ADD_EXECUTABLE(test_gui TC_gui/main.c)
 
 INCLUDE(FindPkgConfig)
-pkg_check_modules(test_gui REQUIRED "elementary appcore-efl ecore-imf ecore-x ecore-x eina ecore ecore-evas ecore-input")
+
+IF(X11_SUPPORT)
+    ADD_DEFINITIONS("-DUSE_X11")
+ENDIF(X11_SUPPORT)
+IF(WAYLAND_SUPPORT)
+    ADD_DEFINITIONS("-DUSE_WAYLAND")
+ENDIF(WAYLAND_SUPPORT)
+
+pkg_check_modules(test_gui REQUIRED ${ecore} "elementary appcore-efl eina ecore-imf ecore-evas ecore-input")
+
 FOREACH(flag ${test_gui_CFLAGS})
     SET(EXTRA_CFLAGS "${EXTRA_CFLAGS} ${flag}")
 ENDFOREACH(flag)
@@ -94,10 +117,10 @@ IF(UNIX)
 
 ADD_CUSTOM_TARGET (distclean @echo cleaning for source distribution)
 ADD_CUSTOM_COMMAND(
-        DEPENDS clean 
+        DEPENDS clean
         COMMENT "distribution clean"
         COMMAND find
-        ARGS    . 
+        ARGS    .
         -not -name config.cmake -and \(
         -name tester.c -or
         -name Testing -or

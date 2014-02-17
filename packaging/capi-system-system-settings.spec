@@ -1,3 +1,6 @@
+%bcond_with x
+%bcond_with wayland
+
 Name:       capi-system-system-settings
 Summary:    A System Settings library in Tizen Native API
 Version:    0.0.2
@@ -13,7 +16,12 @@ BuildRequires:  pkgconfig(vconf)
 BuildRequires:  pkgconfig(capi-base-common)
 BuildRequires:  pkgconfig(elementary)
 BuildRequires:  pkgconfig(ecore)
-BuildRequires:  pkgconfig(ecore-x)
+%if %{with x}
+BuildRequires: pkgconfig(ecore-x)
+%endif
+%if %{with wayland}
+BuildRequires: pkgconfig(ecore-wayland)
+%endif
 BuildRequires:  pkgconfig(ecore-file)
 BuildRequires:  pkgconfig(appcore-efl)
 BuildRequires:  pkgconfig(capi-base-common)
@@ -44,7 +52,17 @@ cp %{SOURCE1001} %{SOURCE1002} .
 
 %build
 MAJORVER=`echo %{version} | awk 'BEGIN {FS="."}{print $1}'`
-%cmake . -DFULLVER=%{version} -DMAJORVER=${MAJORVER}
+%cmake . -DFULLVER=%{version} -DMAJORVER=${MAJORVER} \
+%if %{with x}
+        -DX11_SUPPORT=On \
+%else
+        -DX11_SUPPORT=Off \
+%endif
+%if %{with wayland}
+        -DWAYLAND_SUPPORT=On
+%else
+        -DWAYLAND_SUPPORT=Off
+%endif
 
 make %{?jobs:-j%jobs}
 
