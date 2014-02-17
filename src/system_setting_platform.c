@@ -32,7 +32,14 @@
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 
+#ifdef USE_X11
 #include <Ecore_X.h>
+#endif
+#ifdef USE_WAYLAND
+#include <Ecore.h>
+#include <Ecore_Wayland.h>
+#endif
+
 #include <Elementary.h>
 
 #include <system_settings.h>
@@ -214,7 +221,7 @@ int _is_file_accessible(const char * path)
     int ret = access(path ,R_OK);
     if (ret == 0)
 	{
-		SETTING_TRACE("found the file  %s", path); 
+		SETTING_TRACE("found the file  %s", path);
         return 0;
 	}
     else
@@ -603,10 +610,21 @@ static char* _get_cur_font()
 
 static void font_config_set_notification()
 {
-    /* notification */
-	Ecore_X_Window ecore_win = ecore_x_window_root_first_get();
-	Ecore_X_Atom atom = ecore_x_atom_get("FONT_TYPE_change");
-	ecore_x_window_prop_string_set(ecore_win, atom, "tizen");
+#ifdef USE_X11
+         /* notification */
+         Ecore_X_Window ecore_xwin = ecore_x_window_root_first_get();
+         if (ecore_xwin != 0)	 {
+         Ecore_X_Atom atom = ecore_x_atom_get("FONT_TYPE_change");
+         ecore_x_window_prop_string_set(ecore_xwin, atom, "tizen");
+         }
+         else {
+#endif
+#ifdef USE_WAYLAND
+        //No font change notification on Wayland.(yet?)
+#endif
+#ifdef USE_X11
+       }
+#endif
 }
 
 static void font_config_set(char *font_name)
