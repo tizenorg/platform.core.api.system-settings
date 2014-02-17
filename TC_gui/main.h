@@ -19,8 +19,14 @@
 #include <stdio.h>
 #include <Elementary.h>
 #include <appcore-efl.h>
-#include <Ecore_X.h>
 
+#ifdef USE_X11
+#include <Ecore_X.h>
+#endif
+#ifdef USE_WAYLAND
+#include <Ecore.h>
+#include <Ecore_Wayland.h>
+#endif
 
 #define PACKAGE "com.samsung.appcore-mini"
 
