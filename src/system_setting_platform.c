@@ -37,13 +37,16 @@
 #include <system_settings.h>
 #include <system_settings_private.h>
 
+/* For multi-user support */
+#include <tzplatform_config.h>
+
 #define SMALL_FONT_DPI                      (-80)
 #define MIDDLE_FONT_DPI                     (-100)
 #define LARGE_FONT_DPI                      (-150)
 #define HUGE_FONT_DPI                       (-190)
 #define GIANT_FONT_DPI                      (-250)
 
-#define SETTING_FONT_CONF_FILE "/opt/etc/fonts/conf.avail/99-slp.conf"
+#define SETTING_FONT_CONF_FILE tzplatform_mkpath(TZ_SYS_ETC, "fonts/conf.avail/99-slp.conf")
 #define SETTING_STR_SLP_LEN  256
 
 static char* _get_cur_font();

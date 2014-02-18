@@ -27,6 +27,9 @@
 #include <glib.h>
 #include <glib-object.h>
 
+/* For multi-user support */
+#include <tzplatform_config.h>
+
 static void startup(void);
 static void cleanup(void);
 
@@ -98,7 +101,9 @@ static void utc_system_settings_changed_motion_activation(system_settings_key_e 
 
 static void utc_system_settings_set_string_p(void)
 {
-	int retcode = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, "/opt/share/settings/Ringtones/General_Over the horizon.mp3");
+	const char *path_to_mp3 = tzplatform_mkpath(TZ_SYS_SHARE, "settings/Ringtones/General_Over the horizon.mp3");
+
+	int retcode = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, path_to_mp3);
 
 	if (retcode == SYSTEM_SETTINGS_ERROR_NONE) {
 		dts_pass(API_NAME_SETTINGS_SET_VALUE_STRING, "passed");
