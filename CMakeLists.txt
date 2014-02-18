@@ -23,6 +23,7 @@ SET(requires
   elementary ecore ${WIN_PKG} ecore-file appcore-efl
   capi-base-common
   glib-2.0 gobject-2.0 fontconfig libxml-2.0
+  libtzplatform-config
 )
 
 SET(pc_requires "capi-base-common")
