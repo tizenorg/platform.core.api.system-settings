@@ -10,7 +10,7 @@ SET(PREFIX ${CMAKE_INSTALL_PREFIX})
 SET(INC_DIR include)
 INCLUDE_DIRECTORIES(${INC_DIR})
 
-SET(requires "elementary ecore ecore-x ecore-file dlog vconf appcore-efl capi-base-common glib-2.0 gobject-2.0 fontconfig libxml-2.0")
+SET(requires "elementary ecore ecore-file dlog vconf appcore-efl capi-base-common glib-2.0 gobject-2.0 fontconfig libxml-2.0")
 SET(pc_requires "capi-base-common")
 
 
@@ -57,7 +57,7 @@ SET_TARGET_PROPERTIES(${fw_name}
 ADD_EXECUTABLE(test_gui TC_gui/main.c)
 
 INCLUDE(FindPkgConfig)
-pkg_check_modules(test_gui REQUIRED "elementary appcore-efl ecore-imf ecore-x ecore-x eina ecore ecore-evas ecore-input")
+pkg_check_modules(test_gui REQUIRED "elementary appcore-efl ecore-imf eina ecore ecore-evas ecore-input")
 FOREACH(flag ${test_gui_CFLAGS})
     SET(EXTRA_CFLAGS "${EXTRA_CFLAGS} ${flag}")
 ENDFOREACH(flag)

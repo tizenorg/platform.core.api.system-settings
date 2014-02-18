@@ -19,7 +19,6 @@
 #include <stdio.h>
 #include <Elementary.h>
 #include <appcore-efl.h>
-#include <Ecore_X.h>
 
 
 #define PACKAGE "com.samsung.appcore-mini"

@@ -32,7 +32,6 @@
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 
-#include <Ecore_X.h>
 #include <Elementary.h>
 
 #include <system_settings.h>
@@ -389,7 +388,6 @@ int system_setting_set_font_type(system_settings_key_e key, system_setting_data_
 	font_name = (char*)value;
 
 	font_config_set(font_name);
-	font_config_set_notification();
 
 	char* vconf_value;
 	vconf_value = (char*)value;
@@ -599,14 +597,6 @@ static char* _get_cur_font()
     xmlFreeDoc(doc);
     doc = NULL;
     return NULL;
-}
-
-static void font_config_set_notification()
-{
-    /* notification */
-	Ecore_X_Window ecore_win = ecore_x_window_root_first_get();
-	Ecore_X_Atom atom = ecore_x_atom_get("FONT_TYPE_change");
-	ecore_x_window_prop_string_set(ecore_win, atom, "tizen");
 }
 
 static void font_config_set(char *font_name)

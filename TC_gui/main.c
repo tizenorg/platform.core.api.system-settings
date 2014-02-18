@@ -26,7 +26,6 @@ static void _quit_cb(void *data, Evas_Object* obj, void* event_info)
 static Evas_Object* create_win(const char *name)
 {
     Evas_Object *eo;
-    int w, h;
 
     eo = elm_win_add(NULL, name, ELM_WIN_BASIC);
     if (!eo) return NULL;
@@ -35,8 +34,6 @@ static Evas_Object* create_win(const char *name)
     elm_win_borderless_set(eo, EINA_TRUE);
     elm_win_autodel_set(eo, EINA_TRUE);
     evas_object_smart_callback_add(eo, "delete,request", _quit_cb, NULL);
-    ecore_x_window_size_get(ecore_x_window_root_first_get(), &w, &h);
-    evas_object_resize(eo, w, h);
 
     return eo;
 }
