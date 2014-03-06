@@ -12,9 +12,11 @@ INCLUDE_DIRECTORIES(${INC_DIR})
 
 IF(X11_SUPPORT)
 SET(requires "elementary ecore ecore-x ecore-file dlog vconf appcore-efl capi-base-common glib-2.0 gobject-2.0 fontconfig libxml-2.0")
-ELSE(WAYLAND_SUPPORT)
-SET(requires "elementary ecore ecore-wayland ecore-file dlog vconf appcore-efl capi-base-common glib-2.0 gobject-2.0 fontconfig libxml-2.0")
 ENDIF(X11_SUPPORT)
+
+IF(WAYLAND_SUPPORT)
+SET(requires "elementary ecore ecore-wayland ecore-file dlog vconf appcore-efl capi-base-common glib-2.0 gobject-2.0 fontconfig libxml-2.0")
+ENDIF(WAYLAND_SUPPORT)
 
 SET(pc_requires "capi-base-common")
 
