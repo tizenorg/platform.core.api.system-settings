@@ -11,16 +11,16 @@ SET(INC_DIR include)
 INCLUDE_DIRECTORIES(${INC_DIR})
 
 IF(X11_SUPPORT)
-SET(ecore "ecore ecore-x")
+SET(WIN_PKG "ecore-x")
 ENDIF(X11_SUPPORT)
 
 IF(WAYLAND_SUPPORT)
-SET(ecore "ecore ecore-wayland")
+SET(WIN_PKG "${WIN_PKG} ecore-wayland")
 ENDIF(WAYLAND_SUPPORT)
 
 SET(requires
   dlog vconf
-  elementary ${ecore} ecore-file appcore-efl
+  elementary ecore ${WIN_PKG} ecore-file appcore-efl
   capi-base-common
   glib-2.0 gobject-2.0 fontconfig libxml-2.0
 )
