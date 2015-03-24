@@ -71,29 +71,83 @@ extern "C"
 
 #define VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_NAME  "db/setting/accessibility/font_name"
 
+/**
+ * @internal
+ * @since_tizen 2.3
+ * Enumeration for data type of internal getter/setter.
+ */
 typedef enum {
-	SYSTEM_SETTING_DATA_TYPE_STRING,
-	SYSTEM_SETTING_DATA_TYPE_INT,
-	SYSTEM_SETTING_DATA_TYPE_DOUBLE,
-	SYSTEM_SETTING_DATA_TYPE_BOOL,
+	SYSTEM_SETTING_DATA_TYPE_STRING,	/**< string */
+	SYSTEM_SETTING_DATA_TYPE_INT,		/**< integer */
+	SYSTEM_SETTING_DATA_TYPE_BOOL,		/**< boolean */
+	#if 0
+	//SYSTEM_SETTING_DATA_TYPE_FLOAT,
+	//SYSTEM_SETTING_DATA_TYPE_DOULBE,
+	#endif
 } system_setting_data_type_e;
 
 
+/**
+ * @internal
+ * @since_tizen 2.3
+ * @return  0 on success, otherwise a negative error value
+ * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
 typedef int (*system_setting_get_value_cb) (system_settings_key_e key, system_setting_data_type_e data_type, void** value);
+
+/**
+ * @internal
+ * @since_tizen 2.3
+ * @return  0 on success, otherwise a negative error value
+ * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
 typedef int (*system_setting_set_value_cb) (system_settings_key_e key, system_setting_data_type_e data_type, void* value);
 
+/**
+ * @internal
+ * @since_tizen 2.3
+ * @return  0 on success, otherwise a negative error value
+ * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
 typedef int (*system_setting_set_changed_callback_cb)(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
+
+/**
+ * @internal
+ * @since_tizen 2.3
+ * @return  0 on success, otherwise a negative error value
+ * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
 typedef int (*system_setting_unset_changed_callback_cb)(system_settings_key_e key);
 
 
+/**
+ * @internal
+ * @since_tizen 2.3
+ * @return  0 on success, otherwise a negative error value
+ * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ */
 typedef struct {
-	system_settings_key_e key;										/* key */
-	system_setting_data_type_e data_type;
-	system_setting_get_value_cb get_value_cb;						/* get value */
-	system_setting_set_value_cb set_value_cb;						/* set value */
+	system_settings_key_e key;										/**< key */
+	system_setting_data_type_e data_type;							/**< data type */
+	system_setting_get_value_cb get_value_cb;						/**< function pointer for getter */
+	system_setting_set_value_cb set_value_cb;						/**< function pointer for setter */
 
-	system_setting_set_changed_callback_cb set_changed_cb;
-	system_setting_unset_changed_callback_cb unset_changed_cb ;
+	system_setting_set_changed_callback_cb set_changed_cb;			/**< function pointer to register for notification callback */
+	system_setting_unset_changed_callback_cb unset_changed_cb ;		/**< function pointer to un-register for notification callback */
 
 	system_settings_changed_cb changed_cb;							/* registered by user application */
 	void* user_data;												/* user_data */
@@ -103,23 +157,124 @@ typedef struct {
 typedef system_setting_s* system_setting_h;
 
 
+/**
+ * @internal
+ * @since_tizen 2.3
+ * @return  0 on success, otherwise a negative error value
+ * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
 int system_settings_get_item(system_settings_key_e key, system_setting_h *item);
 
 
 // get
+
+/**
+ * @internal
+ * @brief get vconf of in type value
+ * @since_tizen 2.3
+ *
+ * @param[in] vconf_key string
+ * @param[out] value get the integer type value
+ *
+ * @return 0 on success, -1 on error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
 int system_setting_vconf_get_value_int(const char *vconf_key, int *value);
+
+/**
+ * @internal
+ * @brief get vconf of in bool value
+ * @since_tizen 2.3
+ *
+ * @param[in] vconf_key string
+ * @param[out] value get the bool type value
+ *
+ * @return 0 on success, -1 on error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
 int system_setting_vconf_get_value_bool(const char *vconf_key, bool *value);
-int system_setting_vconf_get_value_double(const char *vconf_key, double *value);
+
+/**
+ * @internal
+ * @brief get vconf of string type value
+ * @since_tizen 2.3
+ *
+ * @param[in] vconf_key string
+ * @param[out] value get the string(char*) type value
+ *
+ * @return 0 on success, -1 on error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
 int system_setting_vconf_get_value_string(const char *vconf_key, char **value);
 
-// set
+/**
+ * @internal
+ * @brief set the int type vconf value
+ * @since_tizen 2.3
+ *
+ * @param[in] vconf_key key name
+ * @param[in] value int type value
+ *
+ * @return 0 on success, -1 on error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
 int system_setting_vconf_set_value_int(const char *vconf_key, int value);
+
+/**
+ * @internal
+ * @brief set the bool type vconf value
+ * @since_tizen 2.3
+ *
+ * @param[in] vconf_key key name
+ * @param[in] value bool type value
+ *
+ * @return 0 on success, -1 on error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
 int system_setting_vconf_set_value_bool(const char *vconf_key, bool value);
-int system_setting_vconf_set_value_double(const char *vconf_key, double value);
+
+/**
+ * @internal
+ * @brief set the string type vconf value
+ * @since_tizen 2.3
+ *
+ * @param[in] vconf_key key name
+ * @param[in] value string type value
+ *
+ * @return 0 on success, -1 on error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
 int system_setting_vconf_set_value_string(const char *vconf_key, char *value);
 
-
+/**
+ * @internal
+ * @brief Set the system settings notification callback
+ * @since_tizen 2.3
+ * @param[in] vconf_key
+ * @param[in] key
+ * @param[in] slot internal slot to set the key (0~4)
+ * @param[in] user_data user data
+ * @return  0 on success, otherwise a negative error value
+ * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
 int system_setting_vconf_set_changed_cb(const char *vconf_key, system_settings_key_e key, int slot, void* user_data);
+
+/**
+ * @internal
+ * @brief Unset the system settings notification callback
+ * @since_tizen 2.3
+ * @param[in] vconf_key vconf key name used in the code
+ * @param[in] slot internal slot to set the key (0~4)
+ * @return  0 on success, otherwise a negative error value
+ * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
 int system_setting_vconf_unset_changed_cb(const char *vconf_key, int slot);
 
 int system_setting_get_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void** value);

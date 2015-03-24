@@ -232,6 +232,7 @@ int system_settings_get_value_bool(system_settings_key_e key, bool *value)
 	return system_settings_get_value(key, SYSTEM_SETTING_DATA_TYPE_BOOL, (void**)value);
 }
 
+#if 0
 int system_settings_set_value_double(system_settings_key_e key, double value)
 {
 	double* ptr = &value;
@@ -242,6 +243,7 @@ int system_settings_get_value_double(system_settings_key_e key, double *value)
 {
 	return system_settings_get_value(key, SYSTEM_SETTING_DATA_TYPE_DOUBLE, (void**)value);
 }
+#endif
 
 int system_settings_set_value_string(system_settings_key_e key, const char *value)
 {

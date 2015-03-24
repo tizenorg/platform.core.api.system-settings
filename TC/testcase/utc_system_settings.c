@@ -49,8 +49,13 @@ void (*tet_cleanup)(void) = cleanup;
 static void utc_system_settings_set_string_p(void);
 static void utc_system_settings_set_bool_p(void);
 static void utc_system_settings_get_string_p(void);
-static void utc_system_settings_get_int_p(void);
+
+static void utc_system_settings_set_bool_p(void);
 static void utc_system_settings_get_bool_p(void);
+
+static void utc_system_settings_get_int_p(void);
+static void utc_system_settings_set_int_p(void);
+
 static void utc_system_settings_set_changed_cb(void);
 static void utc_system_settings_unset_changed_cb(void);
 
@@ -61,6 +66,7 @@ struct tet_testlist tet_testlist[] = {
 	{utc_system_settings_get_string_p, 1},
 	{utc_system_settings_get_int_p, 1},
 	{utc_system_settings_get_bool_p, 1},
+	{utc_system_settings_set_int_p, 1},
 	{utc_system_settings_set_changed_cb, 1},
 	{utc_system_settings_unset_changed_cb, 1},
 	{NULL, 0},
@@ -163,6 +169,19 @@ static void utc_system_settings_get_bool_p(void)
 		dts_fail(API_NAME_SETTINGS_GET_VALUE_BOOL, "failed");
 	}
 }
+
+static void utc_system_settings_set_int_p(void)
+{
+    int retcode =system_settings_set_value_int(SYSTEM_SETTINGS_KEY_FONT_SIZE, SYSTEM_SETTINGS_FONT_SIZE_NORMAL);
+
+	if (retcode == SYSTEM_SETTINGS_ERROR_NONE) {
+		dts_pass(API_NAME_SETTINGS_SET_VALUE_INT, "passed");
+	}
+	else {
+		dts_fail(API_NAME_SETTINGS_SET_VALUE_INT, "failed");
+	}
+}
+
 
 static void utc_system_settings_set_changed_cb(void)
 {

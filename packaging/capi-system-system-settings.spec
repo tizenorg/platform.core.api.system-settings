@@ -29,7 +29,12 @@ BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(pkgmgr)
+BuildRequires:  pkgconfig(pkgmgr-info)
 BuildRequires:  pkgconfig(libtzplatform-config)
+
+Requires(post): /sbin/ldconfig  
+Requires(postun): /sbin/ldconfig
 
 %description
 A System Settings library in Tizen Native API.
@@ -68,6 +73,7 @@ MAJORVER=`echo %{version} | awk 'BEGIN {FS="."}{print $1}'`
 make %{?jobs:-j%jobs}
 
 %install
+rm -rf %{buildroot}
 %make_install
 
 %post -p /sbin/ldconfig
