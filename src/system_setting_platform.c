@@ -1078,10 +1078,12 @@ static char *_get_cur_font()
 
 static void font_config_set_notification()
 {
+#if 0
 	/* notification */
 	Ecore_X_Window ecore_win = ecore_x_window_root_first_get();
 	Ecore_X_Atom atom = ecore_x_atom_get("FONT_TYPE_change");
 	ecore_x_window_prop_string_set(ecore_win, atom, "tizen");
+#endif
 }
 
 int __is_available_font(char *font_name)
