@@ -136,16 +136,6 @@ system_setting_s system_setting_table[] = {
 		NULL		/* user data */
 	},
 	{
-		SYSTEM_SETTINGS_KEY_TAP_AND_HOLD_DELAY,
-		SYSTEM_SETTING_DATA_TYPE_INT,
-		system_setting_get_tap_and_hold_delay,
-		system_setting_set_tap_and_hold_delay,
-		system_setting_set_changed_callback_tap_and_hold_delay,
-		system_setting_unset_changed_callback_tap_and_hold_delay,
-		NULL,
-		NULL		/* user data */
-	},
-	{
 		SYSTEM_SETTINGS_KEY_LOCKSCREEN_APP,
 		SYSTEM_SETTING_DATA_TYPE_STRING,
 		system_setting_get_lockscreen_app,
@@ -296,6 +286,16 @@ system_setting_s system_setting_table[] = {
 		NULL		/* user data */
 	},
 	{
+		SYSTEM_SETTINGS_KEY_MOTION_ENABLED,
+		SYSTEM_SETTING_DATA_TYPE_BOOL,
+		system_setting_get_motion_activation,
+		NULL,
+		system_setting_set_changed_callback_motion_activation,
+		system_setting_unset_changed_callback_motion_activation,
+		NULL,
+		NULL		/* user data */
+	},
+	{
 		SYSTEM_SETTINGS_KEY_NETWORK_FLIGHT_MODE,
 		SYSTEM_SETTING_DATA_TYPE_BOOL,
 		system_setting_get_network_flight_mode,
@@ -338,45 +338,76 @@ static void _dump_context()
 	}
 }
 
-
-int system_settings_get_item(system_settings_key_e key, system_setting_h *item)
+static int _dump_context_node(int key)
 {
 	int index = 0;
 
-	if (!(key > 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
-#if 0
-	_dump_context();
-#endif
+
 	while (system_setting_table[index].key != SYSTEM_SETTINGS_MAX) {
 		if (system_setting_table[index].key == key) {
-			*item = &system_setting_table[index];
+			int i = index;
+			LOGE("[%s] system_setting_table[i].key = %d", __FUNCTION__, system_setting_table[i].key);
+			LOGE("[%s] system_setting_table[i].data_type = %d", __FUNCTION__, system_setting_table[i].data_type);
+			LOGE("[%s] system_setting_table[i].get_value_cb = %x", __FUNCTION__, system_setting_table[i].get_value_cb);
+			LOGE("[%s] system_setting_table[i].set_value_cb = %x", __FUNCTION__, system_setting_table[i].set_value_cb);
+			LOGE("[%s] system_setting_table[i].set_changed_cb = %x <---", __FUNCTION__, system_setting_table[i].set_changed_cb);
+			LOGE("[%s] system_setting_table[i].unset_changed_cb = %x", __FUNCTION__, system_setting_table[i].unset_changed_cb);
+			LOGE("[%s] system_setting_table[i].changed_cb = %x", __FUNCTION__, system_setting_table[i].changed_cb);
 			return 0;
 		}
-
 		index++;
 	}
 
 	return -1;
 }
 
+int system_settings_get_item(system_settings_key_e key, system_setting_h *item)
+{
+	LOGE("Enter [%s], key=%d", __FUNCTION__, key);
+
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+		LOGE("Enter [%s] catch invalid parameter error (%d) ", __FUNCTION__, key);
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+#if 0
+	_dump_context();
+#endif
+	int index = 0;
+	while (system_setting_table[index].key != SYSTEM_SETTINGS_MAX) {
+		if (system_setting_table[index].key == key) {
+			*item = &system_setting_table[index];
+			LOGE("Enter [%s], index = %d, key = %d, type = %d", __FUNCTION__, index, key, (*item)->data_type);
+			return SYSTEM_SETTINGS_ERROR_NONE;
+		}
+
+		index++;
+	}
+
+	return TIZEN_ERROR_INVALID_PARAMETER;
+}
+
 int system_settings_get_value(system_settings_key_e key, system_setting_data_type_e data_type, void **value)
 {
-	if (!(key > 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
 
 	system_setting_h system_setting_item;
 	system_setting_get_value_cb	system_setting_getter;
 
-	if (system_settings_get_item(key, &system_setting_item)) {
+	if (0 != system_settings_get_item(key, &system_setting_item)) {
+		_dump_context_node(key);
 		LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid key --- (%d)", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER, key);
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
 
 	if (system_setting_item->data_type != data_type) {
-		LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid data type", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
+		_dump_context_node(key);
+		LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid data type --- key : (%d), datatype:(%d)", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER, key, data_type);
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
 
@@ -392,7 +423,8 @@ int system_settings_get_value(system_settings_key_e key, system_setting_data_typ
 
 int system_settings_set_value(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
-	if (!(key > 0 && SYSTEM_SETTINGS_KEY_MAX > key) || value == NULL) {
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key) || value == NULL) {
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
 
@@ -400,9 +432,11 @@ int system_settings_set_value(system_settings_key_e key, system_setting_data_typ
 	system_setting_h system_setting_item;
 	system_setting_set_value_cb	system_setting_setter;
 
-	if (system_settings_get_item(key, &system_setting_item)) {
+	int ret = system_settings_get_item(key, &system_setting_item);
+
+	if (0 != ret ) {
 		LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid key", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
-		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+		return SYSTEM_SETTINGS_ERROR_CALL_UNSUPPORTED_API;
 	}
 
 	/* type check */
@@ -414,8 +448,8 @@ int system_settings_set_value(system_settings_key_e key, system_setting_data_typ
 	system_setting_setter = system_setting_item->set_value_cb;
 
 	if (system_setting_setter == NULL) {
-		LOGE("[%s] IO_ERROR(0x%08x) : failed to call getter for the system settings", __FUNCTION__, SYSTEM_SETTINGS_ERROR_IO_ERROR);
-		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+		LOGE("[%s] IO_ERROR(0x%08x) : failed to call setter for the system settings", __FUNCTION__, SYSTEM_SETTINGS_ERROR_CALL_UNSUPPORTED_API);
+		return SYSTEM_SETTINGS_ERROR_CALL_UNSUPPORTED_API;
 	}
 
 	return system_setting_setter(key, system_setting_item->data_type, value);
@@ -423,7 +457,8 @@ int system_settings_set_value(system_settings_key_e key, system_setting_data_typ
 
 int system_settings_set_value_int(system_settings_key_e key, int value)
 {
-	if (!(key > 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
 
@@ -433,7 +468,8 @@ int system_settings_set_value_int(system_settings_key_e key, int value)
 
 int system_settings_get_value_int(system_settings_key_e key, int *value)
 {
-	if (!(key > 0 && SYSTEM_SETTINGS_KEY_MAX > key) || value == NULL) {
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
 
@@ -442,7 +478,8 @@ int system_settings_get_value_int(system_settings_key_e key, int *value)
 
 int system_settings_set_value_bool(system_settings_key_e key, bool value)
 {
-	if (!(key > 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
 
@@ -452,15 +489,14 @@ int system_settings_set_value_bool(system_settings_key_e key, bool value)
 
 int system_settings_get_value_bool(system_settings_key_e key, bool *value)
 {
+	LOGE("Enter [%s]", __FUNCTION__);
 	int flag = 0;
 
 	int ret;
 
-	if (!(key > 0 && SYSTEM_SETTINGS_KEY_MAX > key) || value == NULL) {
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
-
-
 
 	ret = system_settings_get_value(key, SYSTEM_SETTING_DATA_TYPE_BOOL, (void **)&flag);
 	SETTING_TRACE(" inf (flag) value : %d ", flag);
@@ -480,7 +516,8 @@ int system_settings_get_value_bool(system_settings_key_e key, bool *value)
 
 int system_settings_set_value_string(system_settings_key_e key, const char *value)
 {
-	if (!(key > 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
 
@@ -493,7 +530,8 @@ int system_settings_set_value_string(system_settings_key_e key, const char *valu
 
 int system_settings_get_value_string(system_settings_key_e key, char **value)
 {
-	if (!(key > 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
 
@@ -501,19 +539,14 @@ int system_settings_get_value_string(system_settings_key_e key, char **value)
 }
 
 
-/*
-	- START
-		- system_settings_set_changed_cb
-			-> int (*system_setting_set_changed_callback_cb)(key, callback, user_data)
-*/
-
 /*PUBLIC*/
 int system_settings_set_changed_cb(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
+	LOGE("Enter [%s]", __FUNCTION__);
 	system_setting_h system_setting_item;
 	system_setting_set_changed_callback_cb system_setting_set_changed_cb;
 
-	if (!(key > 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
 
@@ -546,10 +579,11 @@ int system_settings_set_changed_cb(system_settings_key_e key, system_settings_ch
 
 int system_settings_unset_changed_cb(system_settings_key_e key)
 {
+	LOGE("Enter [%s]", __FUNCTION__);
 	system_setting_h system_setting_item;
 	system_setting_unset_changed_callback_cb system_setting_unset_changed_cb;
 
-	if (!(key > 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
 		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 	}
 
