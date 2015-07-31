@@ -436,7 +436,7 @@ int system_settings_set_value(system_settings_key_e key, system_setting_data_typ
 
 	if (0 != ret ) {
 		LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid key", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
-		return SYSTEM_SETTINGS_ERROR_CALL_UNSUPPORTED_API;
+		return SYSTEM_SETTINGS_ERROR_NOT_SUPPORTED;
 	}
 
 	/* type check */
@@ -448,8 +448,8 @@ int system_settings_set_value(system_settings_key_e key, system_setting_data_typ
 	system_setting_setter = system_setting_item->set_value_cb;
 
 	if (system_setting_setter == NULL) {
-		LOGE("[%s] IO_ERROR(0x%08x) : failed to call setter for the system settings", __FUNCTION__, SYSTEM_SETTINGS_ERROR_CALL_UNSUPPORTED_API);
-		return SYSTEM_SETTINGS_ERROR_CALL_UNSUPPORTED_API;
+		LOGE("[%s] IO_ERROR(0x%08x) : failed to call setter for the system settings", __FUNCTION__, SYSTEM_SETTINGS_ERROR_NOT_SUPPORTED);
+		return SYSTEM_SETTINGS_ERROR_NOT_SUPPORTED;
 	}
 
 	return system_setting_setter(key, system_setting_item->data_type, value);
