@@ -490,7 +490,8 @@ int system_settings_set_value_bool(system_settings_key_e key, bool value)
 int system_settings_get_value_bool(system_settings_key_e key, bool *value)
 {
 	LOGE("Enter [%s]", __FUNCTION__);
-	int flag = 0;
+	SETTING_TRACE(" SIGNED LONG here ******************* log here *************** ");
+	signed long flag = 0;
 
 	int ret;
 
