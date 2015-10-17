@@ -46,6 +46,7 @@ typedef enum
 	SYSTEM_SETTINGS_ERROR_IO_ERROR =  TIZEN_ERROR_IO_ERROR, /**< Internal I/O error */
 	SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED =  TIZEN_ERROR_PERMISSION_DENIED, /**< Permition denied */
 	SYSTEM_SETTINGS_ERROR_NOT_SUPPORTED =  TIZEN_ERROR_NOT_SUPPORTED, /**< Not supported @if MOBILE (Since 2.3.1) @endif */
+	SYSTEM_SETTINGS_ERROR_CALL_UNSUPPORTED_API = TIZEN_ERROR_NOT_SUPPORTED, /**< Not supported @if MOBILE (Since 2.3.1) @endif */
 
 	/* lock screen app error code */
 	SYSTEM_SETTINGS_ERROR_LOCKSCREEN_APP_PASSWORD_MODE = TIZEN_ERROR_SYSTEM_SETTING | 0x01, /**< Current lock screen app set 'password' type */
