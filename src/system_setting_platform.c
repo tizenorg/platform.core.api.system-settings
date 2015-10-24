@@ -1582,9 +1582,11 @@ int system_setting_unset_changed_callback_locale_timeformat_24hour(system_settin
 	return system_setting_vconf_unset_changed_cb(VCONFKEY_REGIONFORMAT_TIME1224, 3);
 }
 
+	//VCONFKEY_SETAPPL_TIMEZONE_ID
 int system_setting_get_locale_timezone(system_settings_key_e key, system_setting_data_type_e data_type, void **value)
 {
 	SETTING_TRACE_BEGIN;
+#if 0
 	char tzpath[256];
 	ssize_t len = readlink(SETTING_TZONE_SYMLINK_PATH, tzpath, sizeof(tzpath) - 1);
 	if (len != -1) {
@@ -1593,10 +1595,12 @@ int system_setting_get_locale_timezone(system_settings_key_e key, system_setting
 		SETTING_TRACE("parse error for SETTING_TZONE_SYMLINK_PATH");
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
-
 	/* "/usr/share/zoneinfo/Asia/Seoul" */
 	SETTING_TRACE("tzpath : %s ", &tzpath[20]);
 	*value = strdup(&tzpath[20]);
+#else
+	*value = vconf_get_str(VCONFKEY_SETAPPL_TIMEZONE_ID);
+#endif
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
