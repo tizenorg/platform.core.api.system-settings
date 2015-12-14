@@ -316,6 +316,16 @@ system_setting_s system_setting_table[] = {
 		NULL		/* user data */
 	},
 	{
+		SYSTEM_SETTINGS_KEY_LOCK_STATE,
+		SYSTEM_SETTING_DATA_TYPE_INT,
+		system_setting_get_lock_state,
+		system_setting_set_lock_state,
+		system_setting_set_changed_callback_lock_state,
+		system_setting_unset_changed_callback_lock_state,
+		NULL,
+		NULL		/* user data */
+	},
+	{
 		SYSTEM_SETTINGS_MAX, -1, NULL, NULL, NULL, NULL, NULL, NULL
 	}
 };

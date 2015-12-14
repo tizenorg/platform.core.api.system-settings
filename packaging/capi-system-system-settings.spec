@@ -3,7 +3,7 @@ Summary:    A System Settings library in Tizen Native API
 Version:    0.0.2
 Release:    3
 Group:      System/System Info
-License:    Apache-1.0
+License:    Apache-2.0
 Source0:    %{name}-%{version}.tar.gz
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(dlog)
@@ -13,11 +13,15 @@ BuildRequires:  pkgconfig(elementary)
 BuildRequires:  pkgconfig(ecore)
 BuildRequires:  pkgconfig(ecore-file)
 BuildRequires:  pkgconfig(appcore-efl)
+BuildRequires:  pkgconfig(capi-appfw-application)
 BuildRequires:  pkgconfig(capi-base-common)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(bundle)
+BuildRequires:  pkgconfig(pkgmgr)
+BuildRequires:  pkgconfig(pkgmgr-info)
 
 Requires(post): /sbin/ldconfig  
 Requires(postun): /sbin/ldconfig

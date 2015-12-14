@@ -91,9 +91,20 @@ typedef enum {
 
     SYSTEM_SETTINGS_KEY_SOUND_NOTIFICATION, 			/**< (string) Indicates the file path of the current notification tone set by the user. */
     SYSTEM_SETTINGS_KEY_SOUND_NOTIFICATION_REPETITION_PERIOD, 	/**< (int) Indicates the time period for notification repetitions. */
+    SYSTEM_SETTINGS_KEY_LOCK_STATE, 	/**< (int) Indicates the current lock state */
     SYSTEM_SETTINGS_KEY_MAX,
 
 } system_settings_key_e;
+
+/**
+ * @brief Enumeration for Idle Lock State
+ * @since_tizen 2.3.1
+ */
+typedef enum {
+    SYSTEM_SETTINGS_LOCK_STATE_UNLOCK = 0, /**< Device is unlocked */
+    SYSTEM_SETTINGS_LOCK_STATE_LOCK, /**< Device is locked */
+    SYSTEM_SETTINGS_LOCK_STATE_LAUNCHING_LOCK /**< Device is being locked */
+} system_settings_idle_lock_state_e;
 
 
 /**
@@ -140,7 +151,6 @@ int system_settings_set_value_int(system_settings_key_e key, int value);
 /**
  * @brief Gets the system settings value associated with the given key as an integer.
  * @since_tizen 2.3
- * @privlevel public
  * @param[in] key The key name of the system settings
  * @param[out] value The current system settings value of the given key
  * @return @c 0 on success, otherwise a negative error value
@@ -148,6 +158,7 @@ int system_settings_set_value_int(system_settings_key_e key, int value);
  * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
  * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
  * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @warning %http://tizen.org/privilege/systemsettings (public level privilege) <b>MUST NOT</b> be declared to use this API since 2.3.1.
  */
 int system_settings_get_value_int(system_settings_key_e key, int *value);
 
@@ -171,7 +182,6 @@ int system_settings_set_value_bool(system_settings_key_e key, bool value);
 /**
  * @brief Gets the system settings value associated with the given key as a boolean.
  * @since_tizen 2.3
- * @privlevel public
  * @param[in] key The key name of the system settings
  * @param[out] value The current system settings value of the given key
  * @return @c 0 on success, otherwise a negative error value
@@ -179,6 +189,7 @@ int system_settings_set_value_bool(system_settings_key_e key, bool value);
  * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
  * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
  * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @warning %http://tizen.org/privilege/systemsettings (public level privilege) <b>MUST NOT</b> be declared to use this API since 2.3.1.
  */
 int system_settings_get_value_bool(system_settings_key_e key, bool *value);
 
@@ -202,7 +213,6 @@ int system_settings_set_value_string(system_settings_key_e key, const char *valu
 /**
  * @brief Gets the system settings value associated with the given key as a string.
  * @since_tizen 2.3
- * @privlevel public
  * @remarks You must release @a value using free().
  * @param[in] key The key name of the system settings
  * @param[out] value The current system settings value of the given key
@@ -211,13 +221,13 @@ int system_settings_set_value_string(system_settings_key_e key, const char *valu
  * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
  * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
  * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @warning %http://tizen.org/privilege/systemsettings (public level privilege) <b>MUST NOT</b> be declared to use this API since 2.3.1.
  */
 int system_settings_get_value_string(system_settings_key_e key, char **value);
 
 /**
  * @brief Registers a change event callback for the given system settings key.
  * @since_tizen 2.3
- * @privlevel public
  * @remarks #SYSTEM_SETTINGS_KEY_DEFAULT_FONT_TYPE is not available for set_changed_cb.
  * @param[in] key The key name of the system settings
  * @param[in] callback The callback function to invoke
@@ -230,6 +240,7 @@ int system_settings_get_value_string(system_settings_key_e key, char **value);
  *
  * @see system_settings_unset_changed_cb()
  * @see system_settings_changed_cb()
+ * @warning %http://tizen.org/privilege/systemsettings (public level privilege) <b>MUST NOT</b> be declared to use this API since 2.3.1.
  *
 */
 int system_settings_set_changed_cb(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
@@ -237,7 +248,6 @@ int system_settings_set_changed_cb(system_settings_key_e key, system_settings_ch
 /**
  * @brief Unregisters the callback function.
  * @since_tizen 2.3
- * @privlevel public
  * @remarks #SYSTEM_SETTINGS_KEY_DEFAULT_FONT_TYPE is not available for set_changed_cb.
  * @param[in] key The key name of the system settings
  * @return  0 on success, otherwise a negative error value
@@ -246,6 +256,7 @@ int system_settings_set_changed_cb(system_settings_key_e key, system_settings_ch
  * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  *
  * @see system_settings_set_changed_cb()
+ * @warning %http://tizen.org/privilege/systemsettings (public level privilege) <b>MUST NOT</b> be declared to use this API since 2.3.1.
  */
 int system_settings_unset_changed_cb(system_settings_key_e key);
 
