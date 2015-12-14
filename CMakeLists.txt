@@ -11,8 +11,8 @@ SET(LIBDIR "${CMAKE_LIBDIR}")
 SET(INC_DIR include)
 INCLUDE_DIRECTORIES(${INC_DIR})
 
-#SET(requires "elementary ecore ecore-file dlog vconf appcore-efl capi-base-common glib-2.0 gobject-2.0 fontconfig libxml-2.0 efl-assist")
-SET(requires "elementary ecore ecore-file dlog vconf appcore-efl capi-base-common glib-2.0 gobject-2.0 fontconfig libxml-2.0")
+SET(requires "elementary ecore ecore-file dlog vconf appcore-efl capi-base-common glib-2.0 gobject-2.0 fontconfig libxml-2.0 bundle capi-appfw-application pkgmgr pkgmgr-info")
+
 SET(pc_requires "capi-base-common")
 
 IF(TIZEN_WEARABLE)
