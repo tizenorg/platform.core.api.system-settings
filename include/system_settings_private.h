@@ -1198,6 +1198,47 @@ int system_setting_set_changed_callback_network_wifi_notification(system_setting
 int system_setting_unset_changed_callback_network_wifi_notification(system_settings_key_e key);
 
 
+/**
+ * @internal
+ * @brief get current Idle Lock State
+ * @since_tizen 2.3.1
+ * @return  0 on success, otherwise a negative error value
+ * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_setting_get_lock_state(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
+
+/**
+ * @internal
+ * @since_tizen 2.3
+ * @return  0 on success, otherwise a negative error value
+ * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_setting_set_lock_state(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
+
+/**
+ * @internal
+ * @since_tizen 2.3
+ * @return  0 on success, otherwise a negative error value
+ * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_setting_set_changed_callback_lock_state(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
+
+/**
+ * @internal
+ * @since_tizen 2.3
+ * @return  0 on success, otherwise a negative error value
+ * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_setting_unset_changed_callback_lock_state(system_settings_key_e key);
+
 
 /*// */
 

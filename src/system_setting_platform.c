@@ -36,10 +36,17 @@
 
 #include <fontconfig/fontconfig.h>
 
+//#include <pkgmgr-info.h>
 
 #include <Elementary.h>
 #include <Evas.h>
 #include <Ecore_Evas.h>
+
+#include <bundle.h>
+#include <bundle_internal.h>
+#include <eventsystem.h>
+#include <app_control_internal.h>
+#include <pkgmgr-info.h>
 
 #include <system_settings.h>
 #include <system_settings_private.h>
@@ -278,6 +285,20 @@ int _is_file_accessible(const char *path)
 			return -errno;
 	}
 }
+
+void _systemsetting_set_event_system(const char *sys_evt, const char *evt_key, const char *evt_val)
+{
+	bundle *b = NULL;
+
+	SETTING_TRACE("sys_evt: %s, evt_key: %s, evt_val: %s", sys_evt, evt_key, evt_val);
+
+	b = bundle_create();
+	bundle_add_str(b, evt_key, evt_val);
+	eventsystem_request_sending_system_event(sys_evt, b);
+	bundle_free(b);
+}
+
+
 
 int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
@@ -602,6 +623,7 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 
 int system_setting_set_wallpaper_lock_screen(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
+	SETTING_TRACE_BEGIN;
 	char *vconf_value;
 	vconf_value = (char *)value;
 
@@ -647,6 +669,7 @@ int system_setting_set_font_size(system_settings_key_e key, system_setting_data_
  */
 void *font_conf_doc_parse(char *doc_name, char *font_name)
 {
+	SETTING_TRACE_BEGIN;
 	xmlDocPtr doc = NULL;
 	xmlNodePtr cur = NULL;
 	xmlNodePtr cur2 = NULL;
@@ -776,6 +799,9 @@ int system_setting_set_font_type(system_settings_key_e key, system_setting_data_
 
 	char *vconf_value;
 	vconf_value = (char *)value;
+
+	_systemsetting_set_event_system(SYS_EVENT_FONT_SET, EVT_KEY_FONT_SET, vconf_value);
+
 	if (system_setting_vconf_set_value_string(VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_NAME, vconf_value)) {
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
@@ -813,6 +839,12 @@ int system_setting_set_3g_data_network(system_settings_key_e key, system_setting
 	if (system_setting_vconf_set_value_bool(VCONFKEY_3G_ENABLE, *vconf_value)) {
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
+
+	if (*vconf_value)
+		_systemsetting_set_event_system(SYS_EVENT_MOBILE_DATA_STATE, EVT_KEY_MOBILE_DATA_STATE, EVT_VAL_MOBILE_DATA_ON);
+	else
+		_systemsetting_set_event_system(SYS_EVENT_MOBILE_DATA_STATE, EVT_KEY_MOBILE_DATA_STATE, EVT_VAL_MOBILE_DATA_OFF);
+
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
@@ -842,7 +874,6 @@ int system_setting_set_lockscreen_app(system_settings_key_e key, system_setting_
 	char *vconf_value;
 	vconf_value = (char *)value;		/* ex) com.samsung.lockscreen */
 
-#if 0
 	int r = 0;
 	pkgmgrinfo_appinfo_h handle;
 	char *apptype = NULL;
@@ -879,7 +910,6 @@ int system_setting_set_lockscreen_app(system_settings_key_e key, system_setting_
 			return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 		}
 	}
-#endif
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
@@ -1459,7 +1489,7 @@ int system_setting_set_locale_country(system_settings_key_e key, system_setting_
 	if (system_setting_vconf_set_value_string(VCONFKEY_REGIONFORMAT, arr)) {
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
-
+	_systemsetting_set_event_system(SYS_EVENT_REGION_FORMAT, EVT_KEY_REGION_FORMAT, arr);
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
@@ -1510,6 +1540,7 @@ int system_setting_set_locale_language(system_settings_key_e key, system_setting
 	if (system_setting_vconf_set_value_string(VCONFKEY_LANGSET, arr)) {
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
+	_systemsetting_set_event_system(SYS_EVENT_LANGUAGE_SET, EVT_KEY_LANGUAGE_SET, arr);
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
@@ -1582,7 +1613,6 @@ int system_setting_unset_changed_callback_locale_timeformat_24hour(system_settin
 	return system_setting_vconf_unset_changed_cb(VCONFKEY_REGIONFORMAT_TIME1224, 3);
 }
 
-	//VCONFKEY_SETAPPL_TIMEZONE_ID
 int system_setting_get_locale_timezone(system_settings_key_e key, system_setting_data_type_e data_type, void **value)
 {
 	SETTING_TRACE_BEGIN;
@@ -1732,6 +1762,11 @@ int system_setting_set_sound_silent_mode(system_settings_key_e key, system_setti
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
 
+	if (*vconf_value) {
+		_systemsetting_set_event_system(SYS_EVENT_SILENT_MODE, EVT_KEY_SILENT_MODE, EVT_VAL_SILENTMODE_ON);
+	} else {
+		_systemsetting_set_event_system(SYS_EVENT_SILENT_MODE, EVT_KEY_SILENT_MODE, EVT_VAL_SILENTMODE_OFF);
+	}
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
@@ -1813,6 +1848,12 @@ int system_setting_set_auto_rotation_mode(system_settings_key_e key, system_sett
 	if (system_setting_vconf_set_value_bool(VCONFKEY_SETAPPL_AUTO_ROTATE_SCREEN_BOOL, *vconf_value)) {
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
+
+	if (*vconf_value)
+		_systemsetting_set_event_system(SYS_EVENT_SCREEN_AUTOROTATE_STATE, EVT_KEY_SCREEN_AUTOROTATE_STATE, EVT_VAL_SCREEN_AUTOROTATE_ON);
+	else
+		_systemsetting_set_event_system(SYS_EVENT_SCREEN_AUTOROTATE_STATE, EVT_KEY_SCREEN_AUTOROTATE_STATE, EVT_VAL_SCREEN_AUTOROTATE_OFF);
+
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
@@ -1943,7 +1984,7 @@ int system_setting_set_notification_repetition_period(system_settings_key_e key,
 int system_setting_set_changed_callback_notification_repetition_period(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
 	SETTING_TRACE_BEGIN;
-	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_NOTI_MSG_ALERT_REP_TYPE_INT, SYSTEM_SETTINGS_KEY_DISPLAY_SCREEN_ROTATION_AUTO, 1, user_data);
+	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_NOTI_MSG_ALERT_REP_TYPE_INT, SYSTEM_SETTINGS_KEY_SOUND_NOTIFICATION_REPETITION_PERIOD, 1, user_data);
 }
 
 int system_setting_unset_changed_callback_notification_repetition_period(system_settings_key_e key)
@@ -2040,5 +2081,39 @@ int system_setting_unset_changed_callback_network_wifi_notification(system_setti
 	return system_setting_vconf_unset_changed_cb(VCONFKEY_WIFI_ENABLE_QS, 4);
 }
 
+int system_setting_get_lock_state(system_settings_key_e key, system_setting_data_type_e data_type, void **value)
+{
+	int vconf_value;
+
+	if (system_setting_vconf_get_value_int(VCONFKEY_IDLE_LOCK_STATE_READ_ONLY, &vconf_value)) {
+		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+	}
+	*value = (void *)vconf_value;
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+int system_setting_set_lock_state(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	SETTING_TRACE_BEGIN;
+	int *vconf_value;
+	vconf_value = (int *)value;
+
+	if (system_setting_vconf_set_value_int(VCONFKEY_IDLE_LOCK_STATE_READ_ONLY, *vconf_value)) {
+		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+	}
+	SETTING_TRACE_END;
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+int system_setting_set_changed_callback_lock_state(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
+{
+	return system_setting_vconf_set_changed_cb(VCONFKEY_IDLE_LOCK_STATE_READ_ONLY, SYSTEM_SETTINGS_KEY_LOCK_STATE, 4, user_data);
+}
+
+int system_setting_unset_changed_callback_lock_state(system_settings_key_e key)
+{
+	return system_setting_vconf_unset_changed_cb(VCONFKEY_IDLE_LOCK_STATE_READ_ONLY, 4);
+}
 
 
