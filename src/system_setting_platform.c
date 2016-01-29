@@ -329,7 +329,8 @@ int system_setting_set_email_alert_ringtone(system_settings_key_e key, system_se
 bool __is_supported_image_type_load(char *path)
 {
 	SETTING_TRACE_BEGIN;
-	evas_init();
+	//evas_init();
+	ecore_evas_init();
 	Ecore_Evas  *ee;
 	Evas        *evas;
 
