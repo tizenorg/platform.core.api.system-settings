@@ -67,8 +67,8 @@ typedef enum {
 
     SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, /**< (bool) Indicates whether the motion service is activated */
     SYSTEM_SETTINGS_KEY_EMAIL_ALERT_RINGTONE,  /**< (string) The file path of the current email alert ringtone */
-    SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED,  /**< (bool) Indicates whether the USB debugging is enabled (Since 2.4) */
-    SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED,  /**< bool) Indicates whether the 3G data network is enabled (Since 2.4) */
+    SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED,  /**< (bool) Indicates whether the USB debugging is enabled (Since @if MOBILE 2.4 @elseif WEARABLE 3.0 @endif) */
+    SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED,  /**< bool) Indicates whether the 3G data network is enabled (Since @if MOBILE 2.4 @elseif WEARABLE 3.0 @endif) */
     SYSTEM_SETTINGS_KEY_LOCKSCREEN_APP = SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED+2,  /**< (string) Indicates lockscreen app pkg name  */
 
     SYSTEM_SETTINGS_KEY_DEFAULT_FONT_TYPE,/**< (string) The current system default font type (only support Get) */
