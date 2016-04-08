@@ -50,6 +50,8 @@
 #include <system_settings.h>
 #include <system_settings_private.h>
 
+#include <tzplatform_config.h>
+
 #ifdef USE_EFL_ASSIST
 #include <efl_assist.h>
 #endif
@@ -70,11 +72,11 @@
 #define HUGE_FONT_DPI                       (-190)
 #define GIANT_FONT_DPI                      (-250)
 
-#define SETTING_FONT_PRELOAD_FONT_PATH "/usr/share/fonts"
-#define SETTING_FONT_DOWNLOADED_FONT_PATH "/opt/share/fonts"
+#define SETTING_FONT_PRELOAD_FONT_PATH _TZ_SYS_RO_SHARE"/fonts"
+#define SETTING_FONT_DOWNLOADED_FONT_PATH _TZ_SYS_RO_SHARE"/fonts"
 
-#define SETTING_FONT_CONF_FILE "/opt/etc/fonts/conf.avail/99-slp.conf"
-#define SETTING_DEFAULT_FONT_CONF_FILE "/usr/opt/etc/fonts/conf.avail/99-slp.conf"
+#define SETTING_FONT_CONF_FILE _TZ_SYS_ETC"/fonts/conf.avail/99-tizen.conf"
+#define SETTING_DEFAULT_FONT_CONF_FILE _TZ_SYS_ETC"/fonts/conf.avail/99-tizen.conf"
 
 #define SETTING_STR_LEN  256
 
@@ -468,7 +470,7 @@ static int system_setting_remove_oldest_extended_wallpaper()
 	unsigned int temp_image_num = 0;
 	int image_count = 0;
 
-	if ((dp = opendir("/opt/usr/data/setting/wallpaper")) == NULL) {
+	if ((dp = opendir(_TZ_SYS_DATA"/setting/wallpaper")) == NULL) {
 		SETTING_TRACE("opendir error");
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
@@ -492,7 +494,7 @@ static int system_setting_remove_oldest_extended_wallpaper()
 
 	char buf[512];
 	if (min_image_name) {
-		snprintf(buf, sizeof(buf) - 1, "/opt/usr/data/setting/wallpaper/%s", min_image_name);
+		snprintf(buf, sizeof(buf) - 1, _TZ_SYS_DATA"/setting/wallpaper/%s", min_image_name);
 		if (remove(buf) < 0) {	/* remove oldest image */
 			return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 		}
@@ -503,10 +505,12 @@ static int system_setting_remove_oldest_extended_wallpaper()
 
 static int system_setting_check_extended_wallpaper(const char *file_path)
 {
+	char buffer[512];
 	SETTING_TRACE_BEGIN;
 	if (!file_path || !strlen(file_path))
 		return 0;
-	return (strstr(file_path, "/opt/usr/media/.bgwallpaper") != NULL);
+	snprintf(buffer, 512, "%s/.bgwallpaper", tzplatform_getenv(TZ_USER_CONTENT));
+	return (strstr(file_path, buffer) != NULL);
 }
 
 #define WALLPAPER_MAX_COUNT		10
@@ -538,13 +542,13 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 
 #ifdef TIZEN_WEARABLE
 	if (system_setting_check_extended_wallpaper(vconf_value)) {	/* New extended wallpaper */
-		DIR *dp;
+		DIR *dp = NULL;
 		struct dirent *dirp;
 		unsigned int max_image_num = 0;
 		unsigned int temp_image_num = 0;
 		int image_count = 0;
 
-		if ((dp = opendir("/opt/usr/data/setting/wallpaper")) == NULL) {
+		if ((dp = opendir(_TZ_SYS_DATA"/setting/wallpaper")) == NULL) {
 			SETTING_TRACE("Setting - dir open error!");
 			return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 		}
@@ -556,6 +560,8 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 
 			if (system_setting_get_extended_wallpaper_num(dirp->d_name, &temp_image_num)
 			    != SYSTEM_SETTINGS_ERROR_NONE) {
+				if(dp)
+					closedir(dp);
 				return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 			}
 
@@ -565,6 +571,8 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 
 			image_count++;
 		}
+		if(dp)
+			closedir(dp);
 
 		/* Numbering rule: Gear is odd number */
 		max_image_num = (max_image_num % 2 == 0) ? max_image_num + 1
@@ -572,9 +580,9 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 
 		char file_name_buffer[512];
 		snprintf(file_name_buffer, sizeof(file_name_buffer) - 1,
-		         "/opt/usr/data/setting/wallpaper/extended_wallpaper_%d.jpg", max_image_num);
+		         _TZ_SYS_DATA"/setting/wallpaper/extended_wallpaper_%d.jpg", max_image_num);
 
-		/* Copy image to /opt/usr/data/setting/wallpaper/ */
+		/* Copy image to _TZ_SYS_DATA/setting/wallpaper/ */
 		if (system_setting_copy_extended_wallpaper(file_name_buffer, vconf_value)
 		    != SYSTEM_SETTINGS_ERROR_NONE) {
 			return SYSTEM_SETTINGS_ERROR_IO_ERROR;

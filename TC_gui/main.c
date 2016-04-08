@@ -16,6 +16,7 @@
 #include "main.h"
 #include <system_settings.h>
 #include <system_settings_private.h>
+#include <tzplatform_config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -290,7 +291,8 @@ void list_item_touch_handler8_1(void *data, Evas_Object *obj, void *event_info)
 
 void list_item_touch_handler7(void *data, Evas_Object *obj, void *event_info)
 {
-	char *path = "/opt/usr/media/Images/image16.jpg";
+	char path[512];
+	snprintf(path, 512, "%s/Images/image16.jpg", tzplatform_getenv(TZ_USER_CONTENT));
 	int ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_WALLPAPER_HOME_SCREEN, "/aaa.png");
 	SETTING_TRACE(">>>>>>>> home screen - error case :: %d ", ret);
 
@@ -301,7 +303,8 @@ void list_item_touch_handler7(void *data, Evas_Object *obj, void *event_info)
 
 void list_item_touch_handler8(void *data, Evas_Object *obj, void *event_info)
 {
-	char *path = "/opt/usr/media/Images/image16.jpg";
+	char path[512];
+	snprintf(path, 512, "%s/Images/image16.jpg", tzplatform_getenv(TZ_USER_CONTENT));
 	int ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_WALLPAPER_LOCK_SCREEN, "aaa.png");
 	SETTING_TRACE(">>>>>>>> lock screen - error case  : %d ", ret);
 
@@ -371,7 +374,7 @@ void list_item_touch_handler16(void *data, Evas_Object *obj, void *event_info)
 	int ret;
 	char *ringtonepath = NULL;
 	/*opt/share/settings/Ringtones/Over the horizon.mp3 */
-	ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, "/opt/share/settings/Ringtones/Over the horizon.mp3");
+	ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, _TZ_SYS_SHARE"/settings/Ringtones/Over the horizon.mp3");
 	ret = system_settings_get_value_string(SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, &ringtonepath);
 	SETTING_TRACE(" 1 current ringtone path : (%s) ", ringtonepath);
 	/* set the key to the wrong value */
@@ -383,8 +386,8 @@ void list_item_touch_handler16(void *data, Evas_Object *obj, void *event_info)
 
 void list_item_touch_handler21(void *data, Evas_Object *obj, void *event_info)
 {
-	char *path1 = "/opt/usr/share/settings/Alerts/Over the horizon.mp3";
-	char *path2 = "/opt/usr/share/settings/Alerts/Over the horizon.mp3.bak";
+	char *path1 = _TZ_SYS_SHARE"/settings/Alerts/Over the horizon.mp3";
+	char *path2 = _TZ_SYS_SHARE"/settings/Alerts/Over the horizon.mp3.bak";
 
 	SETTING_TRACE(">>>>>>>> get ringtone path ");
 	char *ringtonepath = NULL;
@@ -408,7 +411,7 @@ void list_item_touch_handler22(void *data, Evas_Object *obj, void *event_info)
 	int ret;
 	char *ringtonepath = NULL;
 	/*opt/share/settings/Ringtones/Over the horizon.mp3 */
-	ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_EMAIL_ALERT_RINGTONE, "/opt/share/settings/Ringtones/Over the horizon.mp3");
+	ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_EMAIL_ALERT_RINGTONE, _TZ_SYS_SHARE"/settings/Ringtones/Over the horizon.mp3");
 	ret = system_settings_get_value_string(SYSTEM_SETTINGS_KEY_EMAIL_ALERT_RINGTONE, &ringtonepath);
 	SETTING_TRACE(" 1 current ringtone path : (%s) ", ringtonepath);
 	/* set the key to the wrong value */
@@ -439,7 +442,7 @@ void list_item_touch_handler15_2(void *data, Evas_Object *obj, void *event_info)
 	int ret;
 	char *ringtonepath = NULL;
 	/*opt/share/settings/ringtones/ringtone_sdk.mp3 */
-	ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_SOUND_NOTIFICATION, "/opt/share/settings/Ringtones/ringtone_sdk.mp3");
+	ret = system_settings_set_value_string(SYSTEM_SETTINGS_KEY_SOUND_NOTIFICATION, _TZ_SYS_SHARE"/settings/Ringtones/ringtone_sdk.mp3");
 	ret = system_settings_get_value_string(SYSTEM_SETTINGS_KEY_SOUND_NOTIFICATION, &ringtonepath);
 	SETTING_TRACE(" 1 current ringtone path : (%s) ", ringtonepath);
 	/* set the key to the wrong value */

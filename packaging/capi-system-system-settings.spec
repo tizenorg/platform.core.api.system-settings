@@ -69,8 +69,12 @@ export CXXFLAGS="$CXXFLAGS -DTIZEN_ENGINEER_MODE"
 export FFLAGS="$FFLAGS -DTIZEN_ENGINEER_MODE"
 %endif
 
-MAJORVER=`echo %{version} | awk 'BEGIN {FS="."}{print $1}'`  
-cmake . -DCMAKE_INSTALL_PREFIX=/usr -DFULLVER=%{version} -DMAJORVER=${MAJORVER}  -DCMAKE_LIBDIR=%{_libdir}
+MAJORVER=`echo %{version} | awk 'BEGIN {FS="."}{print $1}'`
+cmake . -DCMAKE_INSTALL_PREFIX=/usr -DFULLVER=%{version} -DMAJORVER=${MAJORVER}  -DCMAKE_LIBDIR=%{_libdir} \
+	-DTZ_SYS_DATA=%{TZ_SYS_DATA} \
+	-DTZ_SYS_ETC=%{TZ_SYS_ETC} \
+	-DTZ_SYS_RO_SHARE=%{TZ_SYS_RO_SHARE} \
+	-DTZ_SYS_SHARE=%{TZ_SYS_SHARE}
 
 make %{?jobs:-j%jobs}
 
