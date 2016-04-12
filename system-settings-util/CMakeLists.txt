@@ -1,0 +1,43 @@
+#set variable
+# SYSTEM_SETTINGS_UTIL - setting-common
+
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT(${SYSTEM_SETTINGS_UTIL})
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+SET(requires "elementary ecore ecore-file dlog vconf appcore-efl capi-base-common glib-2.0 gobject-2.0 fontconfig libxml-2.0 bundle capi-appfw-application pkgmgr pkgmgr-info")
+
+PKG_CHECK_MODULES(system_settings_util REQUIRED ${requires})
+
+FOREACH(flag ${system_settings_util_CFLAGS})
+	SET(EXTRA_CFLAGS "${EXTRA_CFLAGS} ${flag}")
+ENDFOREACH(flag)
+
+#SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXTRA_CFLAGS} -fPIC -Werror-implicit-function-declaration")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXTRA_CFLAGS} -fPIC")
+SET(CMAKE_C_FLAGS_DEBUG "-O0 -g")
+
+IF("${ARCH}" STREQUAL "arm")
+	ADD_DEFINITIONS("-DTARGET")
+	MESSAGE("add -DTARGET")
+ENDIF("${ARCH}" STREQUAL "arm")
+
+ADD_DEFINITIONS("-DPREFIX=\"${CMAKE_INSTALL_PREFIX}\"")
+ADD_DEFINITIONS("-DDATADIR=\"${DATADIR}\"")
+ADD_DEFINITIONS("-DSLP_DEBUG")
+ADD_DEFINITIONS("-shared")
+
+#SET(CMAKE_EXE_LINKER_FLAGS "-Wl,--as-needed -Wl, --rpath=/usr/lib")
+
+#make lib-${LIB_SYSTEM_SETTINGS_UTIL}.so files
+ADD_LIBRARY(${LIB_SYSTEM_SETTINGS_UTIL} SHARED
+	./src/system_settings_util.c
+)
+
+TARGET_LINK_LIBRARIES(${LIB_SYSTEM_SETTINGS_UTIL} ${system_settings_util_LDFLAGS})
+SET_TARGET_PROPERTIES(${LIB_SYSTEM_SETTINGS_UTIL} PROPERTIES VERSION 0.1.0 SOVERSION 1)
+INSTALL(TARGETS ${LIB_SYSTEM_SETTINGS_UTIL} DESTINATION ${CMAKE_LIBDIR})
+
+INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/include/system_settings_util.h DESTINATION ${CMAKE_INCLUDEDIR})
+

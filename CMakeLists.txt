@@ -2,6 +2,10 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 SET(fw_name "capi-system-system-settings")
 
+SET(SYSTEM_SETTINGS_UTIL system-settings-util)
+SET(LIB_SYSTEM_SETTINGS_UTIL lib_system-settings-util)
+
+
 PROJECT(${fw_name})
 
 SET(CMAKE_INSTALL_PREFIX /usr)
@@ -11,7 +15,7 @@ SET(LIBDIR "${CMAKE_LIBDIR}")
 SET(INC_DIR include)
 INCLUDE_DIRECTORIES(${INC_DIR})
 
-SET(requires "elementary ecore ecore-file dlog vconf appcore-efl capi-base-common glib-2.0 gobject-2.0 fontconfig libxml-2.0 bundle capi-appfw-application pkgmgr pkgmgr-info")
+SET(requires "dlog vconf appcore-efl capi-base-common glib-2.0 gobject-2.0 fontconfig libxml-2.0 bundle capi-appfw-application pkgmgr pkgmgr-info")
 
 SET(pc_requires "capi-base-common")
 
@@ -47,9 +51,18 @@ ADD_DEFINITIONS("-D_TZ_SYS_SHARE=\"${TZ_SYS_SHARE}\"")
 SET(CMAKE_EXE_LINKER_FLAGS "-Wl,--as-needed -Wl,--rpath=/usr/lib")
 
 aux_source_directory(src SOURCES)
+
+
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/${SYSTEM_SETTINGS_UTIL}/include)
+ADD_SUBDIRECTORY(${CMAKE_SOURCE_DIR}/${SYSTEM_SETTINGS_UTIL})
+
+
+
+AUX_SOURCE_DIRECTORY(src SOURCES)
 ADD_LIBRARY(${fw_name} SHARED ${SOURCES})
 
 TARGET_LINK_LIBRARIES(${fw_name} ${${fw_name}_LDFLAGS})
+TARGET_LINK_LIBRARIES(${fw_name} ${LIB_SYSTEM_SETTINGS_UTIL})
 
 SET_TARGET_PROPERTIES(${fw_name}
      PROPERTIES
