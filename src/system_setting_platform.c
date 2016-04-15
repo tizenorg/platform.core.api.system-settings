@@ -92,6 +92,8 @@ static char *_get_default_font();
 
 static bool font_config_set(char *font_name);
 static void font_config_set_notification();
+int _is_file_accessible(const char *path);
+int __is_available_font(char *font_name);
 
 /**
  * VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR has a path of the ringtone file which user choose
@@ -382,7 +384,7 @@ bool __is_supported_image_type_by_ext(char *file_path)
 	if (!file_path) return false;
 
 	int ret = false;
-	if (ret = regcomp(&fsm, PATH_EXT_CHECK_REG, REG_ICASE | REG_EXTENDED)) {
+	if ((ret = regcomp(&fsm, PATH_EXT_CHECK_REG, REG_ICASE | REG_EXTENDED))) {
 		SETTING_TRACE("regular expresstion fail");
 		return 1;
 	}
@@ -863,7 +865,6 @@ int system_setting_set_lockscreen_app(system_settings_key_e key, system_setting_
 
 	int r = 0;
 	pkgmgrinfo_appinfo_h handle;
-	char *apptype = NULL;
 	r = pkgmgrinfo_appinfo_get_appinfo(vconf_value, &handle);
 	if (r != PMINFO_R_OK) {
 		SETTING_TRACE("*** pkginfo failed ");
@@ -1105,7 +1106,6 @@ int __is_available_font(char *font_name)
 	FcObjectSet *os = NULL;
 	FcFontSet *fs = NULL;
 	FcPattern *pat = NULL;
-	Eina_List *list = NULL;
 	FcConfig *font_config = NULL;
 
 	int ret = 0;
@@ -1169,7 +1169,7 @@ int __is_available_font(char *font_name)
 						/* I will set english as default family language. */
 						/* If there is no proper family language for current locale, */
 						/* we have to show the english family name. */
-						if (!strcmp(lang, "en")) {
+						if (!strcmp((char*)lang, "en")) {
 							family_result = (char *)family;
 						}
 						id++;
@@ -1410,7 +1410,6 @@ static int __font_size_get()
 {
 	SETTING_TRACE_BEGIN;
 	int font_size = -1;
-	int err = -1;
 
 	int vconf_value = -1;
 	if (system_setting_vconf_get_value_int(VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_SIZE, &vconf_value)) {
@@ -1453,7 +1452,7 @@ int system_setting_get_locale_country(system_settings_key_e key, system_setting_
 	/* parsing validation */
 	/* en_US.UTF-8 */
 	char arr[20];
-	snprintf(arr, 20, vconf_value);
+	snprintf(arr, 20, "%s", vconf_value);
 	arr[5] = '\0';
 	*value = strdup(arr);
 	free(vconf_value);
@@ -1504,7 +1503,7 @@ int system_setting_get_locale_language(system_settings_key_e key, system_setting
 	/* parsing validation */
 	/* en_US.UTF-8 */
 	char arr[20];
-	snprintf(arr, 20, vconf_value);
+	snprintf(arr, 20, "%s", vconf_value);
 	arr[5] = '\0';
 	*value = strdup(arr);
 	free(vconf_value);
@@ -1552,7 +1551,7 @@ int system_setting_get_locale_timeformat_24hour(system_settings_key_e key, syste
 		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 	}
 
-	bool ret_value;
+	bool ret_value = true;
 	if (vconf_value == VCONFKEY_TIME_FORMAT_12)
 		ret_value = false;
 	else if (vconf_value == VCONFKEY_TIME_FORMAT_24)

@@ -330,13 +330,14 @@ system_setting_s system_setting_table[] = {
 	}
 };
 
+#if 0
 static void _dump_context()
 {
 	int i;
 	/*int max = SYSTEM_SETTINGS_MAX; */
 	int max = sizeof(system_setting_table) / sizeof(system_setting_s) - 1 ;
 
-	for (i = 0; i < 27; i++) {
+	for (i = 0; i < max; i++) {
 		LOGE("[%s] system_setting_table[i].key = %d", __FUNCTION__, system_setting_table[i].key);
 		LOGE("[%s] system_setting_table[i].data_type = %d", __FUNCTION__, system_setting_table[i].data_type);
 		LOGE("[%s] system_setting_table[i].get_value_cb = %x", __FUNCTION__, system_setting_table[i].get_value_cb);
@@ -347,6 +348,7 @@ static void _dump_context()
 		LOGE("[%s] system_setting_table[i].changed_cb = %x", __FUNCTION__, system_setting_table[i].changed_cb);
 	}
 }
+#endif
 
 static int _dump_context_node(int key)
 {
