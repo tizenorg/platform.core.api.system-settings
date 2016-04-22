@@ -11,7 +11,7 @@ SET(LIBDIR "${CMAKE_LIBDIR}")
 SET(INC_DIR include)
 INCLUDE_DIRECTORIES(${INC_DIR})
 
-SET(requires "elementary ecore ecore-file dlog vconf appcore-efl capi-base-common glib-2.0 gobject-2.0 fontconfig libxml-2.0 bundle capi-appfw-application pkgmgr pkgmgr-info")
+SET(requires "elementary ecore dlog vconf fontconfig libxml-2.0 pkgmgr pkgmgr-info")
 
 SET(pc_requires "capi-base-common")
 

@@ -42,9 +42,6 @@
 #include <Evas.h>
 #include <Ecore_Evas.h>
 
-#include <bundle.h>
-#include <bundle_internal.h>
-#include <app_control_internal.h>
 #include <pkgmgr-info.h>
 
 #include <system_settings.h>
