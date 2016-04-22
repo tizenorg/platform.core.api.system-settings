@@ -7,13 +7,19 @@ PROJECT(${fw_name})
 SET(CMAKE_INSTALL_PREFIX /usr)
 SET(PREFIX ${CMAKE_INSTALL_PREFIX})
 
+SET(SYSTEM_SETTINGS_UTIL system-settings-util)
+SET(LIB_SYSTEM_SETTINGS_UTIL system-settings-util)
+
 SET(LIBDIR "${CMAKE_LIBDIR}")
 SET(INC_DIR include)
 INCLUDE_DIRECTORIES(${INC_DIR})
 
-SET(requires "elementary ecore dlog vconf fontconfig libxml-2.0 pkgmgr pkgmgr-info")
-
+SET(requires "dlog vconf fontconfig libxml-2.0 pkgmgr pkgmgr-info")
 SET(pc_requires "capi-base-common")
+
+
+
+
 
 IF(TIZEN_WEARABLE)
     ADD_DEFINITIONS(-DTIZEN_WEARABLE)
@@ -46,7 +52,10 @@ ADD_DEFINITIONS("-D_TZ_SYS_SHARE=\"${TZ_SYS_SHARE}\"")
 
 SET(CMAKE_EXE_LINKER_FLAGS "-Wl,--as-needed -Wl,--rpath=/usr/lib")
 
-aux_source_directory(src SOURCES)
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/${SYSTEM_SETTINGS_UTIL}/include)
+ADD_SUBDIRECTORY(${CMAKE_SOURCE_DIR}/${SYSTEM_SETTINGS_UTIL})
+
+AUX_SOURCE_DIRECTORY(src SOURCES)
 ADD_LIBRARY(${fw_name} SHARED ${SOURCES})
 
 TARGET_LINK_LIBRARIES(${fw_name} ${${fw_name}_LDFLAGS})

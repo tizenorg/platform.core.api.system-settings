@@ -64,6 +64,7 @@ export FFLAGS="$FFLAGS -DTIZEN_ENGINEER_MODE"
 
 MAJORVER=`echo %{version} | awk 'BEGIN {FS="."}{print $1}'`
 cmake . -DCMAKE_INSTALL_PREFIX=/usr -DFULLVER=%{version} -DMAJORVER=${MAJORVER}  -DCMAKE_LIBDIR=%{_libdir} \
+	-DCMAKE_INCLUDEDIR=%{_includedir} \
 	-DTZ_SYS_DATA=%{TZ_SYS_DATA} \
 	-DTZ_SYS_ETC=%{TZ_SYS_ETC} \
 	-DTZ_SYS_RO_SHARE=%{TZ_SYS_RO_SHARE} \
@@ -89,5 +90,6 @@ rm -rf %{buildroot}
 %files devel
 %manifest %{name}.manifest
 %{_includedir}/system/*.h
+%{_includedir}/system_settings_util.h
 %{_libdir}/pkgconfig/*.pc
 %{_libdir}/lib*.so
