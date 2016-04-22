@@ -14,6 +14,7 @@ BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(pkgmgr)
 BuildRequires:  pkgconfig(pkgmgr-info)
+BuildRequires:  pkgconfig(libtzplatform-config)
 
 Requires(post): /sbin/ldconfig  
 Requires(postun): /sbin/ldconfig

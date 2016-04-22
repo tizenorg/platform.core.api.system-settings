@@ -43,8 +43,8 @@ static Evas_Object *create_win(const char *name)
 	elm_win_borderless_set(eo, EINA_TRUE);
 	elm_win_autodel_set(eo, EINA_TRUE);
 	evas_object_smart_callback_add(eo, "delete,request", _quit_cb, NULL);
-	//ecore_x_window_size_get(ecore_x_window_root_first_get(), &w, &h);
-	//evas_object_resize(eo, w, h);
+	/*ecore_x_window_size_get(ecore_x_window_root_first_get(), &w, &h); */
+	/*evas_object_resize(eo, w, h); */
 
 	return eo;
 }
@@ -894,23 +894,23 @@ static int _rotation_cb(enum appcore_rm mode, void *data)
 	int angle;
 
 	switch (mode) {
-		case APPCORE_RM_LANDSCAPE_NORMAL:
-			angle = -90;
-			break;
+	case APPCORE_RM_LANDSCAPE_NORMAL:
+		angle = -90;
+		break;
 
-		case APPCORE_RM_LANDSCAPE_REVERSE:
-			angle = 90;
-			break;
+	case APPCORE_RM_LANDSCAPE_REVERSE:
+		angle = 90;
+		break;
 
-		case APPCORE_RM_PORTRAIT_REVERSE:
-			angle = 180;
-			break;
+	case APPCORE_RM_PORTRAIT_REVERSE:
+		angle = 180;
+		break;
 
-		case APPCORE_RM_UNKNOWN:
-		case APPCORE_RM_PORTRAIT_NORMAL:
-		default:
-			angle = 0;
-			break;
+	case APPCORE_RM_UNKNOWN:
+	case APPCORE_RM_PORTRAIT_NORMAL:
+	default:
+		angle = 0;
+		break;
 	}
 
 	elm_win_rotation_with_resize_set(ad->win_main, angle);

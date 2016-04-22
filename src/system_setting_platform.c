@@ -36,7 +36,7 @@
 
 #include <fontconfig/fontconfig.h>
 
-//#include <pkgmgr-info.h>
+/*#include <pkgmgr-info.h> */
 
 #include <Elementary.h>
 #include <Evas.h>
@@ -280,9 +280,9 @@ int _is_file_accessible(const char *path)
 		SETTING_TRACE("found the file  %s", path);
 		return 0;
 	} else {
-		// error code : 13
+		/* error code : 13 */
 		SETTING_TRACE("found the file  %s --- error code : %d ", path, errno);
-			return -errno;
+		return -errno;
 	}
 }
 
@@ -330,7 +330,7 @@ int system_setting_set_email_alert_ringtone(system_settings_key_e key, system_se
 bool __is_supported_image_type_load(char *path)
 {
 	SETTING_TRACE_BEGIN;
-	//evas_init();
+	/*evas_init(); */
 	ecore_evas_init();
 	Ecore_Evas  *ee;
 	Evas        *evas;
@@ -559,7 +559,7 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 
 			if (system_setting_get_extended_wallpaper_num(dirp->d_name, &temp_image_num)
 			    != SYSTEM_SETTINGS_ERROR_NONE) {
-				if(dp)
+				if (dp)
 					closedir(dp);
 				return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 			}
@@ -570,7 +570,7 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 
 			image_count++;
 		}
-		if(dp)
+		if (dp)
 			closedir(dp);
 
 		/* Numbering rule: Gear is odd number */
@@ -1166,7 +1166,7 @@ int __is_available_font(char *font_name)
 						/* I will set english as default family language. */
 						/* If there is no proper family language for current locale, */
 						/* we have to show the english family name. */
-						if (!strcmp((char*)lang, "en")) {
+						if (!strcmp((char *)lang, "en")) {
 							family_result = (char *)family;
 						}
 						id++;
@@ -1414,24 +1414,24 @@ static int __font_size_get()
 	}
 
 	switch (vconf_value) {
-		case SYSTEM_SETTINGS_FONT_SIZE_SMALL:
-			font_size = SMALL_FONT_DPI;
-			break;
-		case SYSTEM_SETTINGS_FONT_SIZE_NORMAL:
-			font_size = MIDDLE_FONT_DPI;
-			break;
-		case SYSTEM_SETTINGS_FONT_SIZE_LARGE:
-			font_size = LARGE_FONT_DPI;
-			break;
-		case SYSTEM_SETTINGS_FONT_SIZE_HUGE:
-			font_size = HUGE_FONT_DPI;
-			break;
-		case SYSTEM_SETTINGS_FONT_SIZE_GIANT:
-			font_size = GIANT_FONT_DPI;
-			break;
-		default:
-			font_size = MIDDLE_FONT_DPI;
-			break;
+	case SYSTEM_SETTINGS_FONT_SIZE_SMALL:
+		font_size = SMALL_FONT_DPI;
+		break;
+	case SYSTEM_SETTINGS_FONT_SIZE_NORMAL:
+		font_size = MIDDLE_FONT_DPI;
+		break;
+	case SYSTEM_SETTINGS_FONT_SIZE_LARGE:
+		font_size = LARGE_FONT_DPI;
+		break;
+	case SYSTEM_SETTINGS_FONT_SIZE_HUGE:
+		font_size = HUGE_FONT_DPI;
+		break;
+	case SYSTEM_SETTINGS_FONT_SIZE_GIANT:
+		font_size = GIANT_FONT_DPI;
+		break;
+	default:
+		font_size = MIDDLE_FONT_DPI;
+		break;
 	}
 	return font_size;
 }

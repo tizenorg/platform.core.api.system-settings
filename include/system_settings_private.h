@@ -39,20 +39,20 @@ extern "C"
 #define SETTING_TRACE_DEBUG(fmt, arg...) \
 	do {\
 		SECURE_LOGD("\033[0;32mDEBUG: " fmt "\033[0m\n", ##arg);\
-	}while(0);
+	} while (0);
 
 #define SETTING_TRACE(fmt, arg...) \
 	do {\
 		SECURE_LOGI("\033[0;36m" fmt "\033[0m\n", ##arg);\
-	}while(0);
+	} while (0);
 
 #define SETTING_TRACE_BEGIN do {\
 		SECURE_LOGD("\033[0;35mENTER FUNCTION: %s. \033[0m\n", __FUNCTION__);\
-	}while(0);
+	} while (0);
 
 #define SETTING_TRACE_END  do {\
 		SECURE_LOGD("\033[0;35mEXIT FUNCTION: %s. \033[0m\n", __FUNCTION__);\
-	}while(0);
+	} while (0);
 #else
 #define SETTING_TRACE_DEBUG(fmt, arg...)
 #define SETTING_TRACE(fmt, arg...)

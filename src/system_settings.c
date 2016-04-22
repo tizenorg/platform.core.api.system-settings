@@ -446,7 +446,7 @@ int system_settings_set_value(system_settings_key_e key, system_setting_data_typ
 
 	int ret = system_settings_get_item(key, &system_setting_item);
 
-	if (0 != ret ) {
+	if (0 != ret) {
 		LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid key", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
 		return SYSTEM_SETTINGS_ERROR_NOT_SUPPORTED;
 	}
