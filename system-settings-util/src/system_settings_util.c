@@ -33,20 +33,20 @@
 #include <system_settings_util.h>
 
 #ifdef TIZEN_WEARABLE
-#define SMALL_FONT_DPI                      (-90)
+#define SMALL_FONT_DPI						(-90)
 #endif
 #ifdef TIZEN_MOBILE
-#define SMALL_FONT_DPI                      (-80)
+#define SMALL_FONT_DPI						(-80)
 #endif
-#define MIDDLE_FONT_DPI                     (-100)
+#define MIDDLE_FONT_DPI						(-100)
 #ifdef TIZEN_WEARABLE
-#define LARGE_FONT_DPI                      (-110)
+#define LARGE_FONT_DPI						(-110)
 #endif
 #ifdef TIZEN_MOBILE
-#define LARGE_FONT_DPI                      (-150)
+#define LARGE_FONT_DPI						(-150)
 #endif
-#define HUGE_FONT_DPI                       (-190)
-#define GIANT_FONT_DPI                      (-250)
+#define HUGE_FONT_DPI						(-190)
+#define GIANT_FONT_DPI						(-250)
 
 #define SETTING_FONT_PRELOAD_FONT_PATH _TZ_SYS_RO_SHARE"/fonts"
 #define SETTING_FONT_DOWNLOADED_FONT_PATH _TZ_SYS_RO_SHARE"/fonts"
@@ -66,10 +66,10 @@ void __font_size_set();
 bool __is_supported_image_type_load(char *path)
 {
 	SETTING_TRACE_BEGIN;
-	//evas_init();
+	/*evas_init(); */
 	ecore_evas_init();
-	Ecore_Evas  *ee;
-	Evas        *evas;
+	Ecore_Evas	*ee;
+	Evas		*evas;
 
 	ee = ecore_evas_new(NULL, 0, 0, 100, 100, NULL);
 	evas = ecore_evas_get(ee);
@@ -184,7 +184,6 @@ int __is_available_font(char *font_name)
 	FcObjectSet *os = NULL;
 	FcFontSet *fs = NULL;
 	FcPattern *pat = NULL;
-	Eina_List *list = NULL;
 	FcConfig *font_config = NULL;
 
 	int ret = 0;
@@ -226,7 +225,7 @@ int __is_available_font(char *font_name)
 				int download_path_len = strlen(SETTING_FONT_DOWNLOADED_FONT_PATH);
 
 				if (file && (!strncmp((const char *)file, SETTING_FONT_PRELOAD_FONT_PATH, preload_path_len)
-				             || !strncmp((const char *)file, SETTING_FONT_DOWNLOADED_FONT_PATH, download_path_len))) {
+							 || !strncmp((const char *)file, SETTING_FONT_DOWNLOADED_FONT_PATH, download_path_len))) {
 					char *family_result = NULL;
 					FcChar8 *lang = NULL;
 					int id = 0;
@@ -248,7 +247,7 @@ int __is_available_font(char *font_name)
 						/* I will set english as default family language. */
 						/* If there is no proper family language for current locale, */
 						/* we have to show the english family name. */
-						if (!strcmp((char*)lang, (char*)"en")) {
+						if (!strcmp((char *)lang, (char *)"en")) {
 							family_result = (char *)family;
 						}
 						id++;
@@ -406,10 +405,10 @@ bool font_config_set(char *font_name)
 		elm_config_font_overlay_set("tizen_medium", (const char *)font_name,  MIDDLE_FONT_DPI);
 	}
 	if (slp_roman_exist == EINA_FALSE) {
-		elm_config_font_overlay_set("tizen_roman", (const char *)font_name,  MIDDLE_FONT_DPI);
+		elm_config_font_overlay_set("tizen_roman", (const char *)font_name,	 MIDDLE_FONT_DPI);
 	}
 	if (slp_bold_exist == EINA_FALSE) {
-		elm_config_font_overlay_set("tizen_bold", (const char *)font_name,  MIDDLE_FONT_DPI);
+		elm_config_font_overlay_set("tizen_bold", (const char *)font_name,	MIDDLE_FONT_DPI);
 	}
 	if (slp_regular_exist == EINA_FALSE) {
 		elm_config_font_overlay_set("tizen_regular", (const char *)font_name,  MIDDLE_FONT_DPI);
@@ -496,24 +495,24 @@ int __font_size_get()
 	}
 
 	switch (vconf_value) {
-		case SYSTEM_SETTINGS_FONT_SIZE_SMALL:
-			font_size = SMALL_FONT_DPI;
-			break;
-		case SYSTEM_SETTINGS_FONT_SIZE_NORMAL:
-			font_size = MIDDLE_FONT_DPI;
-			break;
-		case SYSTEM_SETTINGS_FONT_SIZE_LARGE:
-			font_size = LARGE_FONT_DPI;
-			break;
-		case SYSTEM_SETTINGS_FONT_SIZE_HUGE:
-			font_size = HUGE_FONT_DPI;
-			break;
-		case SYSTEM_SETTINGS_FONT_SIZE_GIANT:
-			font_size = GIANT_FONT_DPI;
-			break;
-		default:
-			font_size = MIDDLE_FONT_DPI;
-			break;
+	case SYSTEM_SETTINGS_FONT_SIZE_SMALL:
+		font_size = SMALL_FONT_DPI;
+		break;
+	case SYSTEM_SETTINGS_FONT_SIZE_NORMAL:
+		font_size = MIDDLE_FONT_DPI;
+		break;
+	case SYSTEM_SETTINGS_FONT_SIZE_LARGE:
+		font_size = LARGE_FONT_DPI;
+		break;
+	case SYSTEM_SETTINGS_FONT_SIZE_HUGE:
+		font_size = HUGE_FONT_DPI;
+		break;
+	case SYSTEM_SETTINGS_FONT_SIZE_GIANT:
+		font_size = GIANT_FONT_DPI;
+		break;
+	default:
+		font_size = MIDDLE_FONT_DPI;
+		break;
 	}
 	return font_size;
 }

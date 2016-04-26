@@ -34,14 +34,14 @@ void (*tet_startup)(void) = startup;
 void (*tet_cleanup)(void) = cleanup;
 
 
-#define API_NAME_SETTINGS_SET_VALUE_STRING 	"system_settings_set_value_string"
-#define API_NAME_SETTINGS_GET_VALUE_STRING 	"system_settings_get_value_string"
-#define API_NAME_SETTINGS_SET_VALUE_INT 	"system_settings_set_value_int"
-#define API_NAME_SETTINGS_GET_VALUE_INT 	"system_settings_get_value_int"
-#define API_NAME_SETTINGS_SET_VALUE_BOOL 	"system_settings_set_value_bool"
-#define API_NAME_SETTINGS_GET_VALUE_BOOL 	"system_settings_get_value_bool"
-#define API_NAME_SETTINGS_SET_CHANGED_CB 	"system_settings_set_changed_cb"
-#define API_NAME_SETTINGS_UNSET_CHANGED_CB 	"system_settings_unset_changed_cb"
+#define API_NAME_SETTINGS_SET_VALUE_STRING	"system_settings_set_value_string"
+#define API_NAME_SETTINGS_GET_VALUE_STRING	"system_settings_get_value_string"
+#define API_NAME_SETTINGS_SET_VALUE_INT		"system_settings_set_value_int"
+#define API_NAME_SETTINGS_GET_VALUE_INT		"system_settings_get_value_int"
+#define API_NAME_SETTINGS_SET_VALUE_BOOL	"system_settings_set_value_bool"
+#define API_NAME_SETTINGS_GET_VALUE_BOOL	"system_settings_get_value_bool"
+#define API_NAME_SETTINGS_SET_CHANGED_CB	"system_settings_set_changed_cb"
+#define API_NAME_SETTINGS_UNSET_CHANGED_CB	"system_settings_unset_changed_cb"
 
 static void utc_system_settings_set_string_p(void);
 static void utc_system_settings_get_string_p(void);

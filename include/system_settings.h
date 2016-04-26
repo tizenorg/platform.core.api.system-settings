@@ -66,9 +66,9 @@ typedef enum {
 
 	SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, /**< (bool) Indicates whether the motion service is activated */
 	SYSTEM_SETTINGS_KEY_EMAIL_ALERT_RINGTONE,  /**< (string) The file path of the current email alert ringtone */
-	SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED,  /**< (bool) Indicates whether the USB debugging is enabled (Since @if MOBILE 2.4 @elseif WEARABLE 3.0 @endif) */
+	SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED,	/**< (bool) Indicates whether the USB debugging is enabled (Since @if MOBILE 2.4 @elseif WEARABLE 3.0 @endif) */
 	SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED,  /**< bool) Indicates whether the 3G data network is enabled (Since @if MOBILE 2.4 @elseif WEARABLE 3.0 @endif) */
-	SYSTEM_SETTINGS_KEY_LOCKSCREEN_APP = SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED+2,  /**< (string) Indicates lockscreen app pkg name  */
+	SYSTEM_SETTINGS_KEY_LOCKSCREEN_APP = SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED+2,	 /**< (string) Indicates lockscreen app pkg name  */
 
 	SYSTEM_SETTINGS_KEY_DEFAULT_FONT_TYPE,/**< (string) The current system default font type (only support Get) */
 	SYSTEM_SETTINGS_KEY_LOCALE_COUNTRY,		/**< (string) Indicates the current country setting in the <LANGUAGE>_<REGION> syntax. The country setting is in the ISO 639-2 format, and the region setting is in the ISO 3166-1 alpha-2 format */
@@ -80,17 +80,17 @@ typedef enum {
 	SYSTEM_SETTINGS_KEY_SOUND_LOCK,					/**< GET (bool) Indicates whether the screen lock sound is enabled on the device. ex) LCD on/off sound */
 	SYSTEM_SETTINGS_KEY_SOUND_SILENT_MODE,			/**< GET (bool) Indicates whether the device is in the silent mode. */
 	SYSTEM_SETTINGS_KEY_SOUND_TOUCH,				/**< GET (bool) Indicates whether the screen touch sound is enabled on the device. */
-	SYSTEM_SETTINGS_KEY_DISPLAY_SCREEN_ROTATION_AUTO, 	/**< GET (bool) Indicates whether rotation control is automatic.*/
+	SYSTEM_SETTINGS_KEY_DISPLAY_SCREEN_ROTATION_AUTO,	/**< GET (bool) Indicates whether rotation control is automatic.*/
 
-	SYSTEM_SETTINGS_KEY_DEVICE_NAME, 					/**< GET (string) Indicates device name. */
+	SYSTEM_SETTINGS_KEY_DEVICE_NAME,					/**< GET (string) Indicates device name. */
 	SYSTEM_SETTINGS_KEY_MOTION_ENABLED,					/**< GET (bool) Indicates whether the device user has enabled the motion feature. */
-	SYSTEM_SETTINGS_KEY_NETWORK_WIFI_NOTIFICATION, 		/**< GET (bool) Indicates whether Wi-Fi-related notifications are enabled on the device. */
-	SYSTEM_SETTINGS_KEY_NETWORK_FLIGHT_MODE, 			/**< GET (bool) Indicates whether the device is in the flight mode. */
-	SYSTEM_SETTINGS_KEY_SCREEN_BACKLIGHT_TIME, 			/**< (int) Indicates the backlight time (in seconds). @internal The following values can be used: 15, 30, 60, 120, 300, and 600. */
+	SYSTEM_SETTINGS_KEY_NETWORK_WIFI_NOTIFICATION,		/**< GET (bool) Indicates whether Wi-Fi-related notifications are enabled on the device. */
+	SYSTEM_SETTINGS_KEY_NETWORK_FLIGHT_MODE,			/**< GET (bool) Indicates whether the device is in the flight mode. */
+	SYSTEM_SETTINGS_KEY_SCREEN_BACKLIGHT_TIME,			/**< (int) Indicates the backlight time (in seconds). @internal The following values can be used: 15, 30, 60, 120, 300, and 600. */
 
-	SYSTEM_SETTINGS_KEY_SOUND_NOTIFICATION, 			/**< (string) Indicates the file path of the current notification tone set by the user. */
-	SYSTEM_SETTINGS_KEY_SOUND_NOTIFICATION_REPETITION_PERIOD, 	/**< (int) Indicates the time period for notification repetitions. */
-	SYSTEM_SETTINGS_KEY_LOCK_STATE, 	/**< (int) Indicates the current lock state */
+	SYSTEM_SETTINGS_KEY_SOUND_NOTIFICATION,				/**< (string) Indicates the file path of the current notification tone set by the user. */
+	SYSTEM_SETTINGS_KEY_SOUND_NOTIFICATION_REPETITION_PERIOD,	/**< (int) Indicates the time period for notification repetitions. */
+	SYSTEM_SETTINGS_KEY_LOCK_STATE,		/**< (int) Indicates the current lock state */
 	SYSTEM_SETTINGS_KEY_MAX,
 
 } system_settings_key_e;
@@ -140,10 +140,10 @@ typedef void (*system_settings_changed_cb)(system_settings_key_e key, void *user
  * @param[in] key The key name of the system settings
  * @param[out] value The new system settings value of the given key
  * @return @c 0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_settings_set_value_int(system_settings_key_e key, int value);
 
@@ -153,10 +153,10 @@ int system_settings_set_value_int(system_settings_key_e key, int value);
  * @param[in] key The key name of the system settings
  * @param[out] value The current system settings value of the given key
  * @return @c 0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  * @warning %http://tizen.org/privilege/systemsettings (public level privilege) <b>MUST NOT</b> be declared to use this API since 2.3.1.
  */
 int system_settings_get_value_int(system_settings_key_e key, int *value);
@@ -171,10 +171,10 @@ int system_settings_get_value_int(system_settings_key_e key, int *value);
  * @param[in] key The key name of the system settings
  * @param[out] value The new system settings value of the given key
  * @return @c 0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_settings_set_value_bool(system_settings_key_e key, bool value);
 
@@ -184,10 +184,10 @@ int system_settings_set_value_bool(system_settings_key_e key, bool value);
  * @param[in] key The key name of the system settings
  * @param[out] value The current system settings value of the given key
  * @return @c 0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  * @warning %http://tizen.org/privilege/systemsettings (public level privilege) <b>MUST NOT</b> be declared to use this API since 2.3.1.
  */
 int system_settings_get_value_bool(system_settings_key_e key, bool *value);
@@ -202,10 +202,10 @@ int system_settings_get_value_bool(system_settings_key_e key, bool *value);
  * @param[in] key The key name of the system settings
  * @param[out] value The new system settings value of the given key
  * @return @c 0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_settings_set_value_string(system_settings_key_e key, const char *value);
 
@@ -215,11 +215,11 @@ int system_settings_set_value_string(system_settings_key_e key, const char *valu
  * @remarks You must release @a value using free().
  * @param[in] key The key name of the system settings
  * @param[out] value The current system settings value of the given key
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  * @warning %http://tizen.org/privilege/systemsettings (public level privilege) <b>MUST NOT</b> be declared to use this API since 2.3.1.
  */
 int system_settings_get_value_string(system_settings_key_e key, char **value);
@@ -231,10 +231,10 @@ int system_settings_get_value_string(system_settings_key_e key, char **value);
  * @param[in] key The key name of the system settings
  * @param[in] callback The callback function to invoke
  * @param[in] user_data The user data to be passed to the callback function
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  * @post system_settings_changed_cb() will be invoked.
  *
  * @see system_settings_unset_changed_cb()
@@ -249,10 +249,10 @@ int system_settings_set_changed_cb(system_settings_key_e key, system_settings_ch
  * @since_tizen 2.3
  * @remarks #SYSTEM_SETTINGS_KEY_DEFAULT_FONT_TYPE is not available for set_changed_cb.
  * @param[in] key The key name of the system settings
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  *
  * @see system_settings_set_changed_cb()
  * @warning %http://tizen.org/privilege/systemsettings (public level privilege) <b>MUST NOT</b> be declared to use this API since 2.3.1.

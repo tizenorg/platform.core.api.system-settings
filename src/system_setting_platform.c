@@ -61,7 +61,7 @@ int _is_file_accessible(const char *path);
 bool dl_is_supported_image_type_load(char *path);
 bool dl_font_config_set(char *font_name);
 char *dl_get_font_info(char *str);
-int *dl_is_available_font(char *str);
+int dl_is_available_font(char *str);
 void dl_font_size_set();
 void dl_font_config_set_notification();
 
@@ -69,7 +69,7 @@ void dl_font_config_set_notification();
 /**
  * VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR has a path of the ringtone file which user choose
  * @return the ringtone file path specified by user in normal case
- *         if it's not accessable, return the default ringtone path
+ *		   if it's not accessable, return the default ringtone path
  */
 int system_setting_get_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void **value)
 {
@@ -303,19 +303,18 @@ int system_setting_set_email_alert_ringtone(system_settings_key_e key, system_se
 bool dl_is_supported_image_type_load(char *path)
 {
 	void *handle;
-	int error;
+	char *error;
 	bool ret = false;
 	bool (*image_type_check)(char *path);
 
 	handle = dlopen("/usr/lib/libsystem-settings-util.so.0.1.0",  RTLD_LAZY);
-	if(!handle)
-	{
+	if (!handle) {
 		SETTING_TRACE("ERROR!! canNOT find libsystem-settings-util.so.0.1.0");
 		return false;
 	}
 
 	image_type_check = dlsym(handle, "__is_supported_image_type_load");
-	if((error = dlerror()) != NULL) {
+	if ((error = dlerror()) != NULL) {
 		SETTING_TRACE("ERROR!! canNOT find __is_supported_image_type_load function at libsystem-settings-util.so.0.1.0");
 		return false;
 	}
@@ -324,22 +323,21 @@ bool dl_is_supported_image_type_load(char *path)
 	return ret;
 }
 
-int *dl_is_available_font(char *str)
+int dl_is_available_font(char *str)
 {
 	void *handle;
-	int error;
+	char *error;
 	int ret = false;
 	int (*check_available_font)(char *font_name);
 
 	handle = dlopen("/usr/lib/libsystem-settings-util.so.0.1.0",  RTLD_LAZY);
-	if(!handle)
-	{
+	if (!handle) {
 		SETTING_TRACE("ERROR!! canNOT find libsystem-settings-util.so.0.1.0");
 		return false;
 	}
 
 	check_available_font = dlsym(handle, "_is_available_font");
-	if((error = dlerror()) != NULL) {
+	if ((error = dlerror()) != NULL) {
 		SETTING_TRACE("ERROR!! canNOT find font_config_set function at libsystem-settings-util.so.0.1.0");
 		return false;
 	}
@@ -351,18 +349,17 @@ int *dl_is_available_font(char *str)
 void dl_font_size_set()
 {
 	void *handle;
-	int error;
+	char *error;
 	void (*set_font_size)();
 
 	handle = dlopen("/usr/lib/libsystem-settings-util.so.0.1.0",  RTLD_LAZY);
-	if(!handle)
-	{
+	if (!handle) {
 		SETTING_TRACE("ERROR!! canNOT find libsystem-settings-util.so.0.1.0");
 		return;
 	}
 
 	set_font_size = dlsym(handle, "__font_size_set");
-	if((error = dlerror()) != NULL) {
+	if ((error = dlerror()) != NULL) {
 		SETTING_TRACE("ERROR!! canNOT find font_config_set function at libsystem-settings-util.so.0.1.0");
 		return;
 	}
@@ -374,18 +371,17 @@ void dl_font_size_set()
 void dl_font_config_set_notification()
 {
 	void *handle;
-	int error;
+	char *error;
 	void (*set_font_nodification)();
 
 	handle = dlopen("/usr/lib/libsystem-settings-util.so.0.1.0",  RTLD_LAZY);
-	if(!handle)
-	{
+	if (!handle) {
 		SETTING_TRACE("ERROR!! canNOT find libsystem-settings-util.so.0.1.0");
 		return;
 	}
 
 	set_font_nodification = dlsym(handle, "font_config_set_notification");
-	if((error = dlerror()) != NULL) {
+	if ((error = dlerror()) != NULL) {
 		SETTING_TRACE("ERROR!! canNOT find font_config_set function at libsystem-settings-util.so.0.1.0");
 		return;
 	}
@@ -397,19 +393,18 @@ void dl_font_config_set_notification()
 bool dl_font_config_set(char *font_name)
 {
 	void *handle;
-	int error;
+	char *error;
 	bool ret = false;
 	bool (*check_font_type)(char *font_name);
 
 	handle = dlopen("/usr/lib/libsystem-settings-util.so.0.1.0",  RTLD_LAZY);
-	if(!handle)
-	{
+	if (!handle) {
 		SETTING_TRACE("ERROR!! canNOT find libsystem-settings-util.so.0.1.0");
 		return false;
 	}
 
 	check_font_type = dlsym(handle, "font_config_set");
-	if((error = dlerror()) != NULL) {
+	if ((error = dlerror()) != NULL) {
 		SETTING_TRACE("ERROR!! canNOT find font_config_set function at libsystem-settings-util.so.0.1.0");
 		return false;
 	}
@@ -421,23 +416,22 @@ bool dl_font_config_set(char *font_name)
 char *dl_get_font_info(char *str)
 {
 	void *handle;
-	int error;
-	char* ret = NULL;
+	char *error;
+	char *ret = NULL;
 	char *(*get_font_info)();
 
 	handle = dlopen("/usr/lib/libsystem-settings-util.so.0.1.0",  RTLD_LAZY);
-	if(!handle)
-	{
+	if (!handle) {
 		SETTING_TRACE("ERROR!! canNOT find libsystem-settings-util.so.0.1.0");
 		return false;
 	}
 
-	if(strcmp(str,"cur") == 0)
+	if (strcmp(str, "cur") == 0)
 		get_font_info = dlsym(handle, "_get_cur_font");
 	else
 		get_font_info = dlsym(handle, "_get_default_font");
 
-	if((error = dlerror()) != NULL) {
+	if ((error = dlerror()) != NULL) {
 		SETTING_TRACE("ERROR!! canNOT find %s function at libsystem-settings-util.so.0.1.0", str);
 		return false;
 	}
@@ -554,7 +548,7 @@ static int system_setting_remove_oldest_extended_wallpaper()
 			continue;
 
 		if (system_setting_get_extended_wallpaper_num(dirp->d_name, &temp_image_num)
-		    != SYSTEM_SETTINGS_ERROR_NONE) {
+			!= SYSTEM_SETTINGS_ERROR_NONE) {
 			return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 		}
 
@@ -633,7 +627,7 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 				continue;
 
 			if (system_setting_get_extended_wallpaper_num(dirp->d_name, &temp_image_num)
-			    != SYSTEM_SETTINGS_ERROR_NONE) {
+				!= SYSTEM_SETTINGS_ERROR_NONE) {
 				if (dp)
 					closedir(dp);
 				return SYSTEM_SETTINGS_ERROR_IO_ERROR;
@@ -650,22 +644,22 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 
 		/* Numbering rule: Gear is odd number */
 		max_image_num = (max_image_num % 2 == 0) ? max_image_num + 1
-		                : max_image_num + 2;
+						: max_image_num + 2;
 
 		char file_name_buffer[512];
 		snprintf(file_name_buffer, sizeof(file_name_buffer) - 1,
-		         _TZ_SYS_DATA"/setting/wallpaper/extended_wallpaper_%d.jpg", max_image_num);
+				 _TZ_SYS_DATA"/setting/wallpaper/extended_wallpaper_%d.jpg", max_image_num);
 
 		/* Copy image to _TZ_SYS_DATA/setting/wallpaper/ */
 		if (system_setting_copy_extended_wallpaper(file_name_buffer, vconf_value)
-		    != SYSTEM_SETTINGS_ERROR_NONE) {
+			!= SYSTEM_SETTINGS_ERROR_NONE) {
 			return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 		}
 
 		/* remove oldest wallpaper */
 		if (image_count >= WALLPAPER_MAX_COUNT) {
 			if (system_setting_remove_oldest_extended_wallpaper()
-			    != SYSTEM_SETTINGS_ERROR_NONE) {
+				!= SYSTEM_SETTINGS_ERROR_NONE) {
 				remove(file_name_buffer);
 				return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 			}
@@ -676,7 +670,7 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 		}
 
 		if (system_setting_vconf_set_value_int(VCONFKEY_SETAPPL_WALLPAPER_CHANGED_NOTI_INT,
-		                                       VCONFKEY_WALLPAPER_CHANGED_NOTI_GEAR)) {
+											   VCONFKEY_WALLPAPER_CHANGED_NOTI_GEAR)) {
 			return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 		}
 	} else {

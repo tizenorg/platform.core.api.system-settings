@@ -119,9 +119,9 @@ void list_item_touch_handler1(void *data, Evas_Object *obj, void *event_info)
 	char *ret_font = NULL;
 	ret = system_settings_get_value_string(SYSTEM_SETTINGS_KEY_FONT_TYPE, &ret_font);
 	if (ret == SYSTEM_SETTINGS_ERROR_NONE) {
-		SETTING_TRACE(" %s  --------------- %s ", font_name, ret_font);
+		SETTING_TRACE(" %s	--------------- %s ", font_name, ret_font);
 	} else {
-		SETTING_TRACE(" %s  --------------- ", font_name);
+		SETTING_TRACE(" %s	--------------- ", font_name);
 	}
 }
 
@@ -139,9 +139,9 @@ void list_item_touch_handler2(void *data, Evas_Object *obj, void *event_info)
 	char *ret_font = NULL;
 	ret = system_settings_get_value_string(SYSTEM_SETTINGS_KEY_FONT_TYPE, &ret_font);
 	if (ret == SYSTEM_SETTINGS_ERROR_NONE) {
-		SETTING_TRACE(" %s  --------------- %s ", font_name, ret_font);
+		SETTING_TRACE(" %s	--------------- %s ", font_name, ret_font);
 	} else {
-		SETTING_TRACE(" %s  --------------- ", font_name);
+		SETTING_TRACE(" %s	--------------- ", font_name);
 	}
 }
 
@@ -155,9 +155,9 @@ void list_item_touch_handler17(void *data, Evas_Object *obj, void *event_info)
 	char *ret_font = NULL;
 	ret = system_settings_get_value_string(SYSTEM_SETTINGS_KEY_FONT_TYPE, &ret_font);
 	if (ret == SYSTEM_SETTINGS_ERROR_NONE) {
-		SETTING_TRACE(" %s  --------------- %s ", font_name, ret_font);
+		SETTING_TRACE(" %s	--------------- %s ", font_name, ret_font);
 	} else {
-		SETTING_TRACE(" %s  --------------- ", font_name);
+		SETTING_TRACE(" %s	--------------- ", font_name);
 	}
 }
 
@@ -170,9 +170,9 @@ void list_item_touch_handler18(void *data, Evas_Object *obj, void *event_info)
 	char *ret_font = NULL;
 	ret = system_settings_get_value_string(SYSTEM_SETTINGS_KEY_FONT_TYPE, &ret_font);
 	if (ret == SYSTEM_SETTINGS_ERROR_NONE) {
-		SETTING_TRACE(" %s  --------------- %s ", font_name, ret_font);
+		SETTING_TRACE(" %s	--------------- %s ", font_name, ret_font);
 	} else {
-		SETTING_TRACE(" %s  --------------- ", font_name);
+		SETTING_TRACE(" %s	--------------- ", font_name);
 	}
 
 }
@@ -186,9 +186,9 @@ void list_item_touch_handler19(void *data, Evas_Object *obj, void *event_info)
 	char *ret_font = NULL;
 	ret = system_settings_get_value_string(SYSTEM_SETTINGS_KEY_FONT_TYPE, &ret_font);
 	if (ret == SYSTEM_SETTINGS_ERROR_NONE) {
-		SETTING_TRACE(" %s  --------------- %s ", font_name, ret_font);
+		SETTING_TRACE(" %s	--------------- %s ", font_name, ret_font);
 	} else {
-		SETTING_TRACE(" %s  --------------- ", font_name);
+		SETTING_TRACE(" %s	--------------- ", font_name);
 	}
 
 }
@@ -202,9 +202,9 @@ void list_item_touch_handler20(void *data, Evas_Object *obj, void *event_info)
 	char *ret_font = NULL;
 	ret = system_settings_get_value_string(SYSTEM_SETTINGS_KEY_FONT_TYPE, &ret_font);
 	if (ret == SYSTEM_SETTINGS_ERROR_NONE) {
-		SETTING_TRACE(" %s  --------------- %s ", font_name, ret_font);
+		SETTING_TRACE(" %s	--------------- %s ", font_name, ret_font);
 	} else {
-		SETTING_TRACE(" %s  --------------- ", font_name);
+		SETTING_TRACE(" %s	--------------- ", font_name);
 	}
 
 }
@@ -229,7 +229,7 @@ void list_item_touch_handler5(void *data, Evas_Object *obj, void *event_info)
 
 	bool enableMotion = false;;
 	int errorcode = system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, &enableMotion);
-	SETTING_TRACE(">>>>>>>> motion activation (GET TEST  1) -- %d - errorcode : %d", enableMotion, errorcode);
+	SETTING_TRACE(">>>>>>>> motion activation (GET TEST	 1) -- %d - errorcode : %d", enableMotion, errorcode);
 
 	SETTING_TRACE(">>>>>>>> motion activation ON (SET)");
 	system_settings_set_value_bool(SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION, true);
@@ -312,7 +312,7 @@ void list_item_touch_handler8(void *data, Evas_Object *obj, void *event_info)
 	SETTING_TRACE(">>>>>>>> lock screen - error case  : %d ", ret);
 }
 
-/*	SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED,  /**< Indicates whether the usb debugging is enabled * / */
+/*	SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED,	/**< Indicates whether the usb debugging is enabled * / */
 /* get 3g data network */
 void list_item_touch_handler9(void *data, Evas_Object *obj, void *event_info)
 {
@@ -500,9 +500,9 @@ void list_item_touch_handler26(void *data, Evas_Object *obj, void *event_info)
 	char *ret_font = NULL;
 	int ret = system_settings_get_value_string(SYSTEM_SETTINGS_KEY_DEFAULT_FONT_TYPE, &ret_font);
 	if (ret == SYSTEM_SETTINGS_ERROR_NONE) {
-		SETTING_TRACE(" %s ----------------  ", ret_font);
+		SETTING_TRACE(" %s ----------------	 ", ret_font);
 	} else {
-		SETTING_TRACE(" %s ----------------  ", ret_font);
+		SETTING_TRACE(" %s ----------------	 ", ret_font);
 	}
 }
 
@@ -700,9 +700,9 @@ void list_item_touch_handler35(void *data, Evas_Object *obj, void *event_info)
 	bool flag = false;;
 	int ret = system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_SOUND_LOCK, &flag);
 	if (ret == SYSTEM_SETTINGS_ERROR_NONE) {
-		SETTING_TRACE(" %d ---------------- ret: %d  ", flag, ret);
+		SETTING_TRACE(" %d ---------------- ret: %d	 ", flag, ret);
 	} else {
-		SETTING_TRACE(" %d ---------------- ret: %d  ", flag, ret);
+		SETTING_TRACE(" %d ---------------- ret: %d	 ", flag, ret);
 	}
 }
 
@@ -711,9 +711,9 @@ void list_item_touch_handler36(void *data, Evas_Object *obj, void *event_info)
 	bool flag = false;;
 	int ret = system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_SOUND_TOUCH, &flag);
 	if (ret == SYSTEM_SETTINGS_ERROR_NONE) {
-		SETTING_TRACE(" %d ---------------- ret: %d  ", flag, ret);
+		SETTING_TRACE(" %d ---------------- ret: %d	 ", flag, ret);
 	} else {
-		SETTING_TRACE(" %d ---------------- ret: %d  ", flag, ret);
+		SETTING_TRACE(" %d ---------------- ret: %d	 ", flag, ret);
 	}
 }
 
@@ -722,9 +722,9 @@ void list_item_touch_handler38(void *data, Evas_Object *obj, void *event_info)
 	bool flag = false;;
 	int ret = system_settings_get_value_bool(SYSTEM_SETTINGS_KEY_DISPLAY_SCREEN_ROTATION_AUTO, &flag);
 	if (ret == SYSTEM_SETTINGS_ERROR_NONE) {
-		SETTING_TRACE(" %d ---------------- ret: %d  ", flag, ret);
+		SETTING_TRACE(" %d ---------------- ret: %d	 ", flag, ret);
 	} else {
-		SETTING_TRACE(" %d ---------------- ret: %d  ", flag, ret);
+		SETTING_TRACE(" %d ---------------- ret: %d	 ", flag, ret);
 	}
 }
 
@@ -947,7 +947,7 @@ int app_create(void *data)
 	_create_view_layout(ad);
 
 	evas_object_event_callback_add(ad->navi, EVAS_CALLBACK_MOUSE_DOWN, _mouse_down_cb, ad);
-	evas_object_event_callback_add(ad->navi, EVAS_CALLBACK_MOUSE_UP, _mouse_up_cb,  ad);
+	evas_object_event_callback_add(ad->navi, EVAS_CALLBACK_MOUSE_UP, _mouse_up_cb,	ad);
 	evas_object_event_callback_add(ad->navi, EVAS_CALLBACK_MOUSE_MOVE, _mouse_move_cb, ad);
 
 	return 0;

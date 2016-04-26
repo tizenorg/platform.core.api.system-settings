@@ -82,44 +82,44 @@ system_setting_data_type_e;
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 typedef int (*system_setting_get_value_cb)(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 typedef int (*system_setting_set_value_cb)(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 typedef int (*system_setting_set_changed_callback_cb)(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 typedef int (*system_setting_unset_changed_callback_cb)(system_settings_key_e key);
 
@@ -127,10 +127,10 @@ typedef int (*system_setting_unset_changed_callback_cb)(system_settings_key_e ke
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
  */
 typedef struct {
 	system_settings_key_e key;										/**< key */
@@ -152,11 +152,11 @@ typedef system_setting_s *system_setting_h;
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_settings_get_item(system_settings_key_e key, system_setting_h *item);
 
@@ -172,7 +172,7 @@ int system_settings_get_item(system_settings_key_e key, system_setting_h *item);
  * @param[out] value get the integer type value
  *
  * @return 0 on success, -1 on error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_vconf_get_value_int(const char *vconf_key, int *value);
 
@@ -185,7 +185,7 @@ int system_setting_vconf_get_value_int(const char *vconf_key, int *value);
  * @param[out] value get the bool type value
  *
  * @return 0 on success, -1 on error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_vconf_get_value_bool(const char *vconf_key, bool *value);
 
@@ -198,7 +198,7 @@ int system_setting_vconf_get_value_bool(const char *vconf_key, bool *value);
  * @param[out] value get the string(char*) type value
  *
  * @return 0 on success, -1 on error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_vconf_get_value_string(const char *vconf_key, char **value);
 
@@ -211,7 +211,7 @@ int system_setting_vconf_get_value_string(const char *vconf_key, char **value);
  * @param[in] value int type value
  *
  * @return 0 on success, -1 on error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_vconf_set_value_int(const char *vconf_key, int value);
 
@@ -224,7 +224,7 @@ int system_setting_vconf_set_value_int(const char *vconf_key, int value);
  * @param[in] value bool type value
  *
  * @return 0 on success, -1 on error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_vconf_set_value_bool(const char *vconf_key, bool value);
 
@@ -237,7 +237,7 @@ int system_setting_vconf_set_value_bool(const char *vconf_key, bool value);
  * @param[in] value string type value
  *
  * @return 0 on success, -1 on error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_vconf_set_value_string(const char *vconf_key, char *value);
 
@@ -249,10 +249,10 @@ int system_setting_vconf_set_value_string(const char *vconf_key, char *value);
  * @param[in] key
  * @param[in] slot internal slot to set the key (0~4)
  * @param[in] user_data user data
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_vconf_set_changed_cb(const char *vconf_key, system_settings_key_e key, int slot, void *user_data);
 
@@ -262,10 +262,10 @@ int system_setting_vconf_set_changed_cb(const char *vconf_key, system_settings_k
  * @since_tizen 2.3
  * @param[in] vconf_key vconf key name used in the code
  * @param[in] slot internal slot to set the key (0~4)
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_vconf_unset_changed_cb(const char *vconf_key, int slot);
 
@@ -275,10 +275,10 @@ int system_setting_vconf_unset_changed_cb(const char *vconf_key, int slot);
  * @since_tizen 2.3
  * @param[in] key key name should be SYSTEM_SETTINGS_KEY_FONT_SIZE
  * @param[in] datatype should be SYSTEM_SETTING_DATA_TYPE_INT
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_font_size(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
@@ -289,24 +289,24 @@ int system_setting_get_font_size(system_settings_key_e key, system_setting_data_
  * @param[in] key key name should be SYSTEM_SETTINGS_KEY_FONT_SIZE
  * @param[in] datatype should be SYSTEM_SETTING_DATA_TYPE_INT
  * @param[out] value the font size
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_font_size(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_font_size(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_font_size(system_settings_key_e key);
 
@@ -315,7 +315,7 @@ int system_setting_unset_changed_callback_font_size(system_settings_key_e key);
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
@@ -326,24 +326,24 @@ int system_setting_get_incoming_call_ringtone(system_settings_key_e key, system_
  * @param[in] key key name should be SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE
  * @param[in] datatype should be SYSTEM_SETTING_DATA_TYPE_STRING
  * @param[out] value the ringtone
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_incoming_call_ringtone(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_incoming_call_ringtone(system_settings_key_e key);
 
@@ -351,7 +351,7 @@ int system_setting_unset_changed_callback_incoming_call_ringtone(system_settings
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_email_alert_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
@@ -362,24 +362,24 @@ int system_setting_get_email_alert_ringtone(system_settings_key_e key, system_se
  * @param[in] key key name should be SYSTEM_SETTINGS_KEY_EMAIL_ALERT_RINGTONE
  * @param[in] datatype should be SYSTEM_SETTING_DATA_TYPE_STRING
  * @param[out] value the alert ringtone
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_email_alert_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_email_alert_ringtone(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_email_alert_ringtone(system_settings_key_e key);
 
@@ -388,7 +388,7 @@ int system_setting_unset_changed_callback_email_alert_ringtone(system_settings_k
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_wallpaper_home_screen(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
@@ -399,24 +399,24 @@ int system_setting_get_wallpaper_home_screen(system_settings_key_e key, system_s
  * @param[in] key key name should be SYSTEM_SETTINGS_KEY_WALLPAPER_HOME_SCREEN
  * @param[in] datatype should be SYSTEM_SETTING_DATA_TYPE_STRING
  * @param[out] value the wallpaper
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_wallpaper_home_screen(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_wallpaper_home_screen(system_settings_key_e key);
 
@@ -425,7 +425,7 @@ int system_setting_unset_changed_callback_wallpaper_home_screen(system_settings_
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_wallpaper_lock_screen(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
@@ -436,24 +436,24 @@ int system_setting_get_wallpaper_lock_screen(system_settings_key_e key, system_s
  * @param[in] key key name should be SYSTEM_SETTINGS_KEY_WALLPAPER_LOCK_SCREEN
  * @param[in] datatype should be SYSTEM_SETTING_DATA_TYPE_STRING
  * @param[out] value the lock screen
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_wallpaper_lock_screen(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_wallpaper_lock_screen(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_wallpaper_lock_screen(system_settings_key_e key);
 
@@ -461,7 +461,7 @@ int system_setting_unset_changed_callback_wallpaper_lock_screen(system_settings_
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_default_font_type(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
@@ -469,7 +469,7 @@ int system_setting_get_default_font_type(system_settings_key_e key, system_setti
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_font_type(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
@@ -480,24 +480,24 @@ int system_setting_get_font_type(system_settings_key_e key, system_setting_data_
  * @param[in] key key name should be SYSTEM_SETTINGS_KEY_FONT_TYPE
  * @param[in] datatype should be SYSTEM_SETTING_DATA_TYPE_STRING
  * @param[out] value the font type
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_font_type(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_font_type(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_font_type(system_settings_key_e key);
 
@@ -505,7 +505,7 @@ int system_setting_unset_changed_callback_font_type(system_settings_key_e key);
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_motion_activation(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
@@ -516,24 +516,24 @@ int system_setting_get_motion_activation(system_settings_key_e key, system_setti
  * @param[in] key key name should be SYSTEM_SETTINGS_KEY_MOTION_ACTIVATION
  * @param[in] datatype should be SYSTEM_SETTING_DATA_TYPE_BOOL
  * @param[out] value the motion activation
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_motion_activation(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_motion_activation(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_motion_activation(system_settings_key_e key);
 
@@ -541,7 +541,7 @@ int system_setting_unset_changed_callback_motion_activation(system_settings_key_
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_usb_debugging_option(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
@@ -552,24 +552,24 @@ int system_setting_get_usb_debugging_option(system_settings_key_e key, system_se
  * @param[in] key key name should be SYSTEM_SETTINGS_KEY_USB_DEBUGGING_ENABLED
  * @param[in] datatype should be SYSTEM_SETTING_DATA_TYPE_BOOL
  * @param[out] value the usb debug option
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_usb_debugging_option(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_usb_debugging_option(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_usb_debugging_option(system_settings_key_e key);
 
@@ -577,7 +577,7 @@ int system_setting_unset_changed_callback_usb_debugging_option(system_settings_k
 /**
  * @internal
  * @since_tizen 2.3
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_3g_data_network(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
@@ -588,277 +588,277 @@ int system_setting_get_3g_data_network(system_settings_key_e key, system_setting
  * @param[in] key key name should be SYSTEM_SETTINGS_KEY_3G_DATA_NETWORK_ENABLED
  * @param[in] datatype should be SYSTEM_SETTING_DATA_TYPE_BOOL
  * @param[out] value the 3G data network option
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_3g_data_network(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_3g_data_network(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_3g_data_network(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_tap_and_hold_delay(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_tap_and_hold_delay(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_tap_and_hold_delay(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_tap_and_hold_delay(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_lockscreen_app(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_lockscreen_app(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_lockscreen_app(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_lockscreen_app(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_locale_country(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_locale_country(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_locale_country(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_locale_country(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_locale_language(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_locale_language(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_locale_language(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_locale_language(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_locale_timeformat_24hour(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_locale_timeformat_24hour(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_locale_timeformat_24hour(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_locale_timeformat_24hour(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_locale_timezone(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_locale_timezone_changed(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_locale_timezone_changed(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_time_changed(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_time_changed(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_time_changed(system_settings_key_e key);
 
@@ -866,302 +866,302 @@ int system_setting_unset_changed_callback_time_changed(system_settings_key_e key
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_sound_lock(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_sound_lock(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_sound_lock(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_sound_silent_mode(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_sound_silent_mode(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_sound_silent_mode(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_sound_silent_mode(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_sound_touch(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_sound_touch(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_sound_touch(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_auto_rotation_mode(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_auto_rotation_mode(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_auto_rotation_mode(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_auto_rotation_mode(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_screen_backlight_time(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_screen_backlight_time(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_screen_backlight_time(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_screen_backlight_time(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_sound_notification(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_sound_notification(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_sound_notification(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_sound_notification(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_notification_repetition_period(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_notification_repetition_period(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_notification_repetition_period(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_notification_repetition_period(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_device_name(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_device_name(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_device_name(system_settings_key_e key);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_network_flight_mode(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_network_flight_mode(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_network_flight_mode(system_settings_key_e key);
 
@@ -1170,30 +1170,30 @@ int system_setting_unset_changed_callback_network_flight_mode(system_settings_ke
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_network_wifi_notification(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_network_wifi_notification(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_network_wifi_notification(system_settings_key_e key);
 
@@ -1202,40 +1202,40 @@ int system_setting_unset_changed_callback_network_wifi_notification(system_setti
  * @internal
  * @brief get current Idle Lock State
  * @since_tizen 2.3.1
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_lock_state(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_lock_state(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_changed_callback_lock_state(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
 
 /**
  * @internal
  * @since_tizen 2.3
- * @return  0 on success, otherwise a negative error value
- * @retval  #SYSTEM_SETTINGS_ERROR_NONE Successful
- * @retval  #SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
- * @retval  #SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_unset_changed_callback_lock_state(system_settings_key_e key);
 
