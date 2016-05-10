@@ -225,7 +225,7 @@ int __is_available_font(char *font_name)
 				int download_path_len = strlen(SETTING_FONT_DOWNLOADED_FONT_PATH);
 
 				if (file && (!strncmp((const char *)file, SETTING_FONT_PRELOAD_FONT_PATH, preload_path_len)
-							 || !strncmp((const char *)file, SETTING_FONT_DOWNLOADED_FONT_PATH, download_path_len))) {
+						|| !strncmp((const char *)file, SETTING_FONT_DOWNLOADED_FONT_PATH, download_path_len))) {
 					char *family_result = NULL;
 					FcChar8 *lang = NULL;
 					int id = 0;

@@ -302,7 +302,7 @@ int system_setting_set_email_alert_ringtone(system_settings_key_e key, system_se
 
 bool dl_is_supported_image_type_load(char *path)
 {
-	void *handle;
+	void *handle = NULL;
 	char *error;
 	bool ret = false;
 	bool (*image_type_check)(char *path);
@@ -316,16 +316,19 @@ bool dl_is_supported_image_type_load(char *path)
 	image_type_check = dlsym(handle, "__is_supported_image_type_load");
 	if ((error = dlerror()) != NULL) {
 		SETTING_TRACE("ERROR!! canNOT find __is_supported_image_type_load function at libsystem-settings-util.so.0.1.0");
+		if (handle)
+			dlclose(handle);
 		return false;
 	}
 	ret = image_type_check(path);
-	dlclose(handle);
+	if (handle)
+		dlclose(handle);
 	return ret;
 }
 
 int dl_is_available_font(char *str)
 {
-	void *handle;
+	void *handle = NULL;
 	char *error;
 	int ret = false;
 	int (*check_available_font)(char *font_name);
@@ -339,16 +342,19 @@ int dl_is_available_font(char *str)
 	check_available_font = dlsym(handle, "_is_available_font");
 	if ((error = dlerror()) != NULL) {
 		SETTING_TRACE("ERROR!! canNOT find font_config_set function at libsystem-settings-util.so.0.1.0");
+		if (handle)
+			dlclose(handle);
 		return false;
 	}
 	ret = check_available_font(str);
-	dlclose(handle);
+	if (handle)
+		dlclose(handle);
 	return ret;
 }
 
 void dl_font_size_set()
 {
-	void *handle;
+	void *handle = NULL;
 	char *error;
 	void (*set_font_size)();
 
@@ -361,16 +367,19 @@ void dl_font_size_set()
 	set_font_size = dlsym(handle, "__font_size_set");
 	if ((error = dlerror()) != NULL) {
 		SETTING_TRACE("ERROR!! canNOT find font_config_set function at libsystem-settings-util.so.0.1.0");
+		if (handle)
+			dlclose(handle);
 		return;
 	}
 	set_font_size();
-	dlclose(handle);
+	if (handle)
+		dlclose(handle);
 	return;
 }
 
 void dl_font_config_set_notification()
 {
-	void *handle;
+	void *handle = NULL;
 	char *error;
 	void (*set_font_nodification)();
 
@@ -383,16 +392,19 @@ void dl_font_config_set_notification()
 	set_font_nodification = dlsym(handle, "font_config_set_notification");
 	if ((error = dlerror()) != NULL) {
 		SETTING_TRACE("ERROR!! canNOT find font_config_set function at libsystem-settings-util.so.0.1.0");
+		if (handle)
+			dlclose(handle);
 		return;
 	}
 	set_font_nodification();
-	dlclose(handle);
+	if (handle)
+		dlclose(handle);
 	return;
 }
 
 bool dl_font_config_set(char *font_name)
 {
-	void *handle;
+	void *handle = NULL;
 	char *error;
 	bool ret = false;
 	bool (*check_font_type)(char *font_name);
@@ -406,16 +418,19 @@ bool dl_font_config_set(char *font_name)
 	check_font_type = dlsym(handle, "font_config_set");
 	if ((error = dlerror()) != NULL) {
 		SETTING_TRACE("ERROR!! canNOT find font_config_set function at libsystem-settings-util.so.0.1.0");
+		if (handle)
+			dlclose(handle);
 		return false;
 	}
 	ret = check_font_type(font_name);
-	dlclose(handle);
+	if (handle)
+		dlclose(handle);
 	return ret;
 }
 
 char *dl_get_font_info(char *str)
 {
-	void *handle;
+	void *handle = NULL;
 	char *error;
 	char *ret = NULL;
 	char *(*get_font_info)();
@@ -433,10 +448,13 @@ char *dl_get_font_info(char *str)
 
 	if ((error = dlerror()) != NULL) {
 		SETTING_TRACE("ERROR!! canNOT find %s function at libsystem-settings-util.so.0.1.0", str);
+		if (handle)
+			dlclose(handle);
 		return false;
 	}
 	ret = get_font_info();
-	dlclose(handle);
+	if (handle)
+		dlclose(handle);
 	return ret;
 }
 
@@ -548,7 +566,7 @@ static int system_setting_remove_oldest_extended_wallpaper()
 			continue;
 
 		if (system_setting_get_extended_wallpaper_num(dirp->d_name, &temp_image_num)
-			!= SYSTEM_SETTINGS_ERROR_NONE) {
+		    != SYSTEM_SETTINGS_ERROR_NONE) {
 			return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 		}
 
@@ -627,7 +645,7 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 				continue;
 
 			if (system_setting_get_extended_wallpaper_num(dirp->d_name, &temp_image_num)
-				!= SYSTEM_SETTINGS_ERROR_NONE) {
+			    != SYSTEM_SETTINGS_ERROR_NONE) {
 				if (dp)
 					closedir(dp);
 				return SYSTEM_SETTINGS_ERROR_IO_ERROR;
@@ -644,22 +662,22 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 
 		/* Numbering rule: Gear is odd number */
 		max_image_num = (max_image_num % 2 == 0) ? max_image_num + 1
-						: max_image_num + 2;
+							: max_image_num + 2;
 
 		char file_name_buffer[512];
 		snprintf(file_name_buffer, sizeof(file_name_buffer) - 1,
-				 _TZ_SYS_DATA"/setting/wallpaper/extended_wallpaper_%d.jpg", max_image_num);
+					_TZ_SYS_DATA"/setting/wallpaper/extended_wallpaper_%d.jpg", max_image_num);
 
 		/* Copy image to _TZ_SYS_DATA/setting/wallpaper/ */
 		if (system_setting_copy_extended_wallpaper(file_name_buffer, vconf_value)
-			!= SYSTEM_SETTINGS_ERROR_NONE) {
+		    != SYSTEM_SETTINGS_ERROR_NONE) {
 			return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 		}
 
 		/* remove oldest wallpaper */
 		if (image_count >= WALLPAPER_MAX_COUNT) {
 			if (system_setting_remove_oldest_extended_wallpaper()
-				!= SYSTEM_SETTINGS_ERROR_NONE) {
+			    != SYSTEM_SETTINGS_ERROR_NONE) {
 				remove(file_name_buffer);
 				return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 			}
@@ -670,7 +688,7 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 		}
 
 		if (system_setting_vconf_set_value_int(VCONFKEY_SETAPPL_WALLPAPER_CHANGED_NOTI_INT,
-											   VCONFKEY_WALLPAPER_CHANGED_NOTI_GEAR)) {
+													VCONFKEY_WALLPAPER_CHANGED_NOTI_GEAR)) {
 			return SYSTEM_SETTINGS_ERROR_IO_ERROR;
 		}
 	} else {
