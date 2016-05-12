@@ -326,8 +326,31 @@ system_setting_s system_setting_table[] = {
 		NULL		/* user data */
 	},
 	{
+		SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE_SIM2,
+		SYSTEM_SETTING_DATA_TYPE_STRING,
+		system_setting_get_incoming_call_ringtone_sim2,
+		system_setting_set_incoming_call_ringtone_sim2,
+		system_setting_set_changed_callback_incoming_call_ringtone_sim2,
+		system_setting_unset_changed_callback_incoming_call_ringtone_sim2,
+		NULL,
+		NULL		/* user data */
+	},
+	{
+		SYSTEM_SETTINGS_KEY_SOUND_NOTIFICATION_SIM2,
+		SYSTEM_SETTING_DATA_TYPE_STRING,
+		system_setting_get_sound_notification_sim2,
+		system_setting_set_sound_notification_sim2,
+		system_setting_set_changed_callback_sound_notification_sim2,
+		system_setting_unset_changed_callback_sound_notification_sim2,
+		NULL,
+		NULL		/* user data */
+	},
+	{
 		SYSTEM_SETTINGS_MAX, -1, NULL, NULL, NULL, NULL, NULL, NULL
 	}
+
+
+
 };
 
 #if 0

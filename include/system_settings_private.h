@@ -1240,6 +1240,18 @@ int system_setting_set_changed_callback_lock_state(system_settings_key_e key, sy
 int system_setting_unset_changed_callback_lock_state(system_settings_key_e key);
 
 
+int system_setting_get_incoming_call_ringtone_sim2(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
+int system_setting_set_incoming_call_ringtone_sim2(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
+int system_setting_set_changed_callback_incoming_call_ringtone_sim2(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
+int system_setting_unset_changed_callback_incoming_call_ringtone_sim2(system_settings_key_e key);
+
+int system_setting_get_sound_notification_sim2(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
+int system_setting_set_sound_notification_sim2(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
+int system_setting_set_changed_callback_sound_notification_sim2(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
+int system_setting_unset_changed_callback_sound_notification_sim2(system_settings_key_e key);
+
+
+
 /*// */
 
 
