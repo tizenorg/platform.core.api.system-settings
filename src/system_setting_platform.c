@@ -1763,4 +1763,103 @@ int system_setting_unset_changed_callback_lock_state(system_settings_key_e key)
 	return system_setting_vconf_unset_changed_cb(VCONFKEY_IDLE_LOCK_STATE_READ_ONLY, 4);
 }
 
+/**
+ * VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR_SIM2 has a path of the ringtone file which user choose
+ * @return the ringtone file path specified by user in normal case
+ *		   if it's not accessable, return the default ringtone path
+ */
+int system_setting_get_incoming_call_ringtone_sim2(system_settings_key_e key, system_setting_data_type_e data_type, void **value)
+{
+	SETTING_TRACE_BEGIN;
+	char *vconf_value;
+	if (system_setting_vconf_get_value_string(VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR_SIM2, &vconf_value)) {
+		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+	}
 
+	/* check to see if it's accessable -> OK */
+	/* no --> default ringtone path VCONFKEY_SETAPPL_CALL_RINGTONE_DEFAULT_PATH_STR */
+	int is_load = _is_file_accessible(vconf_value);
+	if (is_load == 0) {
+		*value = vconf_value;
+	} else { /* not zero on errro */
+		*value = vconf_get_str(VCONFKEY_SETAPPL_CALL_RINGTONE_DEFAULT_PATH_STR);
+	}
+
+	/**value = vconf_value; */
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+int system_setting_set_incoming_call_ringtone_sim2(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	SETTING_TRACE_BEGIN;
+	char *vconf_value;
+	vconf_value = (char *)value;
+
+	int ret = _is_file_accessible(vconf_value);
+	if (ret == 0) {
+		if (system_setting_vconf_set_value_string(VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR_SIM2, vconf_value)) {
+			return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+		}
+	} else {
+		/* @todo add a common ret_handler */
+		return ret;
+	}
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+
+
+int system_setting_set_changed_callback_incoming_call_ringtone_sim2(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
+{
+	SETTING_TRACE_BEGIN;
+	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR_SIM2, SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, 0, user_data);
+}
+
+int system_setting_unset_changed_callback_incoming_call_ringtone_sim2(system_settings_key_e key)
+{
+	SETTING_TRACE_BEGIN;
+	return system_setting_vconf_unset_changed_cb(VCONFKEY_SETAPPL_CALL_RINGTONE_PATH_STR_SIM2, 0);
+}
+
+int system_setting_get_sound_notification_sim2(system_settings_key_e key, system_setting_data_type_e data_type, void **value)
+{
+	SETTING_TRACE_BEGIN;
+	char *vconf_value = NULL;
+	if (system_setting_vconf_get_value_string(VCONFKEY_SETAPPL_NOTI_MSG_RINGTONE_PATH_STR_SIM2, &vconf_value)) {
+		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+	}
+
+	*value = vconf_value;
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+int system_setting_set_sound_notification_sim2(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	SETTING_TRACE_BEGIN;
+	char *vconf_value = NULL;
+	vconf_value = (char *)value;
+
+	int is_load = _is_file_accessible(vconf_value);
+	if (is_load == 0) {
+		if (system_setting_vconf_set_value_string(VCONFKEY_SETAPPL_NOTI_MSG_RINGTONE_PATH_STR_SIM2, vconf_value)) {
+			return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+		}
+	} else {
+		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+	}
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+int system_setting_set_changed_callback_sound_notification_sim2(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
+{
+	SETTING_TRACE_BEGIN;
+	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_NOTI_MSG_RINGTONE_PATH_STR_SIM2, SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE, 0, user_data);
+}
+
+int system_setting_unset_changed_callback_sound_notification_sim2(system_settings_key_e key)
+{
+	SETTING_TRACE_BEGIN;
+	return system_setting_vconf_unset_changed_cb(VCONFKEY_SETAPPL_NOTI_MSG_RINGTONE_PATH_STR_SIM2, 0);
+}
