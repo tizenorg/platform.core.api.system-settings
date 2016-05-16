@@ -1291,6 +1291,33 @@ int system_setting_get_locale_timezone(system_settings_key_e key, system_setting
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
+int system_setting_set_locale_timezone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	SETTING_TRACE_BEGIN;
+	char *vconf_value = NULL;
+	vconf_value = (char *)value;
+
+	//int is_load = _is_file_accessible(vconf_value);
+	//if (is_load == 0) {
+	// error check if tzpath has the 'path'
+	if (system_setting_vconf_set_value_string(VCONFKEY_SETAPPL_TIMEZONE_ID, vconf_value)) {
+		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+	}
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+
+
+int system_setting_set_changed_callback_locale_timezone(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
+{
+	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_TIMEZONE_ID, SYSTEM_SETTINGS_KEY_LOCALE_TIMEZONE, 4, user_data);
+}
+
+int system_setting_unset_changed_callback_locale_timezone(system_settings_key_e key)
+{
+	return system_setting_vconf_unset_changed_cb(VCONFKEY_SETAPPL_TIMEZONE_ID, 4);
+}
+
 int system_setting_set_changed_callback_locale_timezone_changed(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
 	SETTING_TRACE_BEGIN;
