@@ -815,6 +815,12 @@ int system_setting_unset_changed_callback_locale_timeformat_24hour(system_settin
  * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_locale_timezone(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
+int system_setting_set_locale_timezone(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
+int system_setting_set_changed_callback_locale_timezone(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
+int system_setting_unset_changed_callback_locale_timezone(system_settings_key_e key);
+
+
+
 /**
  * @internal
  * @since_tizen 2.3
