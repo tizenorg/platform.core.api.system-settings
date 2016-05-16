@@ -815,6 +815,39 @@ int system_setting_unset_changed_callback_locale_timeformat_24hour(system_settin
  * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_get_locale_timezone(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
+
+/**
+ * @internal
+ * @since_tizen 3.0
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_setting_set_locale_timezone(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
+
+/**
+ * @internal
+ * @since_tizen 3.0
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_setting_set_changed_callback_locale_timezone(system_settings_key_e key, system_settings_changed_cb callback, void *user_data);
+
+/**
+ * @internal
+ * @since_tizen 3.0
+ * @return	0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_setting_unset_changed_callback_locale_timezone(system_settings_key_e key);
+
+
+
 /**
  * @internal
  * @since_tizen 2.3

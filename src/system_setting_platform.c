@@ -1273,22 +1273,41 @@ int system_setting_unset_changed_callback_locale_timeformat_24hour(system_settin
 int system_setting_get_locale_timezone(system_settings_key_e key, system_setting_data_type_e data_type, void **value)
 {
 	SETTING_TRACE_BEGIN;
-#if 0
-	char tzpath[256];
-	ssize_t len = readlink(SETTING_TZONE_SYMLINK_PATH, tzpath, sizeof(tzpath) - 1);
-	if (len != -1) {
-		tzpath[len] = '\0';
-	} else {
-		SETTING_TRACE("parse error for SETTING_TZONE_SYMLINK_PATH");
-		return SYSTEM_SETTINGS_ERROR_IO_ERROR;
-	}
-	/* "/usr/share/zoneinfo/Asia/Seoul" */
-	SETTING_TRACE("tzpath : %s ", &tzpath[20]);
-	*value = strdup(&tzpath[20]);
-#else
 	*value = vconf_get_str(VCONFKEY_SETAPPL_TIMEZONE_ID);
-#endif
 	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+int system_setting_set_locale_timezone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	SETTING_TRACE_BEGIN;
+	char *vconf_value = NULL;
+	vconf_value = (char *)value;
+
+	char tz_path[1024];
+	sprintf( tz_path, "/usr/share/zoneinfo/%s", vconf_value);
+
+	int is_load = _is_file_accessible(tz_path);
+	if (is_load == 0) {
+		int ret = alarmmgr_set_timezone(tz_path);
+
+		if (system_setting_vconf_set_value_string(VCONFKEY_SETAPPL_TIMEZONE_ID, vconf_value)) {
+			return SYSTEM_SETTINGS_ERROR_IO_ERROR;
+		}
+		return SYSTEM_SETTINGS_ERROR_NONE;
+	}
+	return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+}
+
+
+
+int system_setting_set_changed_callback_locale_timezone(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
+{
+	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_TIMEZONE_ID, SYSTEM_SETTINGS_KEY_LOCALE_TIMEZONE, 4, user_data);
+}
+
+int system_setting_unset_changed_callback_locale_timezone(system_settings_key_e key)
+{
+	return system_setting_vconf_unset_changed_cb(VCONFKEY_SETAPPL_TIMEZONE_ID, 4);
 }
 
 int system_setting_set_changed_callback_locale_timezone_changed(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)

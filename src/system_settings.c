@@ -189,9 +189,9 @@ system_setting_s system_setting_table[] = {
 		SYSTEM_SETTINGS_KEY_LOCALE_TIMEZONE,
 		SYSTEM_SETTING_DATA_TYPE_STRING,
 		system_setting_get_locale_timezone,
-		NULL,
-		NULL,
-		NULL,
+		system_setting_set_locale_timezone,
+		system_setting_set_changed_callback_locale_timezone,
+		system_setting_unset_changed_callback_locale_timezone,
 		NULL,
 		NULL		/* user data */
 	},
