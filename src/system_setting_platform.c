@@ -339,9 +339,9 @@ int dl_is_available_font(char *str)
 		return false;
 	}
 
-	check_available_font = dlsym(handle, "_is_available_font");
+	check_available_font = dlsym(handle, "__is_available_font");
 	if ((error = dlerror()) != NULL) {
-		SETTING_TRACE("ERROR!! canNOT find font_config_set function at libsystem-settings-util.so.0.1.0");
+		SETTING_TRACE("ERROR!! canNOT find __is_available_font function at libsystem-settings-util.so.0.1.0");
 		if (handle)
 			dlclose(handle);
 		return false;
