@@ -490,7 +490,7 @@ int __font_size_get()
 	int font_size = -1;
 
 	int vconf_value = -1;
-	if (system_setting_vconf_get_value_int(VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_SIZE, &vconf_value)) {
+	if (vconf_get_int(VCONFKEY_SETAPPL_ACCESSIBILITY_FONT_SIZE, &vconf_value)) {
 		return -1;
 	}
 

@@ -339,9 +339,9 @@ int dl_is_available_font(char *str)
 		return false;
 	}
 
-	check_available_font = dlsym(handle, "_is_available_font");
+	check_available_font = dlsym(handle, "__is_available_font");
 	if ((error = dlerror()) != NULL) {
-		SETTING_TRACE("ERROR!! canNOT find font_config_set function at libsystem-settings-util.so.0.1.0");
+		SETTING_TRACE("ERROR!! canNOT find __is_available_font function at libsystem-settings-util.so.0.1.0");
 		if (handle)
 			dlclose(handle);
 		return false;
@@ -366,7 +366,7 @@ void dl_font_size_set()
 
 	set_font_size = dlsym(handle, "__font_size_set");
 	if ((error = dlerror()) != NULL) {
-		SETTING_TRACE("ERROR!! canNOT find font_config_set function at libsystem-settings-util.so.0.1.0");
+		SETTING_TRACE("ERROR!! canNOT find __font_size_set function at libsystem-settings-util.so.0.1.0");
 		if (handle)
 			dlclose(handle);
 		return;
@@ -391,7 +391,7 @@ void dl_font_config_set_notification()
 
 	set_font_nodification = dlsym(handle, "font_config_set_notification");
 	if ((error = dlerror()) != NULL) {
-		SETTING_TRACE("ERROR!! canNOT find font_config_set function at libsystem-settings-util.so.0.1.0");
+		SETTING_TRACE("ERROR!! canNOT find font_config_set_notification function at libsystem-settings-util.so.0.1.0");
 		if (handle)
 			dlclose(handle);
 		return;
