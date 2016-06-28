@@ -66,8 +66,7 @@ void __font_size_set();
 bool __is_supported_image_type_load(char *path)
 {
 	SETTING_TRACE_BEGIN;
-	/*evas_init(); */
-	ecore_evas_init();
+	evas_init();
 	Ecore_Evas	*ee;
 	Evas		*evas;
 
