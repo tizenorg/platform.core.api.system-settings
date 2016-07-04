@@ -260,6 +260,61 @@ int _is_file_accessible(const char *path)
 	}
 }
 
+#if 0
+	{
+		SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE,
+		SYSTEM_SETTING_DATA_TYPE_STRING,
+		system_setting_get_incoming_call_ringtone,
+		system_setting_set_incoming_call_ringtone,
+		system_setting_set_changed_callback_incoming_call_ringtone,
+		system_setting_unset_changed_callback_incoming_call_ringtone,
+		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
+		NULL		/* user data */
+	},
+#endif
+
+int system_setting_add_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	SETTING_TRACE_BEGIN;
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+int system_setting_del_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	SETTING_TRACE_BEGIN;
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+int system_setting_list_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void (*system_setting_data_iterator)(int, void *, void *), void *data)
+{
+	SETTING_TRACE_BEGIN;
+
+	SETTING_TRACE("list incoming call ringtone : %d \n", key);
+	// call the iterator with the data stored.
+
+	static int size = 3;
+	static char* file_list[3] = {"aaa.mp3", "bbb.mp3", "ccc.mp3"};
+
+	int i;
+	for (i = 0; i < size; i++) {
+		if (system_setting_data_iterator)
+		{
+			SETTING_TRACE("--> ringtone : %s", file_list[i]);
+			char* path = strdup(file_list[i]);
+			system_setting_data_iterator(i, (void *)(path), data);
+		} else {
+			SETTING_TRACE("--> system_setting_data_iterator is NULL");
+		}
+	}
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+
 int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;

@@ -259,6 +259,9 @@ int system_settings_set_changed_cb(system_settings_key_e key, system_settings_ch
  */
 int system_settings_unset_changed_cb(system_settings_key_e key);
 
+int system_settings_list_value_bool(system_settings_key_e key, void (*system_setting_data_iterator)(int, void *, void *),void *value);
+int system_settings_list_value_int(system_settings_key_e key, void (*system_setting_data_iterator)(int, void *, void *), void *value);
+int system_settings_list_value_string(system_settings_key_e key, void (*system_setting_data_iterator)(int, void *, void *), void *value);
 
 /**
  * @}

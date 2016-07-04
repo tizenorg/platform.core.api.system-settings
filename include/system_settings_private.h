@@ -101,6 +101,11 @@ typedef int (*system_setting_get_value_cb)(system_settings_key_e key, system_set
  */
 typedef int (*system_setting_set_value_cb)(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
 
+typedef int (*system_setting_add_value_cb)(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
+typedef int (*system_setting_del_value_cb)(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
+typedef int (*system_setting_list_value_cb)(system_settings_key_e key, system_setting_data_type_e data_type, void (*system_setting_data_iterator)(int, void *, void *), void *data);
+
+
 /**
  * @internal
  * @since_tizen 2.3
@@ -140,8 +145,14 @@ typedef struct {
 
 	system_setting_set_changed_callback_cb set_changed_cb;			/**< function pointer to register for notification callback */
 	system_setting_unset_changed_callback_cb unset_changed_cb ;		/**< function pointer to un-register for notification callback */
-
 	system_settings_changed_cb changed_cb;							/* registered by user application */
+
+	system_setting_add_value_cb add_value_cb;
+	system_setting_del_value_cb del_value_cb;
+	system_setting_list_value_cb list_value_cb;
+//typedef int (*system_setting_get_value_cb)(system_settings_key_e key, system_setting_data_type_e data_type, void **value);
+// typedef int (*system_setting_list_value_cb)(system_settings_key_e key, void (*system_setting_data_iterator)(int, void *, void *), void *data);
+
 	void *user_data;												/* user_data */
 
 } system_setting_s;
@@ -332,6 +343,10 @@ int system_setting_get_incoming_call_ringtone(system_settings_key_e key, system_
  * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
  */
 int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
+
+int system_setting_add_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
+int system_setting_del_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value);
+int system_setting_list_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void (*system_setting_data_iterator)(int, void *, void *), void *data);
 
 /**
  * @internal
