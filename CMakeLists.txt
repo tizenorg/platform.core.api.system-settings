@@ -14,9 +14,8 @@ SET(LIBDIR "${CMAKE_LIBDIR}")
 SET(INC_DIR include)
 INCLUDE_DIRECTORIES(${INC_DIR})
 
-SET(requires "dlog vconf fontconfig libxml-2.0 pkgmgr pkgmgr-info alarm-service")
+SET(requires "dlog vconf fontconfig libxml-2.0 pkgmgr pkgmgr-info alarm-service capi-media-metadata-extractor eina elementary")
 SET(pc_requires "capi-base-common")
-
 
 IF(TIZEN_WEARABLE)
     ADD_DEFINITIONS(-DTIZEN_WEARABLE)
