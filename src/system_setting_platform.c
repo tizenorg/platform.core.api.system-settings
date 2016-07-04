@@ -41,6 +41,7 @@
 
 #include <system_settings.h>
 #include <system_settings_private.h>
+#include <system_settings_ringtones.h>
 
 #include <tzplatform_config.h>
 
@@ -259,6 +260,146 @@ int _is_file_accessible(const char *path)
 		return -errno;
 	}
 }
+
+#if 0
+	{
+		SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE,
+		SYSTEM_SETTING_DATA_TYPE_STRING,
+		system_setting_get_incoming_call_ringtone,
+		system_setting_set_incoming_call_ringtone,
+		system_setting_set_changed_callback_incoming_call_ringtone,
+		system_setting_unset_changed_callback_incoming_call_ringtone,
+		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
+		NULL		/* user data */
+	},
+#endif
+
+int system_setting_add_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	SETTING_TRACE_BEGIN;
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+int system_setting_del_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	SETTING_TRACE_BEGIN;
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+
+#if 0
+/**
+ * Test Code Here
+ */
+int system_setting_list_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void (*system_setting_data_iterator)(int, void *, void *), void *data)
+{
+	SETTING_TRACE_BEGIN;
+
+	//----------------------------------------------------------
+	// /opt/share/settings/Ringtones/ringtone_sdk.mp3
+	//----------------------------------------------------------
+
+	SETTING_TRACE("list incoming call ringtone : %d \n", key);
+	// call the iterator with the data stored.
+
+	static int size = 3;
+	static char* file_list[3] = {"/opt/share/settings/Ringtones/ringtone_sdk.mp3", "/opt/share/settings/Ringtones/ringtone_sdk2.mp3", "/opt/share/settings/Ringtones/ringtone_sdk3.mp3"};
+
+	int i;
+	for (i = 0; i < size; i++) {
+		if (system_setting_data_iterator)
+		{
+			SETTING_TRACE("--> ringtone : %s", file_list[i]);
+			char* path = strdup(file_list[i]);
+			system_setting_data_iterator(i, (void *)(path), data);
+		} else {
+			SETTING_TRACE("--> system_setting_data_iterator is NULL");
+		}
+	}
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+#else
+
+static int _compare_cb(const void *d1, const void *d2)
+{
+	fileNodeInfo *pNode1 = (fileNodeInfo *)d1;
+	fileNodeInfo *pNode2 = (fileNodeInfo *)d2;
+
+	return strcmp(pNode1->media_name, pNode2->media_name);
+}
+
+#define RINGTONE_FILE_PATH "/opt/share/settings/Ringtones"
+
+
+/**
+ * Test Code Here
+ */
+int system_setting_list_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void (*system_setting_data_iterator)(int, void *, void *), void *data)
+{
+	SETTING_TRACE_BEGIN;
+
+	//----------------------------------------------------------
+	// /opt/share/settings/Ringtones/ringtone_sdk.mp3
+	//----------------------------------------------------------
+
+	SETTING_TRACE("list incoming call ringtone : %d \n", key);
+	// call the iterator with the data stored.
+
+
+	/*Get file list */
+	Eina_List *filelist = NULL;
+	int ret = get_filelist_from_dir_path(RINGTONE_FILE_PATH, &filelist);
+	if (ret != 0) {
+		SETTING_TRACE("Failed to get filelist, ret = %d %s", ret, RINGTONE_FILE_PATH);
+	}
+	SETTING_TRACE("file path = %d : %s", ret, RINGTONE_FILE_PATH);
+
+	filelist = eina_list_sort(filelist, eina_list_count(filelist), _compare_cb);
+
+
+	Eina_List *l = NULL;
+	fileNodeInfo *node = NULL;
+
+	int idx = 0;
+	EINA_LIST_FOREACH(filelist, l, node)
+	{
+		//FREE(node->path);
+		//FREE(node->name);
+		//G_FREE(node->media_name);
+		SETTING_TRACE("file path = (%d) : name:%s path:%s [%s]", ret, node->name, node->path, node->media_name);
+
+		if (system_setting_data_iterator)
+		{
+			SETTING_TRACE("--> ringtone : %s", node->path);
+			char* path = strdup(node->path);
+			system_setting_data_iterator(idx, (void *)(path), data);
+		} else {
+			SETTING_TRACE("--> system_setting_data_iterator is NULL");
+		}
+	}
+#if 0
+		Eina_List *l = NULL;
+		fileNodeInfo *node = NULL;
+		EINA_LIST_FOREACH(filelist, l, node)
+		{
+			//FREE(node->path);
+			//FREE(node->name);
+			//G_FREE(node->media_name);
+			//FREE(node);
+		}
+		//eina_list_free(ad->filelist);
+		//ad->filelist = NULL;
+	}
+#endif
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+#endif
+
 
 int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
