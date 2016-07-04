@@ -259,6 +259,149 @@ int system_settings_set_changed_cb(system_settings_key_e key, system_settings_ch
  */
 int system_settings_unset_changed_cb(system_settings_key_e key);
 
+/**
+ * @platform
+ * @brief Iterate the system settings value associated with the given key as a bool type.
+ * @since_tizen 3.0
+ * @privlevel platform
+ * @privilege %http://tizen.org/privilege/systemsettings.admin
+ * @param[in] key The key name of the system settings
+ * @param[in] iterator The callback-function name for iteration
+ * @return @c 0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_settings_list_value_bool(system_settings_key_e key, void (*iterator)(int, void *, void *),void *value);
+
+/**
+ * @platform
+ * @brief Iterate the system settings value associated with the given key as an integer(int) type.
+ * @since_tizen 3.0
+ * @privlevel platform
+ * @privilege %http://tizen.org/privilege/systemsettings.admin
+ * @param[in] key The key name of the system settings
+ * @param[in] iterator The callback-function name for iteration
+ * @return @c 0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_settings_list_value_int(system_settings_key_e key, void (*iterator)(int, void *, void *), void *value);
+
+/**
+ * @platform
+ * @brief Iterate the system settings value associated with the given key as a string type.
+ * @since_tizen 3.0
+ * @privlevel platform
+ * @privilege %http://tizen.org/privilege/systemsettings.admin
+ * @param[in] key The key name of the system settings
+ * @param[in] iterator The callback-function name for iteration
+ * @return @c 0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_settings_list_value_string(system_settings_key_e key, void (*iterator)(int, void *, void *), void *value);
+
+/**
+ * @platform
+ * @brief Add the system settings value associated with the given key as a string type if it supports List iteration
+ * @since_tizen 3.0
+ * @privlevel platform
+ * @privilege %http://tizen.org/privilege/systemsettings.admin
+ * @param[in] key The key name of the system settings
+ * @param[in] iterator The callback-function name for iteration
+ * @return @c 0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_settings_add_value_string(system_settings_key_e key, const char *value);
+
+/**
+ * @platform
+ * @brief Add the system settings value associated with the given key as an integer(int) type if it supports List iteration
+ * @since_tizen 3.0
+ * @privlevel platform
+ * @privilege %http://tizen.org/privilege/systemsettings.admin
+ * @param[in] key The key name of the system settings
+ * @param[in] iterator The callback-function name for iteration
+ * @return @c 0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_settings_add_value_int(system_settings_key_e key, int value);
+
+/**
+ * @platform
+ * @brief Add the system settings value associated with the given key as an integer(bool) type if it supports List iteration
+ * @since_tizen 3.0
+ * @privlevel platform
+ * @privilege %http://tizen.org/privilege/systemsettings.admin
+ * @param[in] key The key name of the system settings
+ * @param[in] iterator The callback-function name for iteration
+ * @return @c 0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_settings_add_value_bool(system_settings_key_e key, bool value);
+
+/**
+ * @platform
+ * @brief Delete the system settings value associated with the given key as an string type if it supports List iteration
+ * @since_tizen 3.0
+ * @privlevel platform
+ * @privilege %http://tizen.org/privilege/systemsettings.admin
+ * @param[in] key The key name of the system settings
+ * @param[in] iterator The callback-function name for iteration
+ * @return @c 0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_settings_del_value_string(system_settings_key_e key, const char *value);
+
+/**
+ * @platform
+ * @brief Delete the system settings value associated with the given key as an integer(int) type if it supports List iteration
+ * @since_tizen 3.0
+ * @privlevel platform
+ * @privilege %http://tizen.org/privilege/systemsettings.admin
+ * @param[in] key The key name of the system settings
+ * @param[in] iterator The callback-function name for iteration
+ * @return @c 0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_settings_del_value_int(system_settings_key_e key, int value);
+
+/**
+ * @platform
+ * @brief Delete the system settings value associated with the given key as an boolean(bool) type if it supports List iteration
+ * @since_tizen 3.0
+ * @privlevel platform
+ * @privilege %http://tizen.org/privilege/systemsettings.admin
+ * @param[in] key The key name of the system settings
+ * @param[in] iterator The callback-function name for iteration
+ * @return @c 0 on success, otherwise a negative error value
+ * @retval	#SYSTEM_SETTINGS_ERROR_NONE Successful
+ * @retval	#SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval	#SYSTEM_SETTINGS_ERROR_IO_ERROR Internal I/O error
+ * @retval	#SYSTEM_SETTINGS_ERROR_PERMISSION_DENIED Permission violation error
+ */
+int system_settings_del_value_bool(system_settings_key_e key, bool value);
 
 /**
  * @}
