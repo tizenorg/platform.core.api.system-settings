@@ -14,9 +14,8 @@ SET(LIBDIR "${CMAKE_LIBDIR}")
 SET(INC_DIR include)
 INCLUDE_DIRECTORIES(${INC_DIR})
 
-SET(requires "dlog vconf fontconfig libxml-2.0 pkgmgr pkgmgr-info alarm-service")
+SET(requires "dlog vconf fontconfig libxml-2.0 pkgmgr pkgmgr-info alarm-service capi-media-metadata-extractor eina elementary aul json-glib-1.0")
 SET(pc_requires "capi-base-common")
-
 
 IF(TIZEN_WEARABLE)
     ADD_DEFINITIONS(-DTIZEN_WEARABLE)
@@ -31,8 +30,8 @@ FOREACH(flag ${${fw_name}_CFLAGS})
     SET(EXTRA_CFLAGS "${EXTRA_CFLAGS} ${flag}")
 ENDFOREACH(flag)
 
-#SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXTRA_CFLAGS} -fPIC -Wall -Werror")
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXTRA_CFLAGS} -fPIC")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXTRA_CFLAGS} -fPIC -Wall -Werror-implicit-function-declaration")
+#SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXTRA_CFLAGS} -fPIC")
 SET(CMAKE_C_FLAGS_DEBUG "-O0 -g")
 
 IF("${ARCH}" STREQUAL "arm")
