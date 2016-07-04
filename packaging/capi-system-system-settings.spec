@@ -10,12 +10,20 @@ BuildRequires:  pkgconfig(dlog)
 BuildRequires:  pkgconfig(vconf)
 BuildRequires:  pkgconfig(elementary)
 BuildRequires:  pkgconfig(ecore)
+BuildRequires:  pkgconfig(eina)
+BuildRequires:  pkgconfig(aul)
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(pkgmgr)
 BuildRequires:  pkgconfig(pkgmgr-info)
 BuildRequires:  pkgconfig(libtzplatform-config)
 BuildRequires:  pkgconfig(alarm-service)
+BuildRequires:  pkgconfig(capi-media-metadata-extractor)
+
+BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(glib-2.0)
+
+
 
 Requires(post): /sbin/ldconfig  
 Requires(postun): /sbin/ldconfig

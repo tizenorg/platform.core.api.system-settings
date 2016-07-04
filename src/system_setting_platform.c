@@ -25,12 +25,12 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <aul.h>
 
 #include <regex.h>
 
 #include <dlog.h>
 #include <vconf.h>
-
 #include <glib.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
@@ -41,8 +41,12 @@
 
 #include <system_settings.h>
 #include <system_settings_private.h>
+#include <system_settings_ringtones.h>
+#include <system_settings_json.h>
+
 
 #include <tzplatform_config.h>
+#include <alarm.h>
 
 #ifdef USE_EFL_ASSIST
 #include <efl_assist.h>
@@ -54,6 +58,15 @@
 #define SETTING_TIME_ZONEINFO_PATH		"/usr/share/zoneinfo/"
 #define SETTING_TIME_SHARE_LOCAL_PATH	"/usr/share/locale"
 #define SETTING_TZONE_SYMLINK_PATH		"/etc/localtime"
+
+
+#define __FREE(del, arg) do { \
+		if(arg) { \
+			del((void *)(arg)); /*cast any argument to (void*) to avoid build warring*/\
+			arg = NULL; \
+		} \
+	} while (0);
+#define FREE(arg) __FREE(free, arg)
 
 
 int _is_file_accessible(const char *path);
@@ -259,6 +272,165 @@ int _is_file_accessible(const char *path)
 		return -errno;
 	}
 }
+
+
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////// */
+// @todo move to CMake
+#define DEF_RINGTONE_FILE_PATH "/opt/share/settings/Ringtones"
+#define USR_RINGTONE_FILE_PATH "/home/owner/content/Sounds/Ringtones"
+
+#define USR_RINGTONE_FILE_PATH "/home/owner/content/Sounds/Ringtones"
+
+#define JSONFILE "/opt/home/owner/apps_rw/org.tizen.setting/data/.user-ringtones.json"
+
+static char* _get_json_file_path()
+{
+	// for testing
+	return JSONFILE;
+}
+
+int system_setting_add_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	SETTING_TRACE_BEGIN;
+	char* pathval = (char*)value;
+	JsonParser* parser = ss_json_ringtone_open_file(JSONFILE);
+	JsonNode *root = json_parser_get_root (parser);
+
+	ss_json_ringtone_add(root, JSONFILE, pathval, pathval);
+
+	if (parser) {
+		g_object_unref (parser);
+		parser = NULL;
+	}
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+int system_setting_del_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	SETTING_TRACE_BEGIN;
+	char* pathval = (char*)value;
+	JsonParser* parser = ss_json_ringtone_open_file(JSONFILE);
+	JsonNode *root = json_parser_get_root (parser);
+
+	ss_json_ringtone_remove(root, JSONFILE, pathval);
+	//void ss_json_ringtone_remove(JsonNode *root,  char* filename, char* path_to_del)
+
+	if (parser) {
+		g_object_unref (parser);
+		parser = NULL;
+	}
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+
+static int _compare_cb(const void *d1, const void *d2)
+{
+	fileNodeInfo *pNode1 = (fileNodeInfo *)d1;
+	fileNodeInfo *pNode2 = (fileNodeInfo *)d2;
+
+	return strcmp(pNode1->media_name, pNode2->media_name);
+}
+
+/*
+ * get the RINGTONE list
+ */
+static void _get_default_ringtones(system_settings_key_e key, system_setting_data_type_e data_type, void (*system_setting_data_iterator)(int, void *, void *), void *data)
+{
+	SETTING_TRACE_BEGIN;
+	/*Get file list */
+	Eina_List *filelist = NULL;
+	Eina_List *l = NULL;
+	fileNodeInfo *node = NULL;
+	int idx = 0;
+
+	//-----------------------------------------------------------------------------------------------------------------
+	// 1. get the default ringtone list
+	//-----------------------------------------------------------------------------------------------------------------
+	// DEF_RINGTONE_FILE_PATH "/opt/share/settings/Ringtones"
+	int ret = get_filelist_from_dir_path(DEF_RINGTONE_FILE_PATH, &filelist);
+	if (ret != 0) {
+		SETTING_TRACE("Failed to get filelist, ret = %d %s", ret, DEF_RINGTONE_FILE_PATH);
+	}
+	filelist = eina_list_sort(filelist, eina_list_count(filelist), _compare_cb);
+
+	EINA_LIST_FOREACH(filelist, l, node)
+	{
+		SETTING_TRACE("file path = (%d) : name:%s path:%s [%s]", ret, node->name, node->path, node->media_name);
+		// @todo assert NULL check
+		if (system_setting_data_iterator) {
+			char* path = strdup(node->path);
+			system_setting_data_iterator(idx, (void *)(path), data);
+		} else {
+			SETTING_TRACE("--> system_setting_data_iterator is NULL");
+		}
+	}
+
+	l = NULL;
+	node = NULL;
+	EINA_LIST_FOREACH(filelist, l, node)
+	{
+		FREE(node->path);
+		FREE(node->name);
+		FREE(node->media_name);
+		FREE(node);
+	}
+	eina_list_free(filelist);
+	filelist = NULL;
+
+}
+
+//--------------------------------------------------------------
+// /home/owner/content/Sounds/Ringtones/ringtone_user.mp3
+// /opt/share/settings/Ringtones/ringtone_sdk.mp3
+//
+// mkdir -p  /home/owner/content/Sounds/Ringtones
+// cp /opt/share/settings/Ringtones/ringtone_sdk.mp3 /home/owner/content/Sounds/Ringtones/ringtone_user.mp3
+//--------------------------------------------------------------
+static void _get_user_ringtones(system_settings_key_e key, system_setting_data_type_e data_type, void (*system_setting_data_iterator)(int, void *, void *), void *data)
+{
+	SETTING_TRACE_BEGIN;
+
+	JsonParser* parser = ss_json_ringtone_open_file(JSONFILE);
+	//root = json_parser_get_root (parser);
+	JsonNode *root = json_parser_get_root (parser);
+	//ss_json_ringtone_print(root);
+	//ss_json_ringtone_list(root);
+
+	int size = json_array_get_length(json_node_get_array(root));
+
+	int i = 0;
+	for (i = 0; i < size ; i++) {
+		JsonObject *ringtone = json_array_get_object_element( json_node_get_array(root), i);
+		char *nameval = (char *)json_object_get_string_member(ringtone, "name");
+		char *pathval = (char *)json_object_get_string_member(ringtone, "path");
+		SETTING_TRACE("(%s) --- (%s) \n", nameval, pathval);
+
+		if (system_setting_data_iterator) {
+			char* path = strdup(pathval);
+			system_setting_data_iterator(i, (void *)(path), data);
+		} else {
+			SETTING_TRACE("--> system_setting_data_iterator is NULL");
+		}
+	}
+}
+
+int system_setting_list_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void (*system_setting_data_iterator)(int, void *, void *), void *data)
+{
+	SETTING_TRACE_BEGIN;
+
+	_get_default_ringtones(key, data_type, system_setting_data_iterator, data);
+	//-----------------------------------------------------------------------------------------------------------------
+	// 2. get the USER ringtone list
+	//-----------------------------------------------------------------------------------------------------------------
+	_get_user_ringtones(key, data_type, system_setting_data_iterator, data);
+
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
 
 int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
