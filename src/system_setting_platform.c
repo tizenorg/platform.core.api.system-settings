@@ -30,7 +30,6 @@
 
 #include <dlog.h>
 #include <vconf.h>
-
 #include <glib.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
@@ -41,8 +40,10 @@
 
 #include <system_settings.h>
 #include <system_settings_private.h>
+#include <system_settings_ringtones.h>
 
 #include <tzplatform_config.h>
+#include <alarm.h>
 
 #ifdef USE_EFL_ASSIST
 #include <efl_assist.h>
@@ -54,6 +55,15 @@
 #define SETTING_TIME_ZONEINFO_PATH		"/usr/share/zoneinfo/"
 #define SETTING_TIME_SHARE_LOCAL_PATH	"/usr/share/locale"
 #define SETTING_TZONE_SYMLINK_PATH		"/etc/localtime"
+
+
+#define __FREE(del, arg) do { \
+		if(arg) { \
+			del((void *)(arg)); /*cast any argument to (void*) to avoid build warring*/\
+			arg = NULL; \
+		} \
+	} while (0);
+#define FREE(arg) __FREE(free, arg)
 
 
 int _is_file_accessible(const char *path);
@@ -259,6 +269,93 @@ int _is_file_accessible(const char *path)
 		return -errno;
 	}
 }
+
+#if 0
+	{
+		SYSTEM_SETTINGS_KEY_INCOMING_CALL_RINGTONE,
+		SYSTEM_SETTING_DATA_TYPE_STRING,
+		system_setting_get_incoming_call_ringtone,
+		system_setting_set_incoming_call_ringtone,
+		system_setting_set_changed_callback_incoming_call_ringtone,
+		system_setting_unset_changed_callback_incoming_call_ringtone,
+		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
+		NULL		/* user data */
+	},
+#endif
+
+int system_setting_add_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	SETTING_TRACE_BEGIN;
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+int system_setting_del_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	SETTING_TRACE_BEGIN;
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
+
+static int _compare_cb(const void *d1, const void *d2)
+{
+	fileNodeInfo *pNode1 = (fileNodeInfo *)d1;
+	fileNodeInfo *pNode2 = (fileNodeInfo *)d2;
+
+	return strcmp(pNode1->media_name, pNode2->media_name);
+}
+
+// @todo move to CMake
+#define RINGTONE_FILE_PATH "/opt/share/settings/Ringtones"
+
+
+int system_setting_list_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void (*system_setting_data_iterator)(int, void *, void *), void *data)
+{
+	SETTING_TRACE_BEGIN;
+	//SETTING_TRACE("list incoming call ringtone : %d \n", key);
+	/*Get file list */
+	Eina_List *filelist = NULL;
+	Eina_List *l = NULL;
+	fileNodeInfo *node = NULL;
+	int idx = 0;
+
+	int ret = get_filelist_from_dir_path(RINGTONE_FILE_PATH, &filelist);
+	if (ret != 0) {
+		SETTING_TRACE("Failed to get filelist, ret = %d %s", ret, RINGTONE_FILE_PATH);
+	}
+	filelist = eina_list_sort(filelist, eina_list_count(filelist), _compare_cb);
+
+	EINA_LIST_FOREACH(filelist, l, node)
+	{
+		SETTING_TRACE("file path = (%d) : name:%s path:%s [%s]", ret, node->name, node->path, node->media_name);
+		// @todo assert NULL check
+		if (system_setting_data_iterator) {
+			char* path = strdup(node->path);
+			system_setting_data_iterator(idx, (void *)(path), data);
+		} else {
+			SETTING_TRACE("--> system_setting_data_iterator is NULL");
+		}
+	}
+
+	l = NULL;
+	node = NULL;
+	EINA_LIST_FOREACH(filelist, l, node)
+	{
+		FREE(node->path);
+		FREE(node->name);
+		FREE(node->media_name);
+		FREE(node);
+	}
+	eina_list_free(filelist);
+	filelist = NULL;
+
+	return SYSTEM_SETTINGS_ERROR_NONE;
+}
+
 
 int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {

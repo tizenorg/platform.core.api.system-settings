@@ -10,12 +10,16 @@ BuildRequires:  pkgconfig(dlog)
 BuildRequires:  pkgconfig(vconf)
 BuildRequires:  pkgconfig(elementary)
 BuildRequires:  pkgconfig(ecore)
+BuildRequires:  pkgconfig(eina)
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(pkgmgr)
 BuildRequires:  pkgconfig(pkgmgr-info)
 BuildRequires:  pkgconfig(libtzplatform-config)
 BuildRequires:  pkgconfig(alarm-service)
+BuildRequires:  pkgconfig(capi-media-metadata-extractor)
+
+
 
 Requires(post): /sbin/ldconfig  
 Requires(postun): /sbin/ldconfig
