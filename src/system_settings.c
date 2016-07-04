@@ -47,6 +47,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_incoming_call_ringtone,
 		system_setting_unset_changed_callback_incoming_call_ringtone,
 		NULL,
+		system_setting_add_incoming_call_ringtone,	/* ADD */
+		system_setting_del_incoming_call_ringtone,	/* DEL */
+		system_setting_list_incoming_call_ringtone,	/* LIST */
 		NULL		/* user data */
 	},
 
@@ -58,6 +61,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_wallpaper_home_screen,
 		system_setting_unset_changed_callback_wallpaper_home_screen,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 
@@ -69,6 +75,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_wallpaper_lock_screen,
 		system_setting_unset_changed_callback_wallpaper_lock_screen,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 
@@ -80,6 +89,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_font_size,
 		system_setting_unset_changed_callback_font_size,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 
@@ -91,6 +103,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_font_type,
 		system_setting_unset_changed_callback_font_type,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 
@@ -102,6 +117,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_motion_activation,
 		system_setting_unset_changed_callback_motion_activation,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 
@@ -113,6 +131,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_email_alert_ringtone,
 		system_setting_unset_changed_callback_email_alert_ringtone,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -123,6 +144,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_usb_debugging_option,
 		system_setting_unset_changed_callback_usb_debugging_option,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -133,6 +157,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_3g_data_network,
 		system_setting_unset_changed_callback_3g_data_network,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -143,6 +170,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_lockscreen_app,
 		system_setting_unset_changed_callback_lockscreen_app,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -153,6 +183,9 @@ system_setting_s system_setting_table[] = {
 		NULL,
 		NULL,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -163,6 +196,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_locale_country,
 		system_setting_unset_changed_callback_locale_country,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -173,6 +209,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_locale_language,
 		system_setting_unset_changed_callback_locale_language,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -183,6 +222,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_locale_timeformat_24hour,
 		system_setting_unset_changed_callback_locale_timeformat_24hour,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -193,6 +235,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_locale_timezone,
 		system_setting_unset_changed_callback_locale_timezone,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -203,6 +248,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_time_changed,
 		system_setting_unset_changed_callback_time_changed,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -213,6 +261,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_sound_lock,
 		system_setting_unset_changed_callback_sound_lock,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -223,6 +274,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_sound_silent_mode,
 		system_setting_unset_changed_callback_sound_silent_mode,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -233,6 +287,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_sound_touch,
 		system_setting_unset_changed_callback_sound_touch,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -243,6 +300,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_auto_rotation_mode,
 		system_setting_unset_changed_callback_auto_rotation_mode,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -253,6 +313,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_screen_backlight_time,
 		system_setting_unset_changed_callback_screen_backlight_time,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -263,6 +326,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_sound_notification,
 		system_setting_unset_changed_callback_sound_notification,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -273,6 +339,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_notification_repetition_period,
 		system_setting_unset_changed_callback_notification_repetition_period,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -283,6 +352,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_device_name,
 		system_setting_unset_changed_callback_device_name,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -293,6 +365,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_motion_activation,
 		system_setting_unset_changed_callback_motion_activation,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -303,6 +378,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_network_flight_mode,
 		system_setting_unset_changed_callback_network_flight_mode,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -313,6 +391,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_network_wifi_notification,
 		system_setting_unset_changed_callback_network_wifi_notification,
 		NULL,
+		NULL,		/* ADD */
+		NULL,		/* DEL */
+		NULL,		/* LIST */
 		NULL		/* user data */
 	},
 	{
@@ -323,6 +404,9 @@ system_setting_s system_setting_table[] = {
 		system_setting_set_changed_callback_lock_state,
 		system_setting_unset_changed_callback_lock_state,
 		NULL,
+		NULL,		/* add */
+		NULL,		/* del */
+		NULL,		/* list */
 		NULL		/* user data */
 	},
 	{
@@ -467,6 +551,118 @@ int system_settings_set_value(system_settings_key_e key, system_setting_data_typ
 	return system_setting_setter(key, system_setting_item->data_type, value);
 }
 
+int system_settings_add_value(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key) || value == NULL) {
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+
+	system_setting_h system_setting_item;
+	system_setting_add_value_cb	system_setting_adder;
+
+	int ret = system_settings_get_item(key, &system_setting_item);
+
+	if (0 != ret) {
+		LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid key", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
+		return SYSTEM_SETTINGS_ERROR_NOT_SUPPORTED;
+	}
+
+	/* type check */
+	if (system_setting_item->data_type != data_type) {
+		LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid data type", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+	system_setting_adder = system_setting_item->add_value_cb;
+
+	if (system_setting_adder == NULL) {
+		LOGE("[%s] IO_ERROR(0x%08x) : failed to call setter for the system settings", __FUNCTION__, SYSTEM_SETTINGS_ERROR_NOT_SUPPORTED);
+		return SYSTEM_SETTINGS_ERROR_NOT_SUPPORTED;
+	}
+
+	return system_setting_adder(key, system_setting_item->data_type, value);
+}
+
+
+int system_settings_del_value(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
+{
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key) || value == NULL) {
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+
+	system_setting_h system_setting_item;
+	system_setting_del_value_cb	system_setting_deler;
+
+	int ret = system_settings_get_item(key, &system_setting_item);
+
+	if (0 != ret) {
+		LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid key", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
+		return SYSTEM_SETTINGS_ERROR_NOT_SUPPORTED;
+	}
+
+	/* type check */
+	if (system_setting_item->data_type != data_type) {
+		LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid data type", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+	system_setting_deler = system_setting_item->del_value_cb;
+
+	if (system_setting_deler == NULL) {
+		LOGE("[%s] IO_ERROR(0x%08x) : failed to call setter for the system settings", __FUNCTION__, SYSTEM_SETTINGS_ERROR_NOT_SUPPORTED);
+		return SYSTEM_SETTINGS_ERROR_NOT_SUPPORTED;
+	}
+
+	return system_setting_deler(key, system_setting_item->data_type, value);
+}
+
+
+
+
+
+//system_setting_list_value_cb list_changed_cb;
+int system_settings_list_value(system_settings_key_e key, system_setting_data_type_e data_type, void (*system_setting_data_iterator)(int, void *, void *), void *value)
+{
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key) || value == NULL) {
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+
+	system_setting_h system_setting_item;
+	system_setting_list_value_cb	system_setting_lister;
+
+	int ret = system_settings_get_item(key, &system_setting_item);
+
+	if (0 != ret) {
+		LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid key", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
+		return SYSTEM_SETTINGS_ERROR_NOT_SUPPORTED;
+	}
+
+	/* type check */
+	if (system_setting_item->data_type != data_type) {
+		LOGE("[%s] INVALID_PARAMETER(0x%08x) : invalid data type", __FUNCTION__, SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER);
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+	//system_setting_list_value_cb list_changed_cb;
+	system_setting_lister = system_setting_item->list_value_cb;
+
+	if (system_setting_lister == NULL) {
+		LOGE("[%s] IO_ERROR(0x%08x) : failed to call setter for the system settings", __FUNCTION__, SYSTEM_SETTINGS_ERROR_NOT_SUPPORTED);
+		return SYSTEM_SETTINGS_ERROR_NOT_SUPPORTED;
+	}
+
+	return system_setting_lister(key, system_setting_item->data_type, system_setting_data_iterator, value);
+}
+
+
+
+
 int system_settings_set_value_int(system_settings_key_e key, int value)
 {
 	LOGE("Enter [%s]", __FUNCTION__);
@@ -540,6 +736,9 @@ int system_settings_set_value_string(system_settings_key_e key, const char *valu
 
 	return system_settings_set_value(key, SYSTEM_SETTING_DATA_TYPE_STRING, (void *)value);
 }
+
+
+
 
 int system_settings_get_value_string(system_settings_key_e key, char **value)
 {
@@ -623,4 +822,107 @@ int system_settings_unset_changed_cb(system_settings_key_e key)
 
 	return system_setting_unset_changed_cb(key);
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// list
+//////////////////////////////////////////////////////////////////////////////////////////////////
+int system_settings_list_value_bool(system_settings_key_e key, void (*system_setting_data_iterator)(int, void *, void *),void *value)
+{
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+	return system_settings_list_value(key, SYSTEM_SETTING_DATA_TYPE_BOOL, system_setting_data_iterator, (void *)value);
+}
+
+
+int system_settings_list_value_int(system_settings_key_e key, void (*system_setting_data_iterator)(int, void *, void *), void *value)
+{
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+	return system_settings_list_value(key, SYSTEM_SETTING_DATA_TYPE_INT, system_setting_data_iterator, (void *)value);
+}
+
+int system_settings_list_value_string(system_settings_key_e key, void (*system_setting_data_iterator)(int, void *, void *), void *value)
+{
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+	return system_settings_list_value(key, SYSTEM_SETTING_DATA_TYPE_STRING, system_setting_data_iterator, (void *)value);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// add
+//////////////////////////////////////////////////////////////////////////////////////////////////
+int system_settings_add_value_bool(system_settings_key_e key, bool value)
+{
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+	return system_settings_add_value(key, SYSTEM_SETTING_DATA_TYPE_BOOL, (void *)value);
+}
+
+
+int system_settings_add_value_int(system_settings_key_e key, int value)
+{
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+	return system_settings_add_value(key, SYSTEM_SETTING_DATA_TYPE_INT, (void *)value);
+}
+
+int system_settings_add_value_string(system_settings_key_e key, const char* value)
+{
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+	return system_settings_add_value(key, SYSTEM_SETTING_DATA_TYPE_STRING, (void *)value);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// del
+//////////////////////////////////////////////////////////////////////////////////////////////////
+int system_settings_del_value_bool(system_settings_key_e key, bool value)
+{
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+	return system_settings_del_value(key, SYSTEM_SETTING_DATA_TYPE_BOOL, (void *)value);
+}
+
+
+int system_settings_del_value_int(system_settings_key_e key, int value)
+{
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+	return system_settings_del_value(key, SYSTEM_SETTING_DATA_TYPE_INT, (void *)value);
+}
+
+int system_settings_del_value_string(system_settings_key_e key, const char* value)
+{
+	LOGE("Enter [%s]", __FUNCTION__);
+	if (!(key >= 0 && SYSTEM_SETTINGS_KEY_MAX > key)) {
+		return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
+	}
+
+	return system_settings_del_value(key, SYSTEM_SETTING_DATA_TYPE_STRING, (void *)value);
+}
+
 
