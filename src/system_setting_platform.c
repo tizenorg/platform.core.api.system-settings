@@ -37,6 +37,8 @@
 
 #include <fontconfig/fontconfig.h>
 
+#include <alarm.h>
+
 #include <pkgmgr-info.h>
 
 #include <system_settings.h>
@@ -1284,11 +1286,11 @@ int system_setting_set_locale_timezone(system_settings_key_e key, system_setting
 	vconf_value = (char *)value;
 
 	char tz_path[1024];
-	sprintf( tz_path, "/usr/share/zoneinfo/%s", vconf_value);
+	sprintf(tz_path, "/usr/share/zoneinfo/%s", vconf_value);
 
 	int is_load = _is_file_accessible(tz_path);
 	if (is_load == 0) {
-		int ret = alarmmgr_set_timezone(tz_path);
+		alarmmgr_set_timezone(tz_path);
 
 		if (system_setting_vconf_set_value_string(VCONFKEY_SETAPPL_TIMEZONE_ID, vconf_value)) {
 			return SYSTEM_SETTINGS_ERROR_IO_ERROR;
