@@ -1286,7 +1286,7 @@ int system_setting_set_locale_timezone(system_settings_key_e key, system_setting
 	vconf_value = (char *)value;
 
 	char tz_path[1024];
-	sprintf(tz_path, "/usr/share/zoneinfo/%s", vconf_value);
+	snprintf(tz_path, 1024, "/usr/share/zoneinfo/%s", vconf_value);
 
 	int is_load = _is_file_accessible(tz_path);
 	if (is_load == 0) {
