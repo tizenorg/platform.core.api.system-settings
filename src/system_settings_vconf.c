@@ -99,7 +99,7 @@ static void system_setting_vconf_event_cb0(keynode_t *node, void *event_data)
 		system_setting_item->changed_cb(pkey, user_data);
 	}
 }
-/*  LCOV_EXCL_END */
+/*  LCOV_EXCL_STOP */
 
 /*  LCOV_EXCL_START */
 static void system_setting_vconf_event_cb1(keynode_t *node, void *event_data)
@@ -118,7 +118,7 @@ static void system_setting_vconf_event_cb1(keynode_t *node, void *event_data)
 		system_setting_item->changed_cb(pkey, user_data);
 	}
 }
-/*  LCOV_EXCL_END */
+/*  LCOV_EXCL_STOP */
 
 /*  LCOV_EXCL_START */
 static void system_setting_vconf_event_cb2(keynode_t *node, void *event_data)
@@ -137,7 +137,7 @@ static void system_setting_vconf_event_cb2(keynode_t *node, void *event_data)
 		system_setting_item->changed_cb(pkey, user_data);
 	}
 }
-/*  LCOV_EXCL_END */
+/*  LCOV_EXCL_STOP */
 
 /*  LCOV_EXCL_START */
 static void system_setting_vconf_event_cb3(keynode_t *node, void *event_data)
@@ -156,7 +156,7 @@ static void system_setting_vconf_event_cb3(keynode_t *node, void *event_data)
 		system_setting_item->changed_cb(pkey, user_data);
 	}
 }
-/*  LCOV_EXCL_END */
+/*  LCOV_EXCL_STOP */
 
 /*  LCOV_EXCL_START */
 static void system_setting_vconf_event_cb4(keynode_t *node, void *event_data)
@@ -175,7 +175,7 @@ static void system_setting_vconf_event_cb4(keynode_t *node, void *event_data)
 		system_setting_item->changed_cb(pkey, user_data);
 	}
 }
-/*  LCOV_EXCL_END */
+/*  LCOV_EXCL_STOP */
 
 /*  LCOV_EXCL_START */
 static void system_setting_vconf_event_cb100(keynode_t *node, void *event_data)
@@ -194,7 +194,7 @@ static void system_setting_vconf_event_cb100(keynode_t *node, void *event_data)
 		system_setting_item->changed_cb(pkey, user_data);
 	}
 }
-/*  LCOV_EXCL_END */
+/*  LCOV_EXCL_STOP */
 
 
 /*  LCOV_EXCL_START */
@@ -222,7 +222,7 @@ static system_setting_vconf_event_cb system_setting_vconf_get_event_cb_slot(int 
 		return NULL;
 	}
 }
-/*  LCOV_EXCL_END */
+/*  LCOV_EXCL_STOP */
 
 int system_setting_vconf_set_changed_cb(const char *vconf_key, system_settings_key_e key, int slot, void *user_data)
 {

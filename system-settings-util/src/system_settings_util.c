@@ -54,15 +54,9 @@
 #define SETTING_FONT_CONF_FILE _TZ_SYS_ETC"/fonts/conf.avail/99-tizen.conf"
 #define SETTING_DEFAULT_FONT_CONF_FILE _TZ_SYS_ETC"/fonts/conf.avail/99-tizen.conf"
 
+static int __font_size_get();
 
-bool font_config_set(char *font_name);
-int __is_available_font(char *font_name);
-char *_get_default_font();
-char *_get_cur_font();
-
-int __font_size_get();
-void __font_size_set();
-
+/*  LCOV_EXCL_START */
 bool __is_supported_image_type_load(char *path)
 {
 	SETTING_TRACE_BEGIN;
@@ -89,22 +83,7 @@ bool __is_supported_image_type_load(char *path)
 	evas_shutdown();
 	return result;
 }
-
-bool __is_supported_image_type(char *path)
-{
-	SETTING_TRACE_BEGIN;
-	bool ret = false;
-
-	evas_init();
-	if (evas_object_image_extension_can_load_get(path))
-		ret = true;
-	else
-		ret = false;
-
-	evas_shutdown();
-
-	return ret;
-}
+/*  LCOV_EXCL_STOP */
 
 char *_get_cur_font()
 {
@@ -166,6 +145,7 @@ char *_get_cur_font()
 	return NULL;
 }
 
+/*  LCOV_EXCL_START */
 void font_config_set_notification()
 {
 	SETTING_TRACE_BEGIN;
@@ -176,7 +156,9 @@ void font_config_set_notification()
 	ecore_x_window_prop_string_set(ecore_win, atom, "tizen");
 #endif
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 int __is_available_font(char *font_name)
 {
 	SETTING_TRACE_BEGIN;
@@ -275,6 +257,7 @@ int __is_available_font(char *font_name)
 	font_config = NULL;
 	return ret;
 }
+/*  LCOV_EXCL_STOP */
 
 
 char *_get_default_font()
@@ -349,6 +332,7 @@ char *_get_default_font()
 	return NULL;
 }
 
+/*  LCOV_EXCL_START */
 bool font_config_set(char *font_name)
 {
 	SETTING_TRACE_BEGIN;
@@ -448,7 +432,9 @@ bool font_config_set(char *font_name)
 	elm_config_save();
 	return 1;
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 void __font_size_set()
 {
 	SETTING_TRACE_BEGIN;
@@ -482,8 +468,10 @@ void __font_size_set()
 	text_classes = NULL;
 	g_free(font_name);
 }
+/*  LCOV_EXCL_STOP */
 
-int __font_size_get()
+/*  LCOV_EXCL_START */
+static int __font_size_get()
 {
 	SETTING_TRACE_BEGIN;
 	int font_size = -1;
@@ -515,3 +503,4 @@ int __font_size_get()
 	}
 	return font_size;
 }
+/*  LCOV_EXCL_STOP */

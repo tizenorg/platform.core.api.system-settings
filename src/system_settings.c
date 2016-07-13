@@ -350,6 +350,7 @@ static void _dump_context()
 }
 #endif
 
+/*  LCOV_EXCL_START */
 static int _dump_context_node(int key)
 {
 	int index = 0;
@@ -375,6 +376,7 @@ static int _dump_context_node(int key)
 
 	return -1;
 }
+/*  LCOV_EXCL_STOP */
 
 int system_settings_get_item(system_settings_key_e key, system_setting_h *item)
 {
@@ -433,6 +435,7 @@ int system_settings_get_value(system_settings_key_e key, system_setting_data_typ
 	return system_setting_getter(key, system_setting_item->data_type, value);
 }
 
+/*  LCOV_EXCL_START */
 int system_settings_set_value(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	LOGE("Enter [%s]", __FUNCTION__);
@@ -466,7 +469,9 @@ int system_settings_set_value(system_settings_key_e key, system_setting_data_typ
 
 	return system_setting_setter(key, system_setting_item->data_type, value);
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 int system_settings_set_value_int(system_settings_key_e key, int value)
 {
 	LOGE("Enter [%s]", __FUNCTION__);
@@ -477,6 +482,7 @@ int system_settings_set_value_int(system_settings_key_e key, int value)
 	int *ptr = &value;
 	return system_settings_set_value(key, SYSTEM_SETTING_DATA_TYPE_INT, (void *)ptr);
 }
+/*  LCOV_EXCL_STOP */
 
 int system_settings_get_value_int(system_settings_key_e key, int *value)
 {
@@ -488,6 +494,7 @@ int system_settings_get_value_int(system_settings_key_e key, int *value)
 	return system_settings_get_value(key, SYSTEM_SETTING_DATA_TYPE_INT, (void **)value);
 }
 
+/*  LCOV_EXCL_START */
 int system_settings_set_value_bool(system_settings_key_e key, bool value)
 {
 	LOGE("Enter [%s]", __FUNCTION__);
@@ -498,6 +505,7 @@ int system_settings_set_value_bool(system_settings_key_e key, bool value)
 	bool *ptr = &value;
 	return system_settings_set_value(key, SYSTEM_SETTING_DATA_TYPE_BOOL, (void *)ptr);
 }
+/*  LCOV_EXCL_STOP */
 
 int system_settings_get_value_bool(system_settings_key_e key, bool *value)
 {
@@ -527,6 +535,7 @@ int system_settings_get_value_bool(system_settings_key_e key, bool *value)
 	return ret;
 }
 
+/*  LCOV_EXCL_START */
 int system_settings_set_value_string(system_settings_key_e key, const char *value)
 {
 	LOGE("Enter [%s]", __FUNCTION__);
@@ -540,6 +549,7 @@ int system_settings_set_value_string(system_settings_key_e key, const char *valu
 
 	return system_settings_set_value(key, SYSTEM_SETTING_DATA_TYPE_STRING, (void *)value);
 }
+/*  LCOV_EXCL_STOP */
 
 int system_settings_get_value_string(system_settings_key_e key, char **value)
 {

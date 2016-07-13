@@ -60,12 +60,12 @@
 
 int _is_file_accessible(const char *path);
 
-bool dl_is_supported_image_type_load(char *path);
-bool dl_font_config_set(char *font_name);
-char *dl_get_font_info(char *str);
-int dl_is_available_font(char *str);
-void dl_font_size_set();
-void dl_font_config_set_notification();
+static bool dl_is_supported_image_type_load(char *path);
+static bool dl_font_config_set(char *font_name);
+static char *dl_get_font_info(char *str);
+static int dl_is_available_font(char *str);
+static void dl_font_size_set();
+static void dl_font_config_set_notification();
 
 
 /**
@@ -226,6 +226,7 @@ int system_setting_get_3g_data_network(system_settings_key_e key, system_setting
  *
  * @return SYSTEM_SETTINGS_ERROR_LOCKSCREEN_APP_PASSWORD_MODE raise exception if current lock type is 'password'
  */
+/*  LCOV_EXCL_START */
 int system_setting_get_lockscreen_app(system_settings_key_e key, system_setting_data_type_e data_type, void **value)
 {
 	SETTING_TRACE_BEGIN;
@@ -244,6 +245,7 @@ int system_setting_get_lockscreen_app(system_settings_key_e key, system_setting_
 	*value = pkg_name;
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
 
 /*////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -262,6 +264,7 @@ int _is_file_accessible(const char *path)
 	}
 }
 
+/*  LCOV_EXCL_START */
 int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -280,8 +283,10 @@ int system_setting_set_incoming_call_ringtone(system_settings_key_e key, system_
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
 
+/*  LCOV_EXCL_START */
 int system_setting_set_email_alert_ringtone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -301,8 +306,10 @@ int system_setting_set_email_alert_ringtone(system_settings_key_e key, system_se
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
-bool dl_is_supported_image_type_load(char *path)
+/*  LCOV_EXCL_START */
+static bool dl_is_supported_image_type_load(char *path)
 {
 	void *handle = NULL;
 	char *error;
@@ -327,8 +334,10 @@ bool dl_is_supported_image_type_load(char *path)
 		dlclose(handle);
 	return ret;
 }
+/*  LCOV_EXCL_STOP */
 
-int dl_is_available_font(char *str)
+/*  LCOV_EXCL_START */
+static int dl_is_available_font(char *str)
 {
 	void *handle = NULL;
 	char *error;
@@ -353,8 +362,10 @@ int dl_is_available_font(char *str)
 		dlclose(handle);
 	return ret;
 }
+/*  LCOV_EXCL_STOP */
 
-void dl_font_size_set()
+/*  LCOV_EXCL_START */
+static void dl_font_size_set()
 {
 	void *handle = NULL;
 	char *error;
@@ -378,8 +389,10 @@ void dl_font_size_set()
 		dlclose(handle);
 	return;
 }
+/*  LCOV_EXCL_STOP */
 
-void dl_font_config_set_notification()
+/*  LCOV_EXCL_START */
+static void dl_font_config_set_notification()
 {
 	void *handle = NULL;
 	char *error;
@@ -403,8 +416,10 @@ void dl_font_config_set_notification()
 		dlclose(handle);
 	return;
 }
+/*  LCOV_EXCL_STOP */
 
-bool dl_font_config_set(char *font_name)
+/*  LCOV_EXCL_START */
+static bool dl_font_config_set(char *font_name)
 {
 	void *handle = NULL;
 	char *error;
@@ -429,8 +444,10 @@ bool dl_font_config_set(char *font_name)
 		dlclose(handle);
 	return ret;
 }
+/*  LCOV_EXCL_STOP */
 
-char *dl_get_font_info(char *str)
+/*  LCOV_EXCL_START */
+static char *dl_get_font_info(char *str)
 {
 	void *handle = NULL;
 	char *error;
@@ -459,7 +476,9 @@ char *dl_get_font_info(char *str)
 		dlclose(handle);
 	return ret;
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 #define PATH_EXT_CHECK_REG ".(jpe?g|jpg|png|gif)$"
 bool __is_supported_image_type_by_ext(char *file_path)
 {
@@ -485,7 +504,9 @@ bool __is_supported_image_type_by_ext(char *file_path)
 	}
 	return ret;
 }
+/*  LCOV_EXCL_STOP */
 #ifdef TIZEN_WEARABLE
+/*  LCOV_EXCL_START */
 static int system_setting_get_extended_wallpaper_num(const char *file_path, unsigned int *num)
 {
 	SETTING_TRACE_BEGIN;
@@ -509,7 +530,9 @@ static int system_setting_get_extended_wallpaper_num(const char *file_path, unsi
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 static int system_setting_copy_extended_wallpaper(const char *dest_file_path, const char *source_file_path)
 {
 	SETTING_TRACE_BEGIN;
@@ -547,7 +570,9 @@ static int system_setting_copy_extended_wallpaper(const char *dest_file_path, co
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 static int system_setting_remove_oldest_extended_wallpaper()
 {
 	SETTING_TRACE_BEGIN;
@@ -590,7 +615,9 @@ static int system_setting_remove_oldest_extended_wallpaper()
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 static int system_setting_check_extended_wallpaper(const char *file_path)
 {
 	char buffer[512];
@@ -600,10 +627,11 @@ static int system_setting_check_extended_wallpaper(const char *file_path)
 	snprintf(buffer, 512, "%s/.bgwallpaper", tzplatform_getenv(TZ_USER_CONTENT));
 	return (strstr(file_path, buffer) != NULL);
 }
+/*  LCOV_EXCL_STOP */
 
 #define WALLPAPER_MAX_COUNT		10
 #endif
-
+/*  LCOV_EXCL_START */
 int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -702,7 +730,9 @@ int system_setting_set_wallpaper_home_screen(system_settings_key_e key, system_s
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 int system_setting_set_wallpaper_lock_screen(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -728,7 +758,9 @@ int system_setting_set_wallpaper_lock_screen(system_settings_key_e key, system_s
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 int system_setting_set_font_size(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -746,9 +778,11 @@ int system_setting_set_font_size(system_settings_key_e key, system_setting_data_
 	SETTING_TRACE_END;
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 /**
  * [internal API]
  */
+/*  LCOV_EXCL_START */
 void *font_conf_doc_parse(char *doc_name, char *font_name)
 {
 	SETTING_TRACE_BEGIN;
@@ -844,7 +878,9 @@ void *font_conf_doc_parse(char *doc_name, char *font_name)
 		return NULL;
 	}
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 int system_setting_set_font_type(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -887,7 +923,9 @@ int system_setting_set_font_type(system_settings_key_e key, system_setting_data_
 	}
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 int system_setting_set_motion_activation(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -898,7 +936,9 @@ int system_setting_set_motion_activation(system_settings_key_e key, system_setti
 	}
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 int system_setting_set_usb_debugging_option(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -910,7 +950,9 @@ int system_setting_set_usb_debugging_option(system_settings_key_e key, system_se
 	return SYSTEM_SETTINGS_ERROR_NONE;
 
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 int system_setting_set_3g_data_network(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -922,7 +964,9 @@ int system_setting_set_3g_data_network(system_settings_key_e key, system_setting
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 static int category_func(const char *name, void *user_data)
 {
 	SETTING_TRACE_BEGIN;
@@ -937,12 +981,15 @@ static int category_func(const char *name, void *user_data)
 
 	return 0;
 }
+/*  LCOV_EXCL_STOP */
 
 /**
  *
  * set 'swipe type' if current lockscreen app is 'com.samsung.lockscreen'
  *
  */
+
+/*  LCOV_EXCL_START */
 int system_setting_set_lockscreen_app(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -986,6 +1033,7 @@ int system_setting_set_lockscreen_app(system_settings_key_e key, system_setting_
 	}
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
 /*/////////////////////////////////////////////////////////////////////////////////////////////// */
 /* */
@@ -1137,6 +1185,7 @@ int system_setting_get_locale_country(system_settings_key_e key, system_setting_
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
+/*  LCOV_EXCL_START */
 int system_setting_set_locale_country(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -1153,6 +1202,7 @@ int system_setting_set_locale_country(system_settings_key_e key, system_setting_
 	}
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
 int system_setting_set_changed_callback_locale_country(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
@@ -1187,6 +1237,7 @@ int system_setting_get_locale_language(system_settings_key_e key, system_setting
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
+/*  LCOV_EXCL_START */
 int system_setting_set_locale_language(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -1203,6 +1254,7 @@ int system_setting_set_locale_language(system_settings_key_e key, system_setting
 	}
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
 int system_setting_set_changed_callback_locale_language(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
@@ -1218,6 +1270,7 @@ int system_setting_unset_changed_callback_locale_language(system_settings_key_e 
 }
 
 /*--------------------------------------- */
+/*  LCOV_EXCL_START */
 int system_setting_get_locale_timeformat_24hour(system_settings_key_e key, system_setting_data_type_e data_type, void **value)
 {
 	SETTING_TRACE_BEGIN;
@@ -1237,6 +1290,7 @@ int system_setting_get_locale_timeformat_24hour(system_settings_key_e key, syste
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
 int system_setting_set_locale_timeformat_24hour(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
@@ -1279,6 +1333,7 @@ int system_setting_get_locale_timezone(system_settings_key_e key, system_setting
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
+/*  LCOV_EXCL_START */
 int system_setting_set_locale_timezone(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -1299,32 +1354,42 @@ int system_setting_set_locale_timezone(system_settings_key_e key, system_setting
 	}
 	return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 }
+/*  LCOV_EXCL_STOP */
 
 
 
+/*  LCOV_EXCL_START */
 int system_setting_set_changed_callback_locale_timezone(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
 	return system_setting_vconf_set_changed_cb(VCONFKEY_SETAPPL_TIMEZONE_ID, SYSTEM_SETTINGS_KEY_LOCALE_TIMEZONE, 4, user_data);
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 int system_setting_unset_changed_callback_locale_timezone(system_settings_key_e key)
 {
 	return system_setting_vconf_unset_changed_cb(VCONFKEY_SETAPPL_TIMEZONE_ID, 4);
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 int system_setting_set_changed_callback_locale_timezone_changed(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
 	SETTING_TRACE_BEGIN;
 	return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 int system_setting_unset_changed_callback_locale_timezone_changed(system_settings_key_e key)
 {
 	SETTING_TRACE_BEGIN;
 	return SYSTEM_SETTINGS_ERROR_INVALID_PARAMETER;
 }
+/*  LCOV_EXCL_STOP */
 
 
+/*  LCOV_EXCL_START */
 int system_setting_get_time_changed(system_settings_key_e key, system_setting_data_type_e data_type, void **value)
 {
 	SETTING_TRACE_BEGIN;
@@ -1336,6 +1401,7 @@ int system_setting_get_time_changed(system_settings_key_e key, system_setting_da
 	return SYSTEM_SETTINGS_ERROR_NONE;
 
 }
+/*  LCOV_EXCL_STOP */
 
 int system_setting_set_changed_callback_time_changed(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
@@ -1384,6 +1450,7 @@ int system_setting_unset_changed_callback_sound_lock(system_settings_key_e key)
  * a == true, b == false --> sound mode
  * a == false, b == true --> vibration mode
  */
+/*  LCOV_EXCL_START */
 int system_setting_get_sound_silent_mode(system_settings_key_e key, system_setting_data_type_e data_type, void **value)
 {
 	SETTING_TRACE_BEGIN;
@@ -1408,6 +1475,7 @@ int system_setting_get_sound_silent_mode(system_settings_key_e key, system_setti
 	}
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
 /**
  * a = VCONFKEY_SETAPPL_SOUND_STATUS_BOOL b = VCONFKEY_SETAPPL_VIBRATION_STATUS_BOOL
@@ -1513,6 +1581,7 @@ int system_setting_get_auto_rotation_mode(system_settings_key_e key, system_sett
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
+/*  LCOV_EXCL_START */
 int system_setting_set_auto_rotation_mode(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -1524,6 +1593,7 @@ int system_setting_set_auto_rotation_mode(system_settings_key_e key, system_sett
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
 int system_setting_set_changed_callback_auto_rotation_mode(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
@@ -1551,6 +1621,7 @@ int system_setting_get_screen_backlight_time(system_settings_key_e key, system_s
 }
 
 
+/*  LCOV_EXCL_START */
 int system_setting_set_screen_backlight_time(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -1568,6 +1639,7 @@ int system_setting_set_screen_backlight_time(system_settings_key_e key, system_s
 	SETTING_TRACE_END;
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
 int system_setting_set_changed_callback_screen_backlight_time(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
@@ -1593,6 +1665,7 @@ int system_setting_get_sound_notification(system_settings_key_e key, system_sett
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
+/*  LCOV_EXCL_START */
 int system_setting_set_sound_notification(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -1610,6 +1683,7 @@ int system_setting_set_sound_notification(system_settings_key_e key, system_sett
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
 int system_setting_set_changed_callback_sound_notification(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
@@ -1636,6 +1710,7 @@ int system_setting_get_notification_repetition_period(system_settings_key_e key,
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
+/*  LCOV_EXCL_START */
 int system_setting_set_notification_repetition_period(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -1648,6 +1723,7 @@ int system_setting_set_notification_repetition_period(system_settings_key_e key,
 	SETTING_TRACE_END;
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
 int system_setting_set_changed_callback_notification_repetition_period(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
@@ -1673,6 +1749,7 @@ int system_setting_get_device_name(system_settings_key_e key, system_setting_dat
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
 
+/*  LCOV_EXCL_START */
 int system_setting_set_device_name(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -1685,6 +1762,7 @@ int system_setting_set_device_name(system_settings_key_e key, system_setting_dat
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
 int system_setting_set_changed_callback_device_name(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
@@ -1749,6 +1827,7 @@ int system_setting_unset_changed_callback_network_wifi_notification(system_setti
 	return system_setting_vconf_unset_changed_cb(VCONFKEY_WIFI_ENABLE_QS, 4);
 }
 
+/*  LCOV_EXCL_START */
 int system_setting_get_lock_state(system_settings_key_e key, system_setting_data_type_e data_type, void **value)
 {
 	int vconf_value;
@@ -1760,7 +1839,9 @@ int system_setting_get_lock_state(system_settings_key_e key, system_setting_data
 
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 int system_setting_set_lock_state(system_settings_key_e key, system_setting_data_type_e data_type, void *value)
 {
 	SETTING_TRACE_BEGIN;
@@ -1773,15 +1854,20 @@ int system_setting_set_lock_state(system_settings_key_e key, system_setting_data
 	SETTING_TRACE_END;
 	return SYSTEM_SETTINGS_ERROR_NONE;
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 int system_setting_set_changed_callback_lock_state(system_settings_key_e key, system_settings_changed_cb callback, void *user_data)
 {
 	return system_setting_vconf_set_changed_cb(VCONFKEY_IDLE_LOCK_STATE_READ_ONLY, SYSTEM_SETTINGS_KEY_LOCK_STATE, 4, user_data);
 }
+/*  LCOV_EXCL_STOP */
 
+/*  LCOV_EXCL_START */
 int system_setting_unset_changed_callback_lock_state(system_settings_key_e key)
 {
 	return system_setting_vconf_unset_changed_cb(VCONFKEY_IDLE_LOCK_STATE_READ_ONLY, 4);
 }
+/*  LCOV_EXCL_STOP */
 
 
