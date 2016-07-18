@@ -55,7 +55,7 @@
 
 #define SETTING_TIME_ZONEINFO_PATH		"/usr/share/zoneinfo/"
 #define SETTING_TIME_SHARE_LOCAL_PATH	"/usr/share/locale"
-#define SETTING_TZONE_SYMLINK_PATH		"/etc/localtime"
+#define SETTING_TZONE_SYMLINK_PATH		"/opt/etc/localtime"
 
 
 int _is_file_accessible(const char *path);
