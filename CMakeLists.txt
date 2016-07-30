@@ -64,30 +64,6 @@ SET_TARGET_PROPERTIES(${fw_name}
      CLEAN_DIRECT_OUTPUT 1
 )
 
-# Test application - TC
-#ADD_EXECUTABLE(test TC/test.c)
-#TARGET_LINK_LIBRARIES(test ${fw_name})
-
-#SET_TARGET_PROPERTIES(test PROPERTIES OUTPUT_NAME test_system_settings)
-#INSTALL(TARGETS test DESTINATION /usr/local/bin)
-#---------------------------------------------------------------------
-
-# Test application - TC_gui
-#ADD_EXECUTABLE(test_gui TC_gui/main.c)
-#
-#INCLUDE(FindPkgConfig)
-#pkg_check_modules(test_gui REQUIRED "elementary appcore-efl ecore-imf eina ecore ecore-evas ecore-input")
-#FOREACH(flag ${test_gui_CFLAGS})
-#    SET(EXTRA_CFLAGS "${EXTRA_CFLAGS} ${flag}")
-#ENDFOREACH(flag)
-#
-#TARGET_LINK_LIBRARIES(test_gui ${fw_name})
-#SET_TARGET_PROPERTIES(test_gui PROPERTIES OUTPUT_NAME test_system_settings_gui)
-#INSTALL(TARGETS test_gui DESTINATION /usr/local/bin)
-#---------------------------------------------------------------------
-
-
-
 INSTALL(TARGETS ${fw_name} DESTINATION ${LIBDIR})
 INSTALL(
         DIRECTORY ${INC_DIR}/ DESTINATION include/system
@@ -108,7 +84,6 @@ CONFIGURE_FILE(
 )
 INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/${fw_name}.pc DESTINATION ${LIBDIR}/pkgconfig)
 
-# INSTALL (TARGETS test DESTINATION bin)
 
 IF(UNIX)
 
@@ -134,10 +109,8 @@ ADD_CUSTOM_COMMAND(
         -name install_manifest.txt -or
         -name *.pc -or
         -name *~ \)
-        | grep -v TC | xargs rm -rf
         TARGET  distclean
         VERBATIM
 )
 
 ENDIF(UNIX)
-
